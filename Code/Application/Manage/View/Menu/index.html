@@ -1,0 +1,132 @@
+<include file="Public/header"/>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <label>菜单列表</label>
+                    <!--<form>
+                        <div class="input-group my-form width-220">
+                            <input type="text" name="role_name" placeholder="输入角色名称" class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-my">搜索</button>
+                            </span>
+                        </div>
+                    </form>-->
+                    {:BA('add','','添加模块/主菜单','load','btn  btn-primary pull-right','40%','60%')}
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix" style="max-width: 1200px; margin: 0 auto; padding: 12px;">
+                        <form action="{:U('update')}" method="post">
+                            <table class="table table-bordered my-table">
+                                <thead>
+                                <tr>
+                                    <th>标题</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- 循环 -->
+                                <foreach name="datas" item="var">
+                                    <if condition="($var.parent_id eq 0)">
+                                        <tr>
+                                            <td class="parent-node"><b><i class="{$var.icon}">{$var.menu_name}</b></td>
+                                            <td><input name="orderby[{$var.menu_id}]" value="{$var.orderby}" type="text"
+                                                       class="form-control"/></td>
+                                            <td class="operate-line">
+                                                {:BA('add',array("parent_id"=>$var['menu_id']),'添加子菜单','load','','40%','60%')}
+                                                {:BA('edit',array("menu_id"=>$var['menu_id']),'编辑','load','')}
+                                                {:BA('delete',array("menu_id"=>$var['menu_id']),'删除','act','')}
+                                            </td>
+                                        </tr>
+                                        <foreach name="datas" item="var2">
+                                            <eq name="var2.parent_id" value="$var.menu_id">
+                                                <tr>
+                                                    <td class="child-node"> &nbsp;<i class="{$var2.icon}"> |----{$var2.menu_name}</td>
+                                                    <td><input name="orderby[{$var2.menu_id}]" value="{$var2.orderby}"
+                                                               type="text" class="form-control"/></td>
+                                                    <td class="operate-line">
+                                                        {:BA('action',array("parent_id"=>$var2['menu_id']),'添加子节点','load','','800px','80%')}
+                                                        {:BA('edit',array("menu_id"=>$var2['menu_id']),'编辑','load','','40%','60%')}
+                                                        {:BA('delete',array("menu_id"=>$var2['menu_id']),'删除','act','')}
+                                                    </td>
+                                                </tr>
+                                            </eq>
+                                        </foreach>
+                                    </if>
+                                </foreach>
+                                <!-- 循环 -->
+                                <tr>
+                                    <td colspan="20" align="left">
+                                        <div class="lt">
+                                            <input type="submit" class="btn btn-default" value="更新"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footer"/>
+<block name="script">
+    <script>
+        // 添加用户表单验证
+        var validator = $("#j-user-add-form").validate({
+            debug: true, //debug，只验证不提交表单
+            success: "valid",
+            submitHandler: function (form) {
+                form.submit();
+            },
+            errorPlacement: function (error, element) {
+                $(element)
+                        .closest("form")
+                        .find("label[for='" + element.attr("id") + "']")
+                        .parent().next()
+                        .append(error);
+            },
+            errorElement: "span",
+            rules: {
+                userCname: "required",
+                userName: "required",
+                password: "required",
+                associationRole: "required",
+                userEmail: "required",
+                userStatus: "required",
+                userPhoto: "required",
+                userDesc: "required"
+            },
+            messages: {
+                userCname: {
+                    required: "请输入中文名称"
+                },
+                userName: {
+                    required: "请输入账号"
+                },
+                password: {
+                    required: "请输入密码"
+                },
+                associationRole: {
+                    required: "请选择关联角色"
+                },
+                userEmail: {
+                    required: "请输入用户邮件地址"
+                },
+                userStatus: {
+                    required: "请选择用户状态"
+                },
+                userPhoto: {
+                    required: "请上传用户头像"
+                },
+                userDesc: {
+                    required: "请输入用户描述"
+                }
+            }
+        });
+    </script>
+</block>

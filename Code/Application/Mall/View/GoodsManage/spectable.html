@@ -1,0 +1,24 @@
+<table id="spec-table" class="table table-bordered">
+    <thead>
+    <tr>
+        <volist name="thead" id="vo">
+            <th>{:is_array($vo)?$vo[spec_name]:$vo}</th>
+        </volist>
+    </tr>
+    </thead>
+    <tbody>
+    <volist name="tbody" id="vo">
+        <tr>
+            <foreach name="vo" item="item" key="k">
+                <td>
+                    <eq name="item|is_array" value="1">
+                        <input type="text" id="{$k}{$item.key}" name="{$k}[{$item.key}]" title="{$item.key_name}"/>
+                        <else/>
+                        {$item}
+                    </eq>
+                </td>
+            </foreach>
+        </tr>
+    </volist>
+    </tbody>
+</table>

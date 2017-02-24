@@ -1,0 +1,201 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content p-md ho po-r">
+                    <i class="fa fa-home"></i>
+                    <ol class="breadcrumb">
+                        <li><a href="{:U('index')}">店铺管理</a></li>
+                        <li class="active">会员店铺管理</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <form>
+                        <label>会员ID：</label>
+                        <label>{$memberid}</label>
+                        <button type="button" class="btn btn-my pull-right open-shop-form">开通店铺</button>
+                        <button type="button" class="btn btn-my pull-right close-shop">关闭店铺</button>
+                        <button type="button" class="btn btn-my pull-right open-shop-form" shopid="{:I('shop_id')}">
+                            店铺设置
+                        </button>
+                        <button type="button" class="btn btn-my pull-right goods-release">发布商品</button>
+                    </form>
+                </div>
+                <div class="ibox-content ho">
+                    <volist name="shoptabs" id="vo" key="k">
+                        <div class="col-md-2 shop-tabs" shop-id="{$vo.id}" style="cursor:pointer">
+                            <img src="__LOCAL_ASSET__/Mall/Admin/images/shopImg.png" class="img-wth50">
+                            <eq name="k" value="1">
+                                <span class="word-red">{$vo.name}</span>
+                                <else/>
+                                <span>{$vo.name}</span>
+                            </eq>
+                        </div>
+                    </volist>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <label>店铺信息</label>
+                    <div class="input-group width-300 pull-right">
+                        <input type="text" placeholder="输入店铺ID、会员ID" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-my">搜索</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="ibox-content ho">
+                    <volist name="shoptabs" id="vo" key="k">
+                        <eq name="k" value="1">
+                            <div class="clearfix shop-detail">
+                                <else/>
+                                <div class="clearfix shop-detail hide">
+                        </eq>
+                        <div class="brand-logo">
+                            <empty name="vo.thumb_img">
+                                <img src="__LOCAL_ASSET__/Mall/Admin/images/default-shop.jpg"/>
+                                <else/>
+                                <img src="{$vo.thumb_img}"/>
+                            </empty>
+                        </div>
+                        <div class="brand-intro-list">
+                            <ul class="ho">
+                                <li>店铺名称：{$vo.name}</li>
+                                <li>店铺分类：{$vo.category.name}</li>
+                                <li>店铺编号：{$vo.id}</li>
+                                <li>店铺商品：3456件</li>
+                                <li>已售商品：3456件</li>
+                                <li>已售金额：3456.00元</li>
+                                <li>商品好评：51%</li>
+                                <li>店铺违规：56次</li>
+                                <li>违规处罚：56次</li>
+                                <li>店铺模板：{$vo.shop_template}</li>
+                                <li>店铺性质：
+                                    <eq name="vo.shop_nature" value="1">
+                                        真实店铺
+                                        <else/>
+                                        测试店铺
+                                    </eq>
+                                </li>
+                                <li>开通时间：{$vo.create_time|date='Y-m-d H:i:s',###}</li>
+                                <li>保证金缴纳：{$vo.margin}元</li>
+                                <li>保证金余额：{$vo.margin_residue}元</li>
+                                <li>保证金扣款：{$vo.margin_penalty}元</li>
+                                <li>发货地址：{$vo.delivery_address}</li>
+                                <li>退货地址：{$vo.return_address}</li>
+                                <li>店铺介绍：{$vo.detail}</li>
+                            </ul>
+                        </div>
+                </div>
+                </volist>
+                <br>
+                <div id="goodstable" class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<input type="hidden" id="current-shop" value="{:I('shop_id')}"/>
+<input type="hidden" id="memberid" value="{$memberid}"/>
+<include file="Public/footerManage"/>
+<block name="script">
+    <link href="__ASSET__/Common/Admin/plugins/webuploader-0.1.5/webuploader.css" rel="stylesheet" type="text/css">
+    <script src="__ASSET__/Common/Admin/plugins/webuploader-0.1.5/webuploader.js" type="text/javascript"></script>
+    <script src="./Asset/Mall/Admin/js/uploadFile.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            // 切换店铺标签
+            $(".shop-tabs").click(function () {
+                var shopid = $(this).attr("shop-id");
+                // 设置当前标签店铺ID
+                $("#current-shop").val(shopid);
+                $(".open-shop-form[shopid]").attr('shopid', shopid);
+                // 切换标签选中状态
+                $(this).find("span").addClass("word-red");
+                $(this).siblings().find("span").removeClass("word-red");
+                // 切换店铺详情
+                $(".shop-detail").eq($(this).index()).removeClass("hide").siblings(".shop-detail").addClass("hide");
+                // 刷新商品列表
+                refreshGoodsList();
+            });
+            // 获取店铺商品列表
+            function refreshGoodsList() {
+                var url = "{:U('goodstable')}", shopid = $("#current-shop").val();
+                var load = layer.load(1, {shade: [0.1, '#CCCCCC'], time: 10000});
+                $.get(url, {shop_id: shopid}, function (html) {
+                    layer.close(load);
+                    $("#goodstable").html(html);
+                });
+            }
+
+            // 获取商品列表
+            $('.shop-tabs').eq(0).trigger('click');
+            // 打开店铺表单
+            $(".open-shop-form").click(function () {
+                var url = "{:U('form')}", params = {}, shopid = $(this).attr("shopid"), memberid = $("#memberid").val();
+                if (shopid) {
+                    params.id = shopid;
+                }
+                if (memberid) {
+                    params.member_id = memberid;
+                }
+                url += $.param(params) ? '&' + $.param(params) : '';
+                var boxtitle = shopid ? '设置店铺' : '添加店铺';
+                var buttons = shopid ? ['保存', '保存并发布商品'] : ['确认开通', '确认开通并发布商品'];
+                $.get(url, function (html) {
+                    mall.layer_boxs(1, boxtitle, ['800px', '80%'], html, buttons, function (index) {
+                        var data = getShopFormData();
+                        if (!data) {
+                            return false;
+                        }
+                        var saveurl = $("#shop-form").attr("action");
+                        $.post(saveurl, data, function (response) {
+                            if (response.status == 'success') {
+                                var message = shopid ? '店铺保存成功！' : '店铺添加成功!'
+                                layer.msg(message, {icon: 1});
+                                layer.close(index);
+                                location.reload();
+                            } else {
+                                var message = shopid ? '店铺保存失败' : '店铺添加失败'
+                                layer.msg(message, {icon: 2});
+                            }
+
+                        });
+                    });
+                });
+            });
+            // 关闭店铺
+            $(".close-shop").click(function () {
+                var shopid = $("#current-shop").val();
+                layer.confirm('您确定要关闭这个店铺么？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    var url = "{:U('close')}";
+                    $.post(url, {shop_id: shopid}, function (response) {
+                        if (response.status === 'success') {
+                            layer.msg('店铺关闭成功！', {icon: 1});
+                            location.reload();
+                        } else {
+                            layer.msg('店铺关闭失败！', {icon: 2});
+                        }
+                    });
+                });
+            });
+            // 发布商品
+            $(".goods-release").click(function () {
+                location.href = "{:U('GoodsManage/add')}";
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,15 @@
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="clearfix" style="max-width: 600px; margin: 0 auto; padding: 12px;">
+                <form action="{:U('Notice/save')}" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="name">公告内容：</label>
+                        <input type="text" class="form-control" name="name" id="name" value="{$data.name}">
+                    </div>
+                    <input type="hidden" name="id" value="{$data.id}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

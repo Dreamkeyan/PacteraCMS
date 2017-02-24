@@ -1,0 +1,152 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <form action="{:U('index')}" id="searchform" method="post">
+                        <label>孵化商家：</label>
+                        <select id="search_hatcher" name="hatcher" class="form-control my-form width-120">
+                            <option value="">全部</option>
+                            <option value="1"
+                            <eq name="Think.request.hatcher" value="1">selected="selected"</eq>
+                            >是</option>
+                            <option value="0"
+                            <eq name="Think.request.hatcher" value="0">selected="selected"</eq>
+                            >否</option>
+                        </select>
+                        <label>状态：</label>
+                        <select id="search_status" name="status" class="form-control my-form width-120">
+                            <option value="">全部</option>
+                            <option value="1"
+                            <eq name="Think.request.status" value="1">selected="selected"</eq>
+                            >已开通</option>
+                            <option value="0"
+                            <eq name="Think.request.status" value="0">selected="selected"</eq>
+                            >已关闭</option>
+                        </select>
+                        <div class="input-group my-form">
+                            <input type="text" placeholder="输入店铺ID/会员ID" name="keywords" value="{:I('keywords')}"
+                                   class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-my" onclick="$('#searchform').submit()">搜索</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th width="60">序号</th>
+                                <th width="60">店铺ID</th>
+                                <th width="60">会员ID</th>
+                                <th>开通时间</th>
+                                <th width="80">店铺头像</th>
+                                <th>店铺名称</th>
+                                <th width="250">店铺介绍</th>
+                                <th>发货地址</th>
+                                <th>退货地址</th>
+                                <th>店铺模板</th>
+                                <th>孵化商家</th>
+                                <th>店铺性质</th>
+                                <th>店铺状态</th>
+                                <th width="60">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="var">
+                                <tr>
+                                    <td>1</td>
+                                    <td>{$var.id}</td>
+                                    <td>{$var.member_id}</td>
+                                    <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                                    <td>
+                                        <empty name="var.thumb_img">
+                                            -
+                                            <else/>
+                                            <img src="{$var.thumb_img}" style="height: 30px;width:40px;">
+                                        </empty>
+                                    </td>
+                                    <td>{$var.name}</td>
+                                    <td>{$var.detail}</td>
+                                    <td>{$var.delivery_address}</td>
+                                    <td>{$var.return_address}</td>
+                                    <td>{$var.shop_template}</td>
+                                    <td>
+                                        <if condition="$var.is_hatcher eq 1 ">是
+                                            <else/>
+                                            否
+                                        </if>
+                                    </td>
+                                    <td>
+                                        <if condition="$var.shop_nature eq 1 ">真实店铺
+                                            <else/>
+                                            测试店铺
+                                        </if>
+                                    </td>
+                                    <td>
+                                        <if condition="$var.status eq 1 "><span class="word-red">已开通</span>
+                                            <else/>
+                                            已关闭
+                                        </if>
+                                    </td>
+                                    <td>
+                                        <if condition="$var.status eq 1 ">
+                                            <a href="{:U('ShopManage/detail', array('shop_id' => $var['id'], 'member_id' => $var['member_id']))}"
+                                               class="btn btn-sm btn-warning"> 店铺管理</a>
+                                            <else/>
+                                            <a href="javascript:void(0);"
+                                               link="{:U('open', array('shop_id' => $var['id']))}"
+                                               class="btn btn-sm btn-default open-shop">店铺开通</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <nav class="text-center">
+                            <ul class="pagination">{$page}</ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <script>
+        $(function () {
+            /*分页切换*/
+            mall.change_page();
+            /*添加店铺*/
+            mall.add_shop();
+            // 搜索改变状态
+            $("#search_hatcher").change(function () {
+                $(this).parents("form").submit();
+            });
+            $("#search_status").change(function () {
+                $(this).parents("form").submit();
+            });
+            // 店铺开通
+            $(".open-shop").click(function () {
+                var url = $(this).attr('link');
+                layer.confirm('您确定要重新开通么？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.get(url, function (response) {
+                        var message = '开通失败！';
+                        if (response.status === 'success') {
+                            message = '开通成功！';
+                            window.location.reload(true);
+                        }
+                        layer.msg(message, {icon: 1});
+                    });
+                });
+            });
+
+        });
+    </script>
+</block>

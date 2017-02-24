@@ -1,0 +1,52 @@
+<include file="Public/header"/>
+<body class="animated fadeInRight">
+
+<div class="content">
+    <div class="card-bgimg">
+        <p>钱包余额：</p>
+        <p class="clearfix"><span>{$member['extend']['money']}</span><span>取款</span></p>
+    </div>
+    <dl class="message-list message-list1">
+        <dd>
+            <a href="javascript:void(0);" class="box box_czjz">
+                <div class="message-img">
+                    <img src="__ASSET__/Mall/Mobile/images/img_zijinmx.png" alt="">
+                </div>
+                <div class="message-list-word">
+                    <p>资金明细</p>
+                </div>
+                <div class="box_1 right-inf">
+                    <i class="iconfont icon-iconarrow"></i>
+                </div>
+            </a>
+        </dd>
+        <dd>
+            <a href="{:U('Member/bankCardList')}" class="box box_czjz">
+                <div class="message-img">
+                    <img src="__ASSET__/Mall/Mobile/images/img_card.png" alt="">
+                </div>
+                <div class="message-list-word">
+                    <p>银行卡</p>
+                </div>
+                <div class="box_1 right-inf">
+                    <i class="iconfont icon-iconarrow"></i>
+                </div>
+            </a>
+        </dd>
+        <dd>
+            <a href="{:U('Member/bankPassword')}" class="box box_czjz">
+                <div class="message-img">
+                    <img src="__ASSET__/Mall/Mobile/images/img_nub.png" alt="">
+                </div>
+                <div class="message-list-word">
+                    <p>取款密码</p>
+                </div>
+                <div class="box_1 right-inf clearfix">
+                    <i class="iconfont icon-iconarrow"></i>
+                </div>
+            </a>
+        </dd>
+    </dl>
+</div>
+
+<include file="Public/footer" />

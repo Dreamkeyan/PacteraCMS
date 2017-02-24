@@ -1,0 +1,79 @@
+<include file="Public/header" />
+
+<body class="animated fadeInRight">
+
+<div class="content">
+    <!--地址管理  bg-->
+    <div class="ads-manage">
+        <foreach name="data" item="vo">
+            <div class="address ">
+                <div <if condition="isset($param['from']) and $param['from'] eq 'order'">class="j-change-addr"</if> addr-id='{$vo["id"]}'>
+                    <p><span>{$vo.name}</span><span>{$vo.phone}</span></p>
+                    <p>{$vo.province_id|get_province=province_name}
+                       {$vo.city_id|get_city=city_name}
+                       {$vo.county_id|get_county=county_name}
+                       {$vo.address}
+                    </p>
+                </div>
+                <div class="default-address clearfix">
+
+                    <if condition='$member["extend"]["default_addr_id"] eq $vo["id"]'>
+                        <div class="j-default add-label-style">
+                            <div class="j-default-address " data-id="{$vo.id}">
+                                <label class="iconfont icon-iconcheckon" for="default{$k}"></label>
+                                <input type="radio" id="default1{$k}" name="default" checked>
+                            </div>
+                            <span>默认地址</span>
+                        </div>
+                    <else />
+                        <div class="j-default">
+                            <div class="j-default-address " data-id="{$vo.id}">
+                                <label class="iconfont icon-checkoff" for="default{$k}"></label>
+                                <input type="radio" id="default{$k}" name="default" checked>
+                            </div>
+                            <span>默认地址</span>
+                        </div>
+                    </if>
+                    <div>
+                        <div>
+                            <a href="{:U('Member/addressUpdate', array('id'=>$vo['id'], 'from' => $param['from']))}">
+                                <i class="iconfont icon-iconedit"></i>
+                                <span>编辑</span>
+                            </a>
+                        </div>
+                        <div class="js_delete" data-id="{$vo.id}">
+                            <i class="iconfont icon-icondelet"></i>
+                            <span>删除</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </foreach>
+    </div>
+    
+    <!--地址管理  end-->
+    <div class="save">
+        <a href="{:U('Member/addressUpdate', array('from' => $param['from']))}" class="weui_btn weui_btn_warn"><i class="iconfont icon-iconadd"></i>新建地址</a>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        // 选择默认地址
+        common.default_address("{:U('Member/addressDefault')}");
+        common.detele_address("{:U('Member/addressDelete')}", "{:U('Member/address')}");
+        
+        
+        //选择地址
+        $('.j-change-addr').on('click', function () {
+            var addressId = $(this).attr('addr-id');
+            if(addressId){
+                window.location.href = "{:U('Order/makeOrder',array('from'=>'order'))}" + "&addr_id=" + addressId;
+            }
+        });
+        
+        
+    });
+    
+</script>
+<include file="Public/footer" />

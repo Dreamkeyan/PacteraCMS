@@ -1,0 +1,69 @@
+<div class="layer-model">
+    <div class="layer-content">
+        <form action="{:U('Saveconfig')}" method="post" id="j-user-add-form">
+            <empty name="custom_config">
+                <div class="row form-group">
+                    <label  class="col-md-2 text-right control-label">插件名称：</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="data[name]"  value="示列">
+                    </div>
+                </div>
+                <foreach name="data['config']" item="form" key="o_key">
+                    <div class="row form-group">
+                        <label  class="col-md-2 text-right control-label">{$form.title}：</label>
+                        <div class="col-md-8">
+                            <switch name="form.type">
+                                <case value="text">
+                                    <input type="text" class="form-control" name="config[{$o_key}]"  value="{$form.value}">
+                                </case>
+                                <case value="password">
+                                    <input type="password" class="form-control" name="config[{$o_key}]"  value="{$form.value}">
+                                </case>
+                                <case value="hidden">
+                                    <input type="hidden" class="form-control" name="config[{$o_key}]"  value="{$form.value}">
+                                </case>
+                                <case value="radio">
+                                    <foreach name="form.options" item="opt" key="opt_k">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio"  name="config[{$o_key}]"  value="{$opt_k}" <eq name="form.value" value="$opt_k"> checked</eq>>
+                                                {$opt}
+                                            </label>
+                                        </div>
+                                    </foreach>
+                                </case>
+                                <case value="checkbox">
+                                    <foreach name="form.options" item="opt" key="opt_k">
+                                        <div class="checkbox">
+                                            <label>
+                                                <php>
+                                                    is_null($form["value"]) && $form["value"] = array();
+                                                </php>
+                                                <input type="checkbox" class="form-control" name="config[{$o_key}]"  value="{$opt_k}" <in name="opt_k" value="$form.value"> checked</in>>
+                                                {$opt}
+                                            </label>
+                                        </div>
+                                    </foreach>
+                                </case>
+                                <case value="select">
+                                    <select name="config[{$o_key}]" class="form-control pull-left">
+                                        <foreach name="form.options" item="opt" key="opt_k">
+                                            <option value="{$opt_k}" <eq name="form.value" value="$opt_k"> selected</eq>>{$opt}</option>
+                                        </foreach>
+                                    </select>
+                                </case>
+                                <case value="textarea">
+                                    <textarea name="config[{$o_key}]" class="form-control" maxlength="100" rows="3">{$form.value}</textarea>
+                                </case>
+                            </switch>
+                        </div>
+                    </div>
+                </foreach>
+            <else />
+                <present name="custom_config">
+                    {$custom_config}
+                </present>
+            </empty>
+        </form>
+    </div>
+</div>

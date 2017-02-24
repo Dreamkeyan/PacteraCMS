@@ -1,0 +1,143 @@
+<include file="Public/header"/>
+<!--搜索栏 bg-->
+<header class="seek-column clearfix">
+
+    <div class="seek-left">
+        <img src="__ASSET__/Mall/Mobile/images/icon_saoyisao.png">
+    </div>
+
+    <div class="weui_search_bar seek-middle j-seek-run" id="search_bar">
+        <form class="weui_search_outer">
+            <div class="weui_search_inner">
+                <i class="weui_icon_search"></i>
+                <input type="search" class="weui_search_input" id="search_input" placeholder="搜索商品" required/>
+                <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+            </div>
+        </form>
+        <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+    </div>
+
+    <div class="seek-right">
+        <a href="{:U('Notice/index')}">
+            <img src="__ASSET__/Mall/Mobile/images/icon_massage.png" alt="">
+        </a>
+    </div>
+
+</header>
+
+<!--搜索栏 end-->
+
+<!--轮播图 bg-->
+<div class="swiper-container banner-img">
+    <div class="swiper-wrapper">
+        <query name="Activities" limit="3" id='vo' page='1' where="status=1 and position=1 and (unix_timestamp(now()) BETWEEN start_time AND end_time)" >
+            <div class="swiper-slide"><a href="javascript:"><img src="{$vo.img_url}" alt=""></a></div>
+        </query>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+<!--轮播图 end-->
+
+<div class="content">
+    <!--选择列表 bg-->
+    <dl class="top-menu weui_grids clearfix">
+        <dd class="top-add">推荐</dd>
+        <dd>人气</dd>
+        <dd>最新</dd>
+    </dl>
+    <!--选择列表 end-->
+
+    <!--产品列表 bg-->
+    <div class="product-list clearfix">
+        <dl class="product-list-show">
+            <query name="Goods" limit="4" id='vo' page='1' where="status=1 and is_putaway=1" order="collect_number DESC" >
+            <dd>
+                <a href="{:U('goods/detail', array('id'=>$vo['id']))}">
+                    <img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[id]" />' class="product-img">
+                    <p class="product-title">{$vo.name}</p>
+                    <div class="product-change">
+                        <div>
+                            <span>¥</span>
+                            <span>{$vo.sale_price}</span>
+                        </div>
+                        <row name='MemberCollect' where="member_id=$mid and type=1 and collect_id=$vo[id] " id='res' >
+                            <if condition='!empty($res) and $res[status] eq 1'>
+                                <i class="iconfont j-add-succeed icon-iconshoucang02" data-id='{$vo[id]}' date-collect="false"></i>
+                            <else />
+                                <i class="iconfont icon-iconshoucang j-add-succeed" data-id='{$vo[id]}'></i>
+                            </if>
+                        </row>
+                    </div>
+                </a>
+            </dd>
+            </query>
+        </dl>
+
+        <dl class="dis-none product-list-show">
+            <query name="Goods" limit="4" id='vo' page='1' where="status=1 and is_putaway=1" order='sale_count DESC' >
+            <dd>
+                <a href="{:U('goods/detail', array('id'=>$vo[id]))}">
+                    <img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[id]" />' class="product-img">
+                    <p class="product-title">{$vo.name}</p>
+                    <div class="product-change">
+                        <div>
+                            <span>¥</span>
+                            <span>{$vo.sale_price}</span>
+                        </div>
+                        <row name='MemberCollect' where='member_id=$mid and type=1 and collect_id=$vo[id]' id='res' >
+                            <if condition='!empty($res) and $res[status] eq 1'>
+                                <i class="iconfont j-add-succeed icon-iconshoucang02" data-id='{$vo[id]}' date-collect="false"></i>
+                            <else />
+                                <i class="iconfont icon-iconshoucang j-add-succeed" data-id='{$vo[id]}'></i>
+                            </if>
+                        </row>
+                    </div>
+                </a>
+            </dd>
+            </query>
+        </dl>
+
+        <dl class="dis-none product-list-show">
+            <query name="Goods" limit="4" id='vo' page='1' where="status=1 and is_putaway=1" order='create_time DESC'>
+            <dd>
+                <a href="{:U('goods/detail', array('id'=>$vo[id]))}">
+                    <img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[id]" />' class="product-img">
+                    <p class="product-title">{$vo.name}</p>
+                    <div class="product-change">
+                        <div>
+                            <span>¥</span>
+                            <span>{$vo.sale_price}</span>
+                        </div>
+                        <row name='MemberCollect' where='member_id=$mid and type=1 and collect_id=$vo[id]' id='res' >
+                            <if condition='!empty($res) and $res[status] eq 1'>
+                                <i class="iconfont j-add-succeed icon-iconshoucang02" data-id='{$vo[id]}' date-collect="false"></i>
+                            <else />
+                                <i class="iconfont icon-iconshoucang j-add-succeed" data-id='{$vo[id]}'></i>
+                            </if>
+                        </row>
+                    </div>
+                </a>
+            </dd>
+            </query>
+        </dl>
+    </div>
+    <!--产品列表 end-->
+</div>
+
+<include file="Public/menu_footer"/>
+
+<script>
+    $(function () {
+        //  图片轮播
+        common.img_play();
+        //  顶部点击加载样式
+        common.top_add();
+        //  跳转搜索页面
+        common.run_seek("{:U('Search/index')}");
+        //  收藏 取消收藏
+        common.succeed_add_cart("{:U('Member/collect')}");
+        
+    });
+</script>
+<include file="Public/footer"/>

@@ -1,0 +1,34 @@
+/*图片大小控制*/
+.headImg {
+    width: 110px !important;
+    height: 110px !important;
+    display: block;
+}
+
+.padding-l-r-10 {
+    padding: 0 10px;
+}
+
+.margin-t-b-10 {
+    margin: 10px 0;
+}
+
+.dis-b {
+    display: block
+}
+
+.input-file {
+    width: 100% !important;
+    margin-bottom: 10px;
+}
+
+.uploadingimg {
+    width: 120px!important;
+    height: 120px!important;
+}
+.mar-b4{
+    margin-bottom: 4px;
+}
+.padding-t-1{
+    padding-top: 1px;
+}

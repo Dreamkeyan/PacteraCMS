@@ -1,0 +1,125 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <label>状态：</label>
+                    <form>
+                        <select class="form-control my-form width-120">
+                            <option>全部</option>
+                            <option>已启用</option>
+                            <option>已停用</option>
+                        </select>
+                        <div class="input-group my-form width-200">
+                            <input type="text" placeholder="请输入关键词" class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-my">搜索</button>
+                            </span>
+                        </div>
+                        <button type="button" class="btn btn-my pull-right j-del"><i class="fa fa-trash-o"></i> 批量删除
+                        </button>
+                        <button type="button" class="btn btn-my pull-right j-add"><i class="fa fa-plus"></i> 新增运费模板
+                        </button>
+                    </form>
+                </div>
+                <div class="ibox-content ho">
+                    <!--<h4>共1234个模板</h4>-->
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th class="selectAll" width="50"><input class="j-checkAll" type="checkbox"></th>
+                                <th width="50">序号</th>
+                                <th width="70">模板名称</th>
+                                <th width="70">运送方式</th>
+                                <th width="60">运送到</th>
+                                <th width="70">首件（个）</th>
+                                <th width="70">运费（元）</th>
+                                <th width="70">续件（个）</th>
+                                <th width="70">运费（元）</th>
+                                <th width="100">编辑时间</th>
+                                <th width="180">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="form-group" name="sub"></td>
+                                <td>1</td>
+                                <td>包邮</td>
+                                <td>快递</td>
+                                <td>全国</td>
+                                <td>1</td>
+                                <td>0.00</td>
+                                <td>1</td>
+                                <td>0.00</td>
+                                <td>2015-08-25 15:06:00</td>
+                                <td>
+                                    <a href="javascript:;" class="btn btn-sm btn-default j-status" title="启用"><i
+                                            class="fa fa-times"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-info" title="编辑"><i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-danger j-del" title="删除"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-group" name="sub"></td>
+                                <td>1</td>
+                                <td>快递最低</td>
+                                <td>快递</td>
+                                <td>全国</td>
+                                <td>1</td>
+                                <td>0.00</td>
+                                <td>1</td>
+                                <td>0.00</td>
+                                <td>2015-08-25 15:06:00</td>
+                                <td>
+                                    <a href="javascript:;" class="btn btn-sm btn-success j-status" title="停用"><i
+                                            class="fa fa-check"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-info" title="编辑"><i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-danger j-del" title="删除"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <nav class="text-center">
+                            <ul class="pagination">
+                                <li class="disabled"><a href="#">上一页</a></li>
+                                <li class="num active"><a href="#">1</a></li>
+                                <li class="num"><a href="#">2</a></li>
+                                <li class="num"><a href="#">3</a></li>
+                                <li class="num"><a href="#">4</a></li>
+                                <li><span>...</span></li>
+                                <li><a href="#">下一页</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <script>
+        $(function () {
+            /*分页切换*/
+            mall.change_page();
+            /*启用停用操作*/
+            mall.toggle_status();
+            /*删除*/
+            $(".j-del").on('click', function () {
+                layer.confirm('注意：确定要删除吗？', {icon: 3, title:'提示'}, function(index){
+                    layer.close(index);
+                });
+            });
+            /*新增运费模板*/
+            $(".j-add").on('click', function () {
+                layer.alert('暂时不支持新增运费模板', {icon: 0, title:'提示'});
+            });
+        });
+    </script>
+</block>

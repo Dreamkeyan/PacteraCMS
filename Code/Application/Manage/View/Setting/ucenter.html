@@ -1,0 +1,132 @@
+<include  file='Public:header'/>
+<div class="local">
+    当前位置:  UC整合设置   
+</div>
+<div class="action">
+    <em>注意：</em>如果整合后，用户就会和UC同步，需要在论坛的UCENTER里面新增一个应用，新增应用后会有一段代码！将代码对应的选项填入就可完成整合
+</div>
+<div class="listBox clfx">              
+    <div class="cl"></div>
+    <div class="menuManage">
+        <form  target="simpleO2O_frm" action="{:U('setting/ucenter')}" method="post">
+            <table cellpadding="0" cellspacing="0" width="100%">
+
+                <tr>
+                    <td align="right">UC编码：</td>
+                    <td>
+                        <label><input type="radio" name="data[charset]" <eq name="CONFIG.ucenter.charset" value="1">checked="checked"</eq> value="1"  />GBK</label>
+                        <label><input type="radio" name="data[charset]"  <eq name="CONFIG.ucenter.charset" value="0">checked="checked"</eq>  value="0"  />UTF-8</label>
+                        <code>如果您的UCENTER是GBK的就选择GBK会自动转码的！</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td align="right">UC_CONNECT：</td>
+                    <td>
+                        <input type="text" name="data[UC_CONNECT]" value="{$CONFIG.ucenter.UC_CONNECT}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_CONNECT属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_DBHOST：</td>
+                    <td>
+                        <input type="text" name="data[UC_DBHOST]" value="{$CONFIG.ucenter.UC_DBHOST}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBHOST属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_DBUSER：</td>
+                    <td>
+                        <input type="text" name="data[UC_DBUSER]" value="{$CONFIG.ucenter.UC_DBUSER}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBUSER属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_DBPW：</td>
+                    <td>
+                        <input type="text" name="data[UC_DBPW]" value="{$CONFIG.ucenter.UC_DBPW}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBPW属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_DBNAME：</td>
+                    <td>
+                        <input type="text" name="data[UC_DBNAME]" value="{$CONFIG.ucenter.UC_DBNAME}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBNAME属性</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td align="right">UC_DBCHARSET：</td>
+                    <td>
+                        <input type="text" name="data[UC_DBCHARSET]" value="{$CONFIG.ucenter.UC_DBCHARSET}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBCHARSET属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_DBTABLEPRE：</td>
+                    <td>
+                        <input type="text" name="data[UC_DBTABLEPRE]" value="{$CONFIG.ucenter.UC_DBTABLEPRE}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBTABLEPRE属性；注意比如选项是`ultrax`.pre_ucenter_那么应该填写<b>ultrax.pre_ucenter_</b></code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_DBCONNECT：</td>
+                    <td>
+                        <input type="text" name="data[UC_DBCONNECT]" value="{$CONFIG.ucenter.UC_DBCONNECT}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBCONNECT属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_KEY：</td>
+                    <td>
+                        <input type="text" name="data[UC_KEY]" value="{$CONFIG.ucenter.UC_KEY}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_KEY属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_API：</td>
+                    <td>
+                        <input type="text" name="data[UC_API]" value="{$CONFIG.ucenter.UC_API}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_API属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_CHARSET：</td>
+                    <td>
+                        <input type="text" name="data[UC_CHARSET]" value="{$CONFIG.ucenter.UC_CHARSET}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_CHARSET属性</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td align="right">UC_IP：</td>
+                    <td>
+                        <input type="text" name="data[UC_IP]" value="{$CONFIG.ucenter.UC_IP}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_IP属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_APPID：</td>
+                    <td>
+                        <input type="text" name="data[UC_APPID]" value="{$CONFIG.ucenter.UC_APPID}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_APPID属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">UC_PPP：</td>
+                    <td>
+                        <input type="text" name="data[UC_PPP]" value="{$CONFIG.ucenter.UC_PPP}" class="manageInput " />
+                        <code>对应你在Ucenter里面一段代码的UC_PPP属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"></td>
+                    <td>
+                        <input type="submit" class="remberSubmit" value="确认保存"  />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <include  file='Public:footer'/>       

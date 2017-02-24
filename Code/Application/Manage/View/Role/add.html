@@ -1,0 +1,8 @@
+<div class="clearfix margin-30">
+    <form  id="commentForm" action="{:U('add')}" method="post">
+        <div class="form-group">
+            <label for="enterpriseName">角色名</label>
+            <input type="text" name="data[role_name]" value="{$detail.username|default=''}" class="form-control"  />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,156 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <label>商品模型：</label>
+                    <form action="{:U('index')}" id="spec-form" method="post">
+                        <div class="input-group my-form">
+                            <select id="goods-type" name="type" class="form-control">
+                                <option value="">全部</option>
+                                <foreach name="types" item="vo" key="k">
+                                    <eq name="k" value="$Think.request.type">
+                                        <option value="{$k}" selected="selected">{$vo}</option>
+                                        <else/>
+                                        <option value="{$k}">{$vo}</option>
+                                    </eq>
+                                </foreach>
+                            </select>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-my" onclick="$('#spec-form').submit()">查找</button>
+                            </span>
+                        </div>
+                        <button id="add-button" type="button" class="btn btn-my pull-right">
+                            <i class="fa fa-plus"></i>添加商品属性
+                        </button>
+                    </form>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th width="40">ID</th>
+                                <th width="300">属性名称</th>
+                                <th width="300">所属模型</th>
+                                <th width="300">属性类型</th>
+                                <th>可选值列表</th>
+                                <th width="180">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="var">
+                                <tr>
+                                    <td>{$var.id}</td>
+                                    <td>{$var.attr_name}</td>
+                                    <td>{$var.type.name}</td>
+                                    <td>
+                                        <switch name="var.attr_type">
+                                            <case value="1">文本</case>
+                                            <case value="2">单选</case>
+                                            <case value="3">多行文本</case>
+                                        </switch>
+                                    </td>
+                                    <td>
+                                        <volist name="var.attr_values" id="item" key="k">
+                                            <neq name="k" value="1">，</neq>
+                                            {$item}
+                                        </volist>
+                                    </td>
+                                    <td>
+                                        <a href="{:U('form', array('id' => $var['id']))}"
+                                           class="btn btn-sm btn-info edit-btn"
+                                           title="编辑">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="{:U('delete', array('id' => $var['id']))}"
+                                           class="btn btn-sm btn-danger del-btn" title="删除">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <nav class="text-center">
+                            <ul class="pagination">{$page}</ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <script>
+        $(function () {
+            /*分页切换*/
+            mall.change_page();
+            /*启用停用操作*/
+            mall.toggle_status();
+            // 删除单条记录
+            $(".del-btn").click(function () {
+                var url = $(this).attr('href');
+                layer.confirm('您要删除这条记录么？', {
+                    btn: ['确定', '取消']
+                }, function () {
+                    $.get(url, function (response) {
+                        if (response.status === 'success') {
+                            layer.msg('删除成功！', {icon: 1});
+                            window.location.reload(true);
+                        } else {
+                            layer.msg('删除失败！', {icon: 2});
+                        }
+                    });
+                });
+                return false;
+            });
+            // pop form action
+            function popform(url, isEdit) {
+                var boxtitle = isEdit ? '编辑商品属性' : '新增商品属性';
+                var buttons = isEdit ? ['保存', '取消'] : ['添加', '取消'];
+                $.get(url, function (html) {
+                    mall.layer_boxs(1, boxtitle, ['700px', '400px'], html, buttons, function (index) {
+                        var saveurl = $("#goods-attr-form").attr("action");
+                        var attrname = $("input[name=attr_name]").val();
+                        var attrvalues = $.trim($("textarea[name=attr_values]").val());
+                        if (!attrname) {
+                            layer.msg('属性名称不能为空！', {icon: 2});
+                            return false;
+                        }
+                        $.post(saveurl, {
+                            id: $("input[name=id]").val(),
+                            attr_name: attrname,
+                            type_id: $("select[name=attrtype]").val(),
+                            attr_type: $("input[type=radio]:checked").val(),
+                            attr_values: attrvalues ? attrvalues.split("\\n") : ''
+                        }, function (response) {
+                            if (response.status == 'success') {
+                                layer.msg('属性保存成功！', {icon: 1});
+                                layer.close(index);
+                                location.reload();
+                            } else {
+                                var message = response.message ? response.message : '属性保存失败！'
+                                layer.msg(message, {icon: 2});
+                            }
+                        });
+                    });
+                });
+            }
+
+            //编辑商品属性
+            $(".edit-btn").click(function () {
+                var url = $(this).attr('href');
+                popform(url, true);
+                return false;
+            });
+            // 新增商品属性
+            $("#add-button").click(function () {
+                var url = "{:U('form')}";
+                popform(url);
+            });
+        });
+    </script>
+</block>

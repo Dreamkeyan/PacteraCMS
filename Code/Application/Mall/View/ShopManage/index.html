@@ -1,0 +1,292 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <form action="{:U('index')}" id="searchform" method="post">
+                        <label>孵化商家：</label>
+                        <select id="search_hatcher" name="hatcher" class="form-control my-form width-120">
+                            <option value="">全部</option>
+                            <option value="1"
+                            <eq name="Think.request.hatcher" value="1">selected="selected"</eq>
+                            >是</option>
+                            <option value="0"
+                            <eq name="Think.request.hatcher" value="0">selected="selected"</eq>
+                            >否</option>
+                        </select>
+                        <label>状态：</label>
+                        <select id="search_status" name="status" class="form-control my-form width-120">
+                            <option value="">全部</option>
+                            <option value="1"
+                            <eq name="Think.request.status" value="1">selected="selected"</eq>
+                            >已开通</option>
+                            <option value="0"
+                            <eq name="Think.request.status" value="0">selected="selected"</eq>
+                            >已关闭</option>
+                        </select>
+                        <div class="input-group my-form">
+                            <input type="text" placeholder="输入店铺ID/会员ID" name="keywords" value="{:I('keywords')}"
+                                   class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-my" onclick="$('#searchform').submit()">搜索</button>
+                            </span>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-my open-shop-form"><i class="fa fa-plus"></i> 开通新店铺
+                            </button>
+                            <button type="button" id="batch-del" class="btn btn-my"><i class="fa fa-trash-o"></i> 批量删除
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th width="50"><input class="j-checkAll" type="checkbox"></th>
+                                <th width="60">店铺ID</th>
+                                <th width="60">会员ID</th>
+                                <th>店铺名称</th>
+                                <th>启用时间</th>
+                                <th>开店时长(日)</th>
+                                <th>总销量(个)</th>
+                                <th>总销售额(元)</th>
+                                <th>商品好评率</th>
+                                <th>在售商品数(个)</th>
+                                <th>违规次数(次)</th>
+                                <th>违规处罚(次)</th>
+                                <th>店铺关闭次数</th>
+                                <th>保证金缴纳</th>
+                                <th>保证金扣款</th>
+                                <th>保证金余额</th>
+                                <th>孵化商家</th>
+                                <th>店铺性质</th>
+                                <th>店铺状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="var">
+                                <tr>
+                                    <td><input type="checkbox" name="sub" class="form-group" value="{$var.id}"></td>
+                                    <td><a href="javascript:;" class="underline">{$var.id}</a></td>
+                                    <td><a href="javascript:;" class="underline">{$var.member_id}</a></td>
+                                    <td>{$var.name}</td>
+                                    <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                                    <td>{$var.open_day}</td>
+                                    <td>{$var.sales_count}</td>
+                                    <td>{$var.sales_money}</td>
+                                    <td>{$var.praise}</td>
+                                    <td><a href="javascript:;" class="underline">{$var.sale_goods_num}</a></td>
+                                    <td>{$var.violations}</td>
+                                    <td><a href="javascript:;" class="underline">{$var.punishment}</a></td>
+                                    <td class="j-shop-show hover-show">
+                                        <a href="javascript:;">{$var.close_num}</a>
+                                        <!--店铺关闭次数悬浮层 bg-->
+                                        <div class="hover-tip j-shop-tip">
+                                            <table>
+                                                <tr>
+                                                    <th width="60">序号</th>
+                                                    <th width="120">查封时间</th>
+                                                    <th width="200">原因</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>2013-5-12</td>
+                                                    <td>商品图文不符</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>22014-5-6</td>
+                                                    <td>买家投诉3次以上</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <!--店铺关闭次数悬浮层 end-->
+                                    </td>
+                                    <td>{$var.margin_total}</td>
+                                    <td class="j-charge-show hover-show">
+                                        <a href="javascript:;">{$var.margin_penalty}</a>
+                                        <!--保证金扣款悬浮层 bg-->
+                                        <div class="hover-tip j-charge-tip">
+                                            <table>
+                                                <tr>
+                                                    <th width="60">序号</th>
+                                                    <th width="120">扣款时间</th>
+                                                    <th width="120">金额</th>
+                                                    <th width="200">原因</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>2013-5-12</td>
+                                                    <td>11</td>
+                                                    <td>商品图文不符</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>2013-5-12</td>
+                                                    <td>11</td>
+                                                    <td>商品图文不符</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <!--保证金扣款悬浮层 end-->
+                                    </td>
+                                    <td class="j-balance-show hover-show">
+                                        <a href="javascript:;">{$var.margin_residue}</a>
+                                        <!--保证金余额悬浮层 bg-->
+                                        <div class="hover-tip j-balance-tip">
+                                            <table>
+                                                <tr>
+                                                    <th width="60">序号</th>
+                                                    <th width="120">变动时间</th>
+                                                    <th width="120">金额</th>
+                                                    <th width="200">原因</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>2013-5-12</td>
+                                                    <td>11</td>
+                                                    <td>商品图文不符</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>2013-5-12</td>
+                                                    <td>11</td>
+                                                    <td>商品图文不符</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <!--保证金余额悬浮层 end-->
+                                    </td>
+                                    <td>
+                                        <if condition="$var.is_hatcher eq 1 ">是
+                                            <else/>
+                                            否
+                                        </if>
+                                    </td>
+                                    <td>
+                                        <if condition="$var.shop_nature eq 1 ">真实店铺
+                                            <else/>
+                                            测试店铺
+                                        </if>
+                                    </td>
+                                    <td>
+                                        <if condition="$var.status eq 1 "><span class="word-red">已开通</span>
+                                            <else/>
+                                            已关闭
+                                        </if>
+                                    </td>
+                                    <td>
+                                        <if condition="$var.status eq 1 ">
+                                            <a href="{:U('ShopManage/detail', array('shop_id' => $var['id']))}"
+                                               class="btn btn-sm btn-warning"> 店铺管理</a>
+                                            <else/>
+                                            <a href="javascript:void(0);"
+                                               link="{:U('open', array('shop_id' => $var['id']))}"
+                                               class="btn btn-sm btn-default open-shop">店铺开通</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <nav class="text-center">
+                            <ul class="pagination">{$page}</ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <link href="__ASSET__/Common/Admin/plugins/webuploader-0.1.5/webuploader.css" rel="stylesheet" type="text/css">
+    <script src="__ASSET__/Common/Admin/plugins/webuploader-0.1.5/webuploader.js" type="text/javascript"></script>
+    <script src="./Asset/Mall/Admin/js/uploadFile.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            /*启用停用操作*/
+            mall.toggle_status();
+            // 悬浮
+            mall.violation_hover_tip();
+            // 搜索改变状态
+            $("#search_hatcher").change(function () {
+                $(this).parents("form").submit();
+            });
+            $("#search_status").change(function () {
+                $(this).parents("form").submit();
+            });
+            // 店铺开通
+            $(".open-shop").click(function () {
+                var url = $(this).attr('link');
+                layer.confirm('您确定要重新开通么？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.get(url, function (response) {
+                        var message = '开通失败！';
+                        if (response.status === 'success') {
+                            message = '开通成功！';
+                            window.location.reload(true);
+                        }
+                        layer.msg(message, {icon: 1});
+                    });
+                });
+            });
+            // 批量删除
+            $("#batch-del").click(function () {
+                var nochecked = true, ids = [], checkboxes = $("table tbody input[type=checkbox]");
+                // check checked
+                checkboxes.each(function () {
+                    if ($(this).is(':checked')) {
+                        ids.push($(this).val());
+                        nochecked = false;
+                    }
+                });
+                if (nochecked) {
+                    layer.msg('没有选中项！', {icon: 2});
+                    return false;
+                }
+                // confirm
+                layer.confirm('您要删除全部选中项么？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.post('{:U("batchdel")}', {ids: ids}, function (response) {
+                        var message = '批量删除失败！';
+                        if (response.status) {
+                            message = '批量删除成功！';
+                            window.location.reload(true);
+                        }
+                        layer.msg(message, {icon: 1});
+                    });
+                });
+            });
+            // 打开店铺表单
+            $(".open-shop-form").click(function () {
+                var url = "{:U('form')}";
+                $.get(url, function (html) {
+                    mall.layer_boxs(1, '添加店铺', ['800px', '80%'], html, ['确认开通', '确认开通并发布商品'], function (index) {
+                        var data = getShopFormData();
+                        if (!data) {
+                            return false;
+                        }
+                        var saveurl = $("#shop-form").attr("action");
+                        $.post(saveurl, data, function (response) {
+                            if (response.status == 'success') {
+                                layer.msg('店铺添加成功！', {icon: 1});
+                                layer.close(index);
+                                location.reload();
+                            } else {
+                                layer.msg('店铺添加失败！', {icon: 2});
+                            }
+
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</block>

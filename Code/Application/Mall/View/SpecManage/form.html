@@ -1,0 +1,39 @@
+<div class="clearfix margin-30">
+    <form id="goods-spec-form" class="form-horizontal" action="{:U('save')}" method="post">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">规格名称：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="spec_name" value="{$data.spec_name}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">所属模型：</label>
+            <div class="col-sm-9">
+                <select name="spectype" class="form-control">
+                    <foreach name="types" item="vo" key="k">
+                        <eq name="k" value="$data.type_id">
+                            <option value="{$k}" selected="selected">{$vo}</option>
+                            <else/>
+                            <option value="{$k}">{$vo}</option>
+                        </eq>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">规格项：</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" name="items" rows="5"
+                          placeholder="一行为一个规格项">{$data.items|getSpecItem}</textarea>
+            </div>
+        </div>
+        <notempty name="data">
+            <input type="hidden" name="id" value="{$data.id}"/>
+        </notempty>
+    </form>
+</div>
+<script>
+    $(function () {
+        $("textarea[name=items]").html($("textarea[name=items]").val().replace(/#/g, "\n"));
+    });
+</script>

@@ -1,0 +1,140 @@
+<!DOCTYPE html><html><head><title>项目结构及目录说明</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>.note-content  {font-family: Yahei Mono, 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+
+.note-content , .note-content  div {font-size: 12px;}
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h3 id="项目结构及目录说明">项目结构及目录说明</h3>
+
+<h5 id="总体结构">总体结构：</h5>
+
+<blockquote>
+  <p>├─Addons <br>
+  ├─Application <br>
+  ├─Core <br>
+  ├─Public <br>
+  …</p>
+</blockquote>
+
+<h5 id="目录说明">目录说明</h5>
+
+<blockquote>
+  <ol><li rel="1"><code>Addons</code> 目录为整个项目的插件或功能扩展目录，具体编写规范以<code>ThinkPHP</code>官方文档为准。</li>
+  <li rel="2"><code>Application</code> 目录为所有应用目录。</li>
+  <li rel="3"><code>Core</code> 目录为框架核心目录。</li>
+  <li rel="4"><code>Public</code> 目录为站点根（www）目录</li>
+  <li rel="5">其它的目录可根据需求添加</li>
+  </ol>
+</blockquote>
+
+<h5 id="application-目录结构"><code>Application</code> 目录结构</h5>
+
+<blockquote>
+  <p>Application/ <br>
+  ├─Cms <br>
+  │  ├─Common <br>
+  │  ├─Conf <br>
+  │  │      config.php <br>
+  │  ├─Controller <br>
+  │  │      ApiBaseController.class.php <br>
+  │  │      FrontBaseController.class.php <br>
+  │  │      ManageBaseController.class.php <br>
+  │  ├─Lang <br>
+  │  │  │  en-us.php <br>
+  │  │  │  zh-cn.php <br>
+  │  │  │  zh-tw.php <br>
+  │  │  ├─en-us <br>
+  │  │  │      Common.php <br>
+  │  │  ├─zh-cn <br>
+  │  │  │      Common.php <br>
+  │  │  └─zh-tw <br>
+  │  │          Common.php <br>
+  │  ├─Model <br>
+  │  ├─Sql <br>
+  │  │      install.sql <br>
+  │  │      uninstall.sql <br>
+  │  ├─TagLib <br>
+  │  └─View <br>
+  │  └─ModuleConf.php <br>
+  │ <br>
+  ├─Common <br>
+  │  ├─Common <br>
+  │  │      function.php <br>
+  │  ├─Conf <br>
+  │  │      config.php <br>
+  │  │      Mysql.config.php <br>
+  │  │      tags.php <br>
+  │  ├─Controller <br>
+  │  │      ApiCommonController.class.php <br>
+  │  │      FrontCommonController.class.php <br>
+  │  │      ManageCommonController.class.php <br>
+  │  ├─Lang <br>
+  │  │      en-us.php <br>
+  │  │      zh-cn.php <br>
+  │  │      zh-tw.php <br>
+  │  ├─Library <br>
+  │  ├─Model <br>
+  │  │      CommonModel.class.php <br>
+  │  ├─TagLib <br>
+  └─└─View <br>
+  …</p>
+</blockquote>
+
+<h5 id="目录说明-1">目录说明</h5>
+
+<p><code>Application</code> 根目录下每一个目录为一个模块，每个模块具体说明如下：</p>
+
+<blockquote>
+  <ul><li><code>Common</code>、<code>Conf</code>、<code>Model</code>、<code>TagLib</code>、<code>View</code> 为正常的公共方法、配置文件、数据表模型、自定义标签及模板目录</li>
+  <li><code>Home</code>、<code>Manage</code> 分别为前台模块、后台模块</li>
+  <li>每一个模块根目录下必须存在一个描述文件<code>ModuleConf.php</code>. 此文件主要是配置模块信息及模块权限菜单，具体格式如下：</li>
+  </ul>
+</blockquote>
+
+<pre class="prettyprint hljs-dark"><code class="language-php hljs"><span class="hljs-comment">/**<br> * ModuleConf.php<br> * module_info 、user_nav 、module_config 、module_menu 键名不可修改<br> * 键名：module_info、module_menu 为必填项。user_nav、module_config 为选填项<br> **/</span><br><span class="hljs-keyword">return</span> <span class="hljs-keyword">array</span>(<br><br>    <span class="hljs-comment">// 模块基本信息</span><br>    <span class="hljs-string">'module_info'</span>   =&gt; <span class="hljs-keyword">array</span>(<br>        <span class="hljs-string">'module_name'</span>  =&gt; <span class="hljs-string">'Cms'</span>,  <span class="hljs-comment">// 模块名称【必须】</span><br>        <span class="hljs-string">'module_title'</span> =&gt; <span class="hljs-string">'内容'</span>,  <span class="hljs-comment">// 模块标题【必须】</span><br>        <span class="hljs-string">'description'</span>  =&gt; <span class="hljs-string">'这是一个非常好用的内容管理系统'</span>, <span class="hljs-comment">// 模块描述</span><br>        <span class="hljs-string">'developer'</span>    =&gt; <span class="hljs-string">''</span>, <span class="hljs-comment">// 开发团队</span><br>        <span class="hljs-string">'version'</span>      =&gt; <span class="hljs-string">'1.0.0'</span>, <span class="hljs-comment">// 当前版本</span><br>    ),<br>    <span class="hljs-comment">// 前台导航</span><br>    <span class="hljs-string">'user_nav'</span>      =&gt; <span class="hljs-keyword">array</span>(<br>         <span class="hljs-comment">// Your are Config</span><br>    ),<br><br>    <span class="hljs-comment">// 模块配置</span><br>    <span class="hljs-string">'module_config'</span> =&gt; <span class="hljs-keyword">array</span>(<br>        <span class="hljs-comment">// Your are Config  </span><br>    ),<br><br>    <span class="hljs-comment">// 后台菜单及权限节点</span><br>    <span class="hljs-string">'module_menu'</span>   =&gt; <span class="hljs-keyword">array</span>(<br>        <span class="hljs-string">'1'</span> =&gt; <span class="hljs-keyword">array</span>(<br>            <span class="hljs-string">'id'</span>    =&gt; <span class="hljs-number">1</span>,<br>            <span class="hljs-string">'pid'</span>   =&gt; <span class="hljs-string">'0'</span>,<br>            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'CMS'</span>,<br>        ),<br>        <span class="hljs-string">'2'</span> =&gt; <span class="hljs-keyword">array</span>(<br>            <span class="hljs-string">'id'</span>    =&gt; <span class="hljs-number">2</span>,<br>            <span class="hljs-string">'pid'</span>   =&gt; <span class="hljs-string">'1'</span>,<br>            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'用户管理'</span>,<br>            <span class="hljs-string">'url'</span>   =&gt; <span class="hljs-string">'Cms/User/manage'</span>,<br>        ),<br>        <span class="hljs-string">'3'</span> =&gt; <span class="hljs-keyword">array</span>(<br>            <span class="hljs-string">'id'</span>    =&gt; <span class="hljs-number">3</span>,<br>            <span class="hljs-string">'pid'</span>   =&gt; <span class="hljs-string">'2'</span>,<br>            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'用户设置'</span>,<br>            <span class="hljs-string">'url'</span>   =&gt; <span class="hljs-string">'Cms/User/settings'</span>,<br>        ),<br>        <span class="hljs-string">'4'</span> =&gt; <span class="hljs-keyword">array</span>(<br>            <span class="hljs-string">'id'</span>    =&gt; <span class="hljs-number">4</span>,<br>            <span class="hljs-string">'pid'</span>   =&gt; <span class="hljs-string">'2'</span>,<br>            <span class="hljs-string">'title'</span> =&gt; <span class="hljs-string">'用户统计'</span>,<br>            <span class="hljs-string">'url'</span>   =&gt; <span class="hljs-string">'Cms/User/count'</span>,<br>        )<br>        ...<br>    )<br><br>);<br><br></code></pre>
+
+<blockquote>
+  <ul><li><p><code>Common/Controller/</code> 目录下文件说明  <br>
+  <code>ApiCommonController.class.php</code>      // 所有模块接口的基类 <br>
+  <code>FrontCommonController.class.php</code>   // 所有模块前台的基类 <br>
+  <code>ManageCommonController.class.php</code>   // 所有模块后台的基类</p></li>
+  <li><p>每一个自定义的模块<code>Controller</code>目录必须存在 <code>ApiBaseController</code>、<code>FrontBaseController</code>、<code>ManageBaseController</code> 三个模块基类文件，且这三个文件必须分别继承上面三个基类，此模块下其它文件继承含有<code>BaseController</code> 的基类文件。</p></li>
+  <li><p>区分前台与后台功能的方法。如<code>Cms/Controller/</code>中 <code>ArticleController.class.php</code> 为前台功能，<code>ArticleManageController.class.php</code> 为后台功能，区别的标识就是功能后加<code>Manage</code>。</p></li>
+  <li><code>Lang</code>为多语言目录</li>
+  <li><code>Sql</code> 为模块安装或卸载的数据操作目录 ，必须存在 <code>install.sql(安装)</code>、<code>uninstall.sql(卸载)</code></li>
+  </ul>
+</blockquote>
+
+
+
+<h5 id="public-目录结构"><code>Public</code> 目录结构</h5>
+
+<blockquote>
+  <p>│  bootstrap.php <br>
+  │  build.php <br>
+  │  index.php <br>
+  ├─Asset <br>
+  │  ├─Cms <br>
+  │  │  ├─css <br>
+  │  │  ├─images <br>
+  │  │  └─js <br>
+  │  ├─Common <br>
+  │  ├─Home <br>
+  │  │  ├─css <br>
+  │  │  ├─images <br>
+  │  │  └─js <br>
+  ├─Attachment <br>
+  │  ├─Cms <br>
+  │  ├─Home <br>
+  │  └─Member</p>
+</blockquote>
+
+
+
+<h5 id="目录说明-2">目录说明</h5>
+
+<p><code>Asset</code> 为静态资源目录。按模块划分。<code>Attachment</code>为附件目录，按模块划分。如果需要新建一个模块，运行：<code>http://domain.com/build.php?module=XXX</code>即可</p></div></body></html>

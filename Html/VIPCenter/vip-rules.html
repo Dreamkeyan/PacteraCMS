@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>会员管理-会员规则</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--<link rel="shortcut icon" href="favicon.ico" rel="stylesheet">-->
+    <!-- Bootstrap -->
+    <link href="../common/plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../common/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../common/css/animate.min.css" rel="stylesheet">
+    <link href="../common/css/index.css" rel="stylesheet">
+    <link href="../common/css/common.css" rel="stylesheet">
+    <style>
+        .add-line select,
+        .add-line input{
+            display: inline-block;
+        }
+        .add-line a{
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="input-group my-form">
+                        <input type="text" placeholder="Search for..." class="form-control">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-my">查找</button>
+						</span>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-my j-edit"><!--<span class="glyphicon glyphicon-plus"></span>-->编辑规则</button>
+                        <button type="button" class="btn btn-my j-import">导入规则</button>
+                    </div>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <div class="treeview" id="treeview"></div>
+                        <section class="content">
+                            <table class="table table-bordered my-table">
+                                <thead>
+                                <tr>
+                                    <th><input class="j-checkAll" type="checkbox" ></th>
+                                    <th>id</th>
+                                    <th>等级名称</th>
+                                    <th>显示图片</th>
+                                    <th  class="text-left" width="40%">规则描述</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td scope="row"><input type="checkbox" name="sub"></td>
+                                    <td>1000001</td>
+                                    <td>一级</td>
+                                    <td><img src="../common/images/p1.jpg" class="width-160"></td>
+                                    <td>规则描述规则描述规则描述规则描述规则描述</td>
+                                    <td>
+                                        <!--<a href="javascript:;" class="j-edit">编辑规则</a>-->
+                                        <a href="javascript:;" class="j-export">导出规则</a>
+                                        <a href="javascript:;" class="j-enable">启用</a>
+                                        <a href="javascript:;" class="j-disable">停用</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row"><input type="checkbox" name="sub"></td>
+                                    <td>1000001</td>
+                                    <td>一级</td>
+                                    <td><img src="../common/images/p1.jpg" class="width-160"></td>
+                                    <td>规则描述规则描述规则描述规则描述规则描述</td>
+                                    <td>
+                                        <!--<a href="javascript:;" class="j-edit">编辑规则</a>-->
+                                        <a href="javascript:;" class="j-export">导出规则</a>
+                                        <a href="javascript:;" class="j-enable">启用</a>
+                                        <a href="javascript:;" class="j-disable">停用</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../common/js/jquery.min.js"></script>
+<script src="../common/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../common/plugins/layer/layer.min.js"></script>
+<script src="../common/js/content.min.js"></script>
+
+<!-- 全选框操作  -->
+<script src="../common/js/checkbox-select.js"></script>
+
+<!-- treeview.js  plugin -->
+<link rel="stylesheet" href="../common/plugins/treeview/css/bootstrap-treeview.min.css">
+<script src="../common/plugins/treeview/js/bootstrap-treeview.js"></script>
+
+<!-- jquery-validate.js plugin -->
+<script src="../common/plugins/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+<script src="../common/plugins/jquery-validation-1.13.1/additional-methods.js"></script>
+
+<!-- 会员vip模块 -->
+<script src="js/vip.js"></script>
+<script>
+    $(function () {
+        /*左侧分类菜单*/
+        var treeData = [{
+            text: '商城会员系统',
+            href: '#parent1',
+            tags: ['2'],
+            nodes: [{
+                text: '会员等级',
+                href: '#child1',
+                tags: ['2']
+            }]
+        }, {
+            text: '论坛会员系统',
+            href: '#parent1',
+            tags: ['2'],
+            nodes: [{
+                text: '会员等级',
+                href: '#child2',
+                tags: ['2']
+            }]
+        }];
+        vipCommon.treeview_boxs(treeData);
+
+
+        //打开编辑规则layer
+        vipCommon.edit_rule();
+
+
+        //打开导入规则layer
+        vipCommon.import_rule();
+
+
+        //打开导出规则layer
+        vipCommon.export_rule();
+
+        //  启用
+        $(".j-enable").on("click", function () {
+            layer.alert('已启用', {icon: 1});
+        });
+        //  禁用
+        $(".j-disable").on("click", function () {
+            layer.alert('已禁用', {icon: 1});
+        });
+
+
+
+
+        //加一行、减一行
+        var i = 1, str = '';
+        $(document).delegate(".j-add-formula", "click", function () {
+            i++;
+            var dataName = $(this).attr("data-name");
+            if (dataName == 'value-formula') {
+                str = '<div class="add-line">\
+						<label>值&nbsp;=</label>\
+						<select class="form-control my-form width-90 no-pull" name="" id="">\
+						<option value="1">数值</option>\
+						<option value="2">字段值</option>\
+						</select>\
+						<input type="text" class="form-control  width-90" name="" id="" placeholder="值" value="">\
+						<select class="form-control my-form width-90 no-pull" name="" id="">\
+						<option value="1">数值</option>\
+						<option value="2">字段值</option>\
+						</select>\
+						<input type="text" class="form-control width-90" name="" id="" placeholder="值" value="">\
+						<a id="j-minus1-formula' + i + '"  class="j-minus-formula j-minus1-formula' + i + ' p-lr20" href="javascript:;">减一行</a>\
+						</div>'
+                $("#value-formula").append(str);
+                // 为新元素节点添加事件侦听器
+                toRemoveLine();
+                return false;
+            }
+            if (dataName == 'conditional-formula') {
+                str = '<div class="add-line">\
+						<select class="form-control my-form width-90 no-pull" name="" id="">\
+						<option value="1">=</option>\
+						<option value="2">!=</option>\
+						<option value="3">&gt;</option>\
+						<option value="4">&lt;</option>\
+						</select>\
+						<select class="form-control my-form width-90 no-pull" name="" id="">\
+						<option value="1">数值</option>\
+						<option value="2">字段名</option>\
+						</select>\
+						<input type="text" class="form-control  width-90" name="" id="" placeholder="值" value="">\
+						<select class="form-control my-form width-90 no-pull" name="" id="">\
+						<option value="1">并且</option>\
+						<option value="2">或者</option>\
+						<option value="3">非</option>\
+						</select>\
+						<a id="j-minus2-formula' + i + '"  class="j-minus-formula j-minus2-formula' + i + ' p-lr20" href="javascript:;">减一行</a>\
+						</div>';
+                $("#conditional-formula").append(str);
+                // 为新元素节点添加事件侦听器
+                toRemoveLine();
+                return false;
+            }
+        });
+        // 删除动态添加div
+        function toRemoveLine() {
+            $(".j-minus-formula").unbind().click(function () {
+                $(this).parent().remove();
+            });
+        }
+    });
+</script>
+</body>
+</html>

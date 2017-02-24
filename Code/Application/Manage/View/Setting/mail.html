@@ -1,0 +1,52 @@
+<include  file='Public:header'/>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h3>邮件设置</h3>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix" >
+                        <form class="form-horizontal" id="commentForm" action="{:U('setting/mail')}" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseName">SMTP服务器：</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="mailSmtp" class="form-control" name="data[smtp]" value="{$CONFIG.mail.smtp}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseUrl">端口：</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="mailPort" name="data[port]" value="{$CONFIG.mail.port}" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseEncodingAESKey">用户名</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="mailUsername" name="data[username]" value="{$CONFIG.mail.username}" class="form-control" /> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseEncodingAESKey">密码</label>
+                                <div class="col-sm-8">
+                                    <input type="password" id="mailPassword" name="data[password]" value="{$CONFIG.mail.password}" class="form-control" /> 
+                                </div>
+                            </div>
+                            <div class="form-group text-left">
+                                <label class="col-sm-2 control-label" for="enterpriseEncodingAESKey">发件人</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="mailFrom" name="data[from]" value="{$CONFIG.mail.from}" class="form-control" /> 
+                                </div>
+                            </div>
+                            <div class="form-group text-left">
+                                <button type="submit" class="btn btn-my">确定保存</button>
+                            </div>    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include  file='Public:footer'/>       

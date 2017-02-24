@@ -1,0 +1,127 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content p-md">
+                    <label>评价内容设置</label>
+                    <div class="checkbox checkbox-inline disabled">
+                        <label>
+                            <input type="checkbox" value="" disabled>
+                            文字编辑
+                        </label>
+                    </div>
+                    <div class="checkbox disabled checkbox-inline">
+                        <label>
+                            <input type="checkbox" value="" disabled>
+                            图片
+                        </label>
+                    </div>
+                    <div class="checkbox disabled checkbox-inline">
+                        <label>
+                            <input type="checkbox" value="" disabled>
+                            小视频
+                        </label>
+                    </div>
+                    <div class="checkbox checkbox-inline disabled">
+                        <label>
+                            <input type="checkbox" value="" disabled checked>
+                            标签
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <label>标签维护（共2个模板）</label>
+                    <button type="button" class="btn btn-my pull-right  j-del"><i class="fa fa-trash-o"></i> 批量删除
+                    </button>
+                    <button type="button" class="btn btn-my pull-right j-add-label"><i class="fa fa-plus"></i> 添加标签
+                    </button>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th width="50"><input class="j-checkAll" type="checkbox"></th>
+                                <th width="50">序号</th>
+                                <th width="120">标签分类</th>
+                                <th>标签内容</th>
+                                <th width="160">添加时间</th>
+                                <th width="180">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="form-group" name="sub"></td>
+                                <td>1</td>
+                                <td>商品</td>
+                                <td>物流快，质量好</td>
+                                <td>2015-08-25 15:06:00</td>
+                                <td>
+                                    <a href="javascript:;" class="btn btn-sm btn-default j-status" title="启用"><i
+                                            class="fa fa-times"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-info j-edit" title="编辑"><i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-danger j-del" title="删除"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-group" name="sub"></td>
+                                <td>2</td>
+                                <td>服务</td>
+                                <td>服务好，质量好</td>
+                                <td>2015-08-25 15:06:00</td>
+                                <td>
+                                    <a href="javascript:;" class="btn btn-sm btn-success j-status" title="停用"><i
+                                            class="fa fa-check"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-info j-edit" title="编辑"><i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                    <a href="javascript:;" class="btn btn-sm btn-danger j-del" title="删除"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <nav class="text-center">
+                            <ul class="pagination">
+                                <li class="disabled"><a href="#">上一页</a></li>
+                                <li class="num active"><a href="#">1</a></li>
+                                <li class="num"><a href="#">2</a></li>
+                                <li class="num"><a href="#">3</a></li>
+                                <li class="num"><a href="#">4</a></li>
+                                <li><span>...</span></li>
+                                <li><a href="#">下一页</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <script>
+        $(function () {
+            /*分页切换*/
+            mall.change_page();
+            /*启用停用操作*/
+            mall.toggle_status();
+            //  添加标签/编辑
+            mall.add_label();
+            /*删除*/
+            $(".j-del").on('click', function () {
+                layer.confirm('注意：确定要删除吗？', {icon: 3, title: '提示'}, function (index) {
+                    layer.close(index);
+                });
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,109 @@
+<div class="clearfix margin-30">
+    <form  id="commentForm" action="{:U('add')}" method="post">
+        <div class="form-group">
+            <label for="enterpriseName">登录账号</label>
+            <input type="text" name="data[account]" value="{$detail.account|default=''}" class="form-control"  id="j_account"/>
+        </div>
+        <div class="form-group">
+            <label for="enterpriseName">用户名</label>
+            <input type="text" name="data[username]" value="{$detail.username|default=''}" id="j_username" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <label for="enterpriseCorpId">密码</label>
+            <input type="password" name="data[password]" value="" class="form-control"  />
+        </div>
+        <div class="form-group">
+            <label for="enterpriseSecret">手机</label>
+            <input type="text" name="data[mobile]" value="{$detail.mobile|default=''}" id="j_mobile" maxlength="11" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>角色</label>
+            <div class="clearfix">
+                <div id="J_city">
+                    <select name="data[role_id]" class="form-control margin-b-10 prov" id='role'>
+                            <foreach name="roles" item="var">
+                                <option value="{$var.role_id}">{$var.role_name}</option>
+                            </foreach>
+                        </select>
+                </div>
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <label for="enterpriseSecret">模块名称(非知慧便利采购系统勿填此项)：</label>
+            <input type="text" name="data[module]" value="" placeholder="知慧便利采购系统请填写Procurement" class="form-control" />
+        </div>-->
+    </form>
+</div>
+<block name="script">
+    <script>
+        $().ready(function() {
+            var icon = "<i class='fa fa-exclamation-triangle'></i>";
+            $("#commentForm").validate({
+                debug: false, //debug，只验证不提交表单
+                success:"valid",
+                submitHandler: function(){
+                    /*校验成功后执行*/
+                    return true;
+                },
+//          errorClass: 'fa fa-exclamation-triangle error',
+                rules: {
+                    "data[account]": {
+                        required: true,
+                        remote: {
+                            url: "{:U('checkAccount')}",     //后台处理程序
+                            type: "post",               //数据发送方式
+                            dataType: "json",           //接受数据格式
+                            data: {                     //要传递的数据
+                                account: function() {return $('#j_account').val();},
+                            }
+                        }
+                    },
+                    "data[password]": {
+                        required: true,
+                        minlength: 5
+                    },
+                    "data[username]": {
+                        required: true,
+                        remote: {
+                            url: "{:U('checkUsername')}",     //后台处理程序
+                            type: "post",               //数据发送方式
+                            dataType: "json",           //接受数据格式
+                            data: {                     //要传递的数据
+                                username: function() {return $('#j_username').val();},
+                            }
+                        }
+                    },
+                    "data[mobile]": {
+                        required: true,
+                        remote: {
+                            url: "{:U('checkMobile')}",     //后台处理程序
+                            type: "post",               //数据发送方式
+                            dataType: "json",           //接受数据格式
+                            data: {                     //要传递的数据
+                                mobile: function() {return $('#j_mobile').val();},
+                            }
+                        }
+                    },
+                },
+                messages: {
+                    "data[account]": {
+                        required:icon + "必填项",
+                        remote:"账号已存在"
+                    },
+                    "data[password]": {
+                        required: '请输入密码',
+                        minlength: '密码必须大于5位'
+                    },
+                    "data[username]": {
+                        required: '请输入用户名',
+                        remote: '用户名已存在'
+                    },
+                    "data[mobile]": {
+                        required: '请输入新密码',
+                        remote:"手机号已存在"
+                    },
+                }
+            });
+        });
+    </script>
+</block>

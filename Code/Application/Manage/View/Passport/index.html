@@ -1,0 +1,86 @@
+<include file="Public/header" />
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="input-group my-form">
+                        <input type="text" placeholder="Search for..." class="form-control">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-my">查找</button>
+						</span>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-my j-audit">审核</button>
+                    </div>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <section class="content">
+                            <table class="table table-bordered my-table">
+                                <thead>
+                                <tr>
+                                    <th><input class="j-checkAll" type="checkbox" ></th>
+                                    <th>ID</th>
+                                    <th>OAUTH</th>
+                                    <th>邮箱</th>
+                                    <th>用户名</th>
+                                    <th>注册ip</th>
+                                    <th>注册时间</th>
+                                    <th  width="30%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <volist name="lists" id="vo">
+                                        <tr>
+                                            <td scope="row"><input type="checkbox" name="sub"></td>
+                                            <td>{$vo.id}</td>
+                                            <td>{$vo.id|get_member_oauth_type}</td>
+                                            <td>{$vo.email}</td>
+                                            <td>{$vo.username}</td>
+                                            <td>{$vo.regist_ip}</td>
+                                            <td>{$vo.regist_time|time_format}</td>
+                                            <td>
+                                                <a class="ajax-get" callback="edit_callback" href="{:U('Passport/edit', array('id' => $vo['id']))}">修改</a>
+                                                <a href="{:U('Passport/login', array('id' => $vo['id']))}" target="_blank">登陆会员</a>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Public/footer" />
+
+<block name="script">
+    <script>
+        
+        var layer_boxs = function(_t, _area, _html){
+            var index = layer.open({
+                type: 1,
+                title: _t,
+                skin: 'layui-layer-me', //样式类名
+                area: _area,
+                shift: 0,
+                shade: 0.6,
+                maxmin: true, //开启最大化最小化按钮
+                content: _html,
+            });
+
+            $(".j-cancel-btn").on('click', function () {
+                layer.close(index);
+            });
+        };
+        
+        var edit_callback = function(data){
+            layer_boxs('重置密码', ['60%', '60%'], data);
+        };
+    </script>
+</block>

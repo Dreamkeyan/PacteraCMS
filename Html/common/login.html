@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>ManagePlus 后台主题UI框架 - 登录</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+    <!-- Bootstrap -->
+    <link href="plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<form id="j-login-form" action="">
+    <div class="login-wrap animated fadeInDown">
+        <div class="error-msg"></div>
+        <h1 class="gray-line">ManagePlus</h1>
+
+        <div class="login-group">
+            <div class="input-list">
+                <div class="input-icon">
+                    <i class="fa fa-user fa-lg fa-fw"></i>
+                </div>
+                <div class="input-line">
+                    <input type="text" name="username" id="username" placeholder="请输入用户名">
+                    <span class="color-line blue-line"></span>
+                </div>
+            </div>
+            <div class="input-list">
+                <div class="input-icon">
+                    <i class="fa fa-lock fa-lg fa-fw"></i>
+                </div>
+                <div class="input-line">
+                    <input type="password" name="password" id="password" placeholder="请输入密码">
+                    <span class="color-line blue-line"></span>
+                </div>
+            </div>
+            <div class="input-list">
+                <div class="input-icon">
+                    <i class="fa fa-th fa-lg fa-fw"></i>
+                </div>
+                <div class="input-line">
+                    <input type="text" name="verifyCode" id="verifyCode" placeholder="请输入验证码">
+                    <span class="color-line blue-line"></span>
+                </div>
+                <div class="input-img">
+                    <img src="images/verify-code-img.png" id="j-verify-img">
+                </div>
+            </div>
+            <!--<input type="submit" class="btn login-btn d-n" name="j-login" value="登录">-->
+            <div class="login-block">
+                <div class="login-content">
+                    <i class="fa fa-arrow-right fa-lg c-fff"></i>
+                    <input type="submit" class="btn-login" id="j-login" name="login" value="登 录">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="js/jquery.min.js"></script>
+<script src="plugins/bootstrap-3.3.5/js/bootstrap.js"></script>
+<script>
+    $(function () {
+        //切换input底部线条
+        var colorLine;//input底部线条
+        $("input").bind({
+            focus: function () {//input获取焦点
+                $colorLine = $(this).next();
+                $colorLine.removeClass('error-line').addClass('blue-line line-transition');
+            },
+            blur: function () {//input失去焦点
+                $colorLine = $(this).next(".color-line");
+                $colorLine.removeClass('blue-line').addClass('error-line');
+                if ($(this).val() != '') {
+                    $colorLine.removeClass('error-line').addClass('blue-line');
+                }
+                if ($("#password").val().length < 5) {
+                    $("#password").next().removeClass('blue-line').addClass('error-line');
+                } else {
+                    $("#password").next().removeClass('error-line').addClass('blue-line');
+                }
+            }
+        });
+
+        //第一次点击登录按钮，input为空时，底部添加红色条
+        $("#j-login").on("click", function () {
+            $("input").each(function () {
+                if ($(this).val() == '') {
+                    $(this).next().removeClass('blue-line').addClass('error-line line-transition');
+                }
+            });
+        });
+
+        //切换验证码
+        /*$("#j-verify-img").click(function(){
+         $(this).attr("src", "");
+         })*/
+
+    });
+</script>
+<!--表单校验 start-->
+<script src="plugins/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+<script src="plugins/jquery-validation-1.13.1/additional-methods.js"></script>
+<script>
+    $().ready(function () {
+        $("#j-login-form").validate({
+            debug: true, //debug，只验证不提交表单
+            success: "valid",
+            submitHandler: function (form) {
+//                form.submit();
+                document.location.href = "index.html";
+            },
+            errorLabelContainer: $("#j-login-form div.error-msg"),
+            rules: {
+                username: "required",
+                password: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "#username"
+                },
+                verifyCode: "required"
+            },
+            messages: {
+                username: {
+                    required: "<i class='fa fa-meh-o fa-fw fa-lg'></i>请输入用户名"
+                },
+                password: {
+                    required: "<i class='fa fa-meh-o fa-fw fa-lg'></i>请输入密码",
+                    minlength: $.validator.format("<i class='fa fa-meh-o fa-fw fa-lg'></i>密码不能小于{0}个字符"),
+                    equalTo: "<i class='fa fa-meh-o fa-fw fa-lg'></i>密码输入错误"
+                },
+                verifyCode: {
+                    required: "<i class='fa fa-meh-o fa-fw fa-lg'></i>请输入验证码"
+                }
+            }
+        });
+    });
+</script>
+<!--表单校验 end-->
+</body>
+</html>

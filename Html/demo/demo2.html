@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>DEMO2</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--<link rel="shortcut icon" href="favicon.ico" rel="stylesheet">-->
+    <!-- Bootstrap -->
+    <link href="../Common/plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../Common/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../Common/css/animate.min.css" rel="stylesheet">
+    <link href="../Common/css/index.css" rel="stylesheet">
+    <link href="../Common/css/common.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h3>单页表单页面（左标题右文本）</h3>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix" style="max-width: 800px; margin: 0 auto; padding: 12px;">
+                        <form class="form-horizontal" id="commentForm">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseName">企业号名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="enterpriseName" class="form-control" name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseUrl">URL</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="enterpriseUrl" class="form-control" placeholder="以http://或https://开头" name="url">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseToken">Token</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="enterpriseToken" class="form-control" placeholder="英文或数字，长度3-32字符" name="token">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseEncodingAESKey">EncodingAESKey</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="enterpriseEncodingAESKey" class="form-control" placeholder="英文或数字，长度43字符" name="key">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseUrl">省市区</label>
+                                <div class="clearfix col-sm-10">
+                                    <select class="form-control margin-b-10" title="请选择省" name="province">
+                                        <option value="">请选择省</option>
+                                        <option value="1">陕西</option>
+                                        <option value="2">山西</option>
+                                        <option value="3">北京</option>
+                                        <option value="4">上海</option>
+                                    </select>
+                                    <select class="form-control margin-b-10" title="请选择市" name="city">
+                                        <option value="">请选择市</option>
+                                        <option value="1">西安</option>
+                                        <option value="2">渭南</option>
+                                        <option value="3">咸阳</option>
+                                        <option value="4">汉中</option>
+                                    </select>
+                                    <select class="form-control margin-b-10" title="请选择区县" name="county">
+                                        <option value="">请选择区县</option>
+                                        <option value="1">富平县</option>
+                                        <option value="2">蒲城</option>
+                                        <option value="3">临渭区</option>
+                                        <option value="4">大荔</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-my pull-right">确定</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../Common/js/jquery.min.js"></script>
+<script src="../Common/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../Common/js/content.min.js"></script>
+<script src="../Common/plugins/layer/layer.min.js"></script>
+<script src="../Common/plugins/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+<script src="../Common/plugins/jquery-validation-1.13.1/additional-methods.js"></script>
+<script>
+    $().ready(function() {
+        var icon = "<i class='fa fa-exclamation-triangle'></i>";
+        $("#commentForm").validate({
+            debug: true, //debug，只验证不提交表单
+            success:"valid",
+            submitHandler: function(){
+                /*校验成功后执行*/
+                layer.alert('验证成功', {icon: 1});
+            },
+//          errorClass: 'fa fa-exclamation-triangle error',
+            rules: {
+                name: 'required',
+                url: {
+                    required: true,
+                    isUrl: true
+                },
+                token: {
+                    required: true,
+                    isNumandletter: true,
+                    rangelength: [3, 32]
+                },
+                key: {
+                    required: true,
+                    isNumandletter: true,
+                    maxlength: 43,
+                    minlength: 43
+                },
+                province: "required",//select 的 required 表示选中的 value 不能为空。
+                city: "required",
+                county: "required"
+            },
+            messages: {
+                name: icon + "必填项",
+                url: {
+                    required: icon + "必填项",
+                    isUrl: icon +  "请输入正确的URL"
+                },
+                token: {
+                    required: icon + "必填项",
+                    isNumandletter: icon + "只能输入英文或数字",
+                    rangelength: $.validator.format("请输入长度在 {0} 到 {1} 之间的字符串")
+                },
+                key: {
+                    required: icon + "必填项",
+                    isNumandletter: icon + "只能输入英文或数字",
+                    maxlength: $.validator.format("key值不能大于{0}位"),
+                    minlength: $.validator.format("key值不能小于{0}位")
+                },
+                province: icon + "请选择省",
+                city: icon + "请选择市",
+                county: icon + "请选择区县"
+            }
+        });
+    });
+</script>
+</body>
+</html>

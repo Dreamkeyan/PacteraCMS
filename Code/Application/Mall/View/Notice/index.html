@@ -1,0 +1,35 @@
+<include file="Public/header"/>
+
+<body>
+
+<div class="content">
+    <dl class="message-list">
+        <foreach name='data' item='vo'>
+        <dd>
+            <a href="javascript:void(0);" class="box box_czjz">
+            <div class="message-img">
+                <img src="{$vo.image}" alt="">
+            </div>
+            <div class="message-list-word">
+                <p>{$vo.title}</p>
+                <p>{$vo['data'][0]['content']}</p>
+            </div>
+                
+            <div class="box_1 right-inf">
+                <if condition='$vo["unread"] gt 0'>
+                    <span>{$vo.unread}</span>
+                </if>
+                <i class="iconfont icon-iconarrow"></i>
+            </div>
+                
+            </a>
+        </dd>
+        </foreach>
+    </dl>
+</div>
+<script>
+    $(function () {
+
+    });
+</script>
+<include file="Public/footer"/>

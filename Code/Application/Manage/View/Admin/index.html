@@ -1,0 +1,67 @@
+<include file="Manage@Public/header"/>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content ho">
+                    <section class="content">
+                        <div class="col-xs-12">
+                            <div class="clearfix">
+                                <form action="{:U('index')}" method="post" class="pull-left my-form">
+                                    <div class="input-group">
+                                        <input type="text" name="keyword" placeholder="输入用户名称搜索" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-my">查找</button>
+                                        </span>
+                                    </div>
+                                </form>
+                                <div class="pull-right ho btn-grp">
+                                    {:BA('add','','添加管理员','load','btn btn-my','100%','100%')}
+                                </div>
+                            </div>
+                            <table class="table table-bordered my-table">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>角色</th>
+                                    <th>手机</th>
+                                    <th>创建时间</th>
+                                    <th>创建IP</th>
+                                    <th>最后登录时间</th>
+                                    <th>最后登录IP</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="list" item="var">
+                                    <tr>
+                                        <th scope="row">{$key+1}</th>
+                                        <td width="15%">{$var.username}</td>
+                                        <td width="5%">{$var.role_name}</td>
+                                        <td>{$var.mobile}</td>
+                                        <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                                        <td>{$var.create_ip}({$var.create_ip_area})</td>
+                                        <td>{$var.last_time|date="Y-m-d H:i:s",###}</td>
+                                        <td>{$var.last_ip}({$var.last_ip_area})</td>
+                                        <td class="operate-line" width="20%">
+                                            {:BA('edit', array("id" => $var["id"]), '修改', 'load', '', '100%', '100%')}
+                                            {:BA('delete', array("id" => $var["id"]), '删除', '', '')}
+                                        </td>
+                                    </tr>
+                                </foreach>
+                                </tbody>
+                                <!--<tr>-->
+                                <!--<td colspan="7">-->
+                                <!--<ul class="pagination"> {$page}</ul>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Manage@Public/footer"/>

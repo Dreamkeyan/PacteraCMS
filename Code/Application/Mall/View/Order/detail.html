@@ -1,0 +1,137 @@
+<include file='Public/header' />
+<body class="animated fadeInRight">
+
+<div class="content">
+    <switch name="data.status">
+    <case value="1">
+        <div class="top-inf-img">
+            <div>
+                <p>等待买家付款</p>
+                <p class="top-inf-img1">剩于2天23小时自动关闭</p>
+            </div>
+        </div>
+    </case>
+    <case value="2">
+        <div class="top-inf-img">
+            <div><p>买家已付款</p></div>
+        </div>
+    </case>
+    <case value="3">
+        <div class="top-inf-img">
+            <div><p>买家已付款</p></div>
+        </div>
+    </case>
+    <case value="4">
+        <div class="top-inf-img">
+            <div> <p>买家已发货</p></div>
+        </div>
+    </case>
+    <case value="4">
+        <div class="top-inf-img">
+            <div><p>交易成功</p></div>
+        </div>
+    </case>
+    <case value="5">
+        <div class="top-inf-img">
+            <div>
+                <p>交易完成</p>
+                <!--<p class="top-inf-img1">付款超时</p>-->
+            </div>
+        </div>
+    </case>
+    <default />
+        <div class="top-inf-img">
+            <div>
+                <p>交易关闭</p>
+                <!--<p class="top-inf-img1">付款超时</p>-->
+            </div>
+        </div>
+    </switch>
+    <if condition='$data["status"] egt 4'>
+    <div class="express-inf box box_czjz">
+        <i class="iconfont icon-iconcar box_1"></i>
+        <p>【{$data.addr.city_id|get_city=city_name}】已签收，签收人是本人</p>
+    </div>
+    </if>
+    
+    <!--收货地址  bg-->
+    <div class="shipping-address">
+        <p><span>收货人：</span><span>{$data.addr.name}</span><span>{$data.addr.phone}</span></p>
+        <p class="clearfix">
+            <i class="iconfont icon-iconaddress"></i>
+            <span>收货地址：
+                {$data.addr.province_id|get_province=province_name}
+                {$data.addr.city_id|get_city=city_name}
+                {$data.addr.county_id|get_county=county_name}
+                {$data.addr.address}
+            </span>
+        </p>
+    </div>
+    <!--收货地址  end-->
+
+    <!--订单信息  bg-->
+    <div class="weui_cells weui_cells_access order-inf shipping-address1">
+        <a class="weui_cell" href="javascript:;">
+            <div class="weui_cell_hd">
+                <img src="{$data.shop.thumb_img}" alt="icon">
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>{$data.shop.name}</p>
+            </div>
+            <div class="weui_cell_ft"></div>
+        </a>
+        <foreach name='data["detail"]' item="vo">
+        <a href="{:U('Goods/detail', array('id'=>$vo['goods_id']))}" class="show-goods">
+            <div class="box box_czjz">
+                <img class="box_1 show-goods-img" src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[goods_id]" />' alt="">
+                <div class="goods-tieles box_3">
+                    <p>{$vo.goods_name}</p>
+                    <div class="box show-goods-price">
+                        <div class="box_3 box box_cz">
+                            <div>
+                                <span>{$vo.goods_spec}</span>
+                            </div>
+                            <div class="goods-price-color"><span>¥</span><span class="goods-price">{$vo.goods_price}</span> <span>¥{$vo.market_price}</span></div>
+                        </div>
+                        <div class="box_1"><span>X</span><span class="num">{$vo.goods_number}</span></div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="refund"><span>退款</span></div>-->
+        </a>
+        </foreach>
+        <div class="goods-rental">
+            <div class="box goods-rental1">
+                <div class="box_1">商品总额</div>
+                <div class="box_1"><span>¥</span><span>{$data.total_amount}</span></div>
+            </div>
+            <div class="box goods-rental2">
+                <div class="box_1">运费</div>
+                <div class="box_1"><span>¥</span><span>{$data.express_price}</span></div>
+            </div>
+        </div>
+        <div class="box box_czjz goods-rental3">
+            <div class="box_1"><span>联系客服</span></div>
+            <div class="box_1"><span>实付款：</span><span>¥</span><span>{$data.actual_amount}</span></div>
+        </div>
+
+        <!--订单信息  end-->
+    </div>
+
+    <div class="order-now">
+        <p><span>订单编好：</span><span>{$data.order_sn}</span></p>
+        <p><span>支付方式：</span><span>{$data.pay_type|payType} <if condition="empty($data['pay_type'])">支付</if></span></p>
+        <p><span>下单时间：</span><span>{$data.create_time|date='Y.m.d H:i:s',###}</span></p>
+    </div>
+</div>
+
+<div class="remind-delivery" data-id='{$data.id}'>{$data.status|orderDetailButton=$data['deliver_type']}</div>
+
+<script>
+    $(function () {
+        common.delete_order("{:U('Order/operateOrder')}");
+        common.operate_order();
+        
+    });
+</script>
+<include file='Public/footer' />

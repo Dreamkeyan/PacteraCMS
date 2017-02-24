@@ -1,0 +1,126 @@
+<include file='Public/header' />
+<body class="animated fadeInRight">
+
+<div class="content">
+    <!--收货地址  bg-->
+    <div class="shipping-address js-change-address">
+        <p><span>收货人：</span><span>{$addr.name}</span><span>{$addr.phone}</span></p>
+        <p class="clearfix">
+            <i class="iconfont icon-iconaddress"></i>
+            <span>收货地址：{$addr.addr}</span></p>
+        <img src="__ASSET__/Mall/Mobile/images/img_line_adr.png" class="adds-img">
+    </div>
+    <!--收货地址  end-->
+
+    <!--订单信息  bg-->
+    <div class="order-more">
+        <foreach name="shops" item="svo" key="k">
+        <div class="weui_cells weui_cells_access order-inf j-shop-order">
+            <find name='Shop' pk='$k' id="val" >
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_hd">
+                    <img src="{$val.thumb_img}" alt="icon">
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>{$val.name}</p>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+            </find>
+            <foreach name="goods[$k]" item='gvo'>
+
+            <a href="{:U('goods/detail', array('id'=>$gvo[goods_id]))}" class="box show-goods box_czjz">
+                <img class="box_1 show-goods-img" src='<value name="GoodsImage"  field="img_url" where="goods_id = $gvo[goods_id]" />' alt="">
+                <div class="goods-tieles box_3">
+                    <p>{$gvo.goods_name}</p>
+                    <div class="box show-goods-price">
+                        <div class="box_3 box box_cz">
+                            <div class="goods-price-color"><span>¥</span><span class="goods-price">{$gvo.goods_price}</span></div>
+                        </div>
+                        <div class="box_1"><span>X</span><span class="num">{$gvo.goods_number}</span></div>
+                    </div>
+                </div>
+            </a>
+            </foreach>
+            <div class="box show-goods-num box_czjz">
+                <div class="box_1">配送方式</div>
+                <div class="box_1 show-goods-nums  j-delivery-show" data-express='{$svo.express_price}' data-sid="{$k}" data-val='{$svo.deliver_type}' >
+                    <if condition='$svo["deliver_type"] eq 1'>
+                    <span>自提</span><span>{$self_out_time|date='n月d日 H:00',###}</span><span>以后</span>
+                    <else />
+                    <span>快递</span><span>¥</span><span>{$svo.express_price}</span>
+                    </if>
+                </div>
+            </div>
+            <div class="box show-goods-delivery">
+                <div class="box_1">买家留言</div>
+                <div class="box_1 show-goods-nums" data-sid="{$k}">
+                    <input class="certificate" name='remark' placeholder="选填:您有什么要求" rows="1" value="{$svo.remark}"/>
+                </div>
+            </div>
+            <div class="total-goods">
+                <span>共{$svo.total_count}件商品</span><span>合计:</span><span>¥</span><span class="j-shop-total" data-total="{$svo.total_price}">{$svo.actual_amount}</span>
+            </div>
+        </div>
+        </foreach>
+    </div>
+    <!--订单信息  end-->
+</div>
+
+<!--底部立即购买菜单  bg-->
+<dl class="buy-now clearfix">
+    <dd>
+        <div><span>共</span><span>{$data.count}</span><span>件商品</span></div>
+        <div><span>合计：</span><span>¥</span><span class="j-total-price">{$data.price}</span></div>
+    </dd>
+    <dd class="j_save_order">立即购买</dd>
+</dl>
+<!--底部立即购买菜单  end-->
+
+<!--配送方式弹框  bg-->
+<div id="j-delivery-method" class="weui-popup-container popup-bottom">
+    <div class="weui-popup-overlay"></div>
+    <div class="weui-popup-modal">
+        <p class="clearfix delivery-change"><span>配送方式</span><span class="j-new-show">现场配货</span></p>
+        <div class="delivery-change1">
+            <div class="delivery-change-new clearfix">
+                <div>自提</div>
+                <div><span class='j-self-out'>{$self_out_time|date='n月d日 H:00',###} </span><span>以后</span></div>
+                <div class="j-check-delivery">
+                    <label for="delivery1" class="iconfont icon-iconcheckon add-label-style"></label>
+                    <input type="radio" name="delivery" id="delivery1" checked value="1">
+                </div>
+            </div>
+            <div class="delivery-change-new  clearfix">
+                <div>快递</div>
+                <div><span>¥</span><span class='j-express'>0</span></div>
+                <div class="j-check-delivery">
+                    <label for="delivery3" class="iconfont icon-checkoff"></label>
+                    <input type="radio" name="delivery" id="delivery3" value="2">
+                </div>
+            </div>
+        </div>
+        <div class="true-cart-standard j-ture-delivery close-popup">
+            <input type="button" value="取消">
+        </div>
+    </div>
+</div>
+<!--配送方式弹框  end-->
+
+<script>
+    $(function () {
+        //  配送方式
+        common.delivery_method('{:U("Order/setSessionOrder")}');
+        
+        //保存订单
+        common.save_order("{:U('Order/saveOrder')}", '{:U("Order/index")}');
+        
+        //选择地址
+        common.save_order_change_address('{:U("Member/address", array("from"=>"order"))}');
+        
+        //保存备注
+        common.save_order_remark('{:U("Order/setSessionOrder")}');
+    });
+    
+</script>
+<include file="Public/footer" />

@@ -1,0 +1,76 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    {:BA('add', '', '添加插件', 'load', 'btn btn-my pull-right', '100%', '100%')}
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>描述</th>
+                                <th>状态</th>
+                                <th>作者</th>
+                                <th>版本</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="var">
+                                <tr>
+                                    <td>{$var.name}</td>
+                                    <td>{$var.description}</td>
+                                    <td>{$var.status_info|default="未安装"}</td>
+                                    <td>{$var.author|default="无名"}</td>
+                                    <td>{$var.version}</td>
+                                    <td>
+                                        <empty name="var.uninstall">
+                                            <?php
+                                                $class	= get_addon_class($var['name']);
+                                                if (!class_exists($class)) {
+                                                    $has_config = 0;
+                                                } else {
+                                                    $addon = new $class();
+                                                    $has_config = count($addon->getConfig());
+                                                }
+                                            ?>
+
+                                            <?php if ($has_config) { ?>
+                                                {:BA('config', array("id" => $var["id"]), '设置', 'load', '', '100%', '100%')}
+                                            <?php } ?>
+
+                                            <?php if ($var['status'] >= 0) { ?>
+                                            <eq name="var.status" value="0">
+                                                {:BA('enable', array("id" => $var["id"]), '启用', '', '')}
+                                            <else />
+                                                {:BA('disable', array("id" => $var["id"]), '禁用', '', '')}
+                                            </eq>
+                                            <?php } ?>
+                                                {:BA('uninstall', array("id" => $var["id"]), '卸载', '', '')}
+                                            <else/>
+                                                {:BA('install', array("name" => $var["name"]), '安装', '', '')}
+                                        </empty>
+
+                                    </td>
+                                </tr>
+                            </volist>
+                            <tr>
+                                <td colspan="20" align="left">
+                                    <div class="lt" style="margin-left: 50px;">
+                                        <ul class="pagination"> {$page}</ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footer" />

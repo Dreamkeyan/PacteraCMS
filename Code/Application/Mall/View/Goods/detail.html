@@ -1,0 +1,292 @@
+<include file="Public/header"/>
+<body class="animated fadeInRight">
+
+<div class="content">
+    <!--商品展示图  bg-->
+    <div class="show-img">
+        <div class="swiper-container shop-img">
+            <div class="swiper-wrapper">
+                <query name="GoodsImage" id='val' where="status=1 and goods_id=$data[id]" order='id DESC'>
+                    <div class="swiper-slide"><a href="javascript:"><img src="{$val.img_url}" alt=""></a></div>
+                </query>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+        
+        <if condition='isset($_GET["type"]) and $_GET["type"] eq 1'>
+            <!--现场配货-->
+            <div class="field-distribution">现场配货</div>
+            <else />
+            <!--客服-->
+            <div  class="service"><a href="javascript:"><img src="__ASSET__/Mall/Mobile/images/icon_kefu.png"></a></div>
+        </if>
+        
+        
+        <div class="dis-none dis-img-none"><img src="__ASSET__/Mall/Mobile/images/shop002.jpg" class="goods-img-none"></div>
+    </div>
+    <!--商品展示图  end-->
+    
+    <!--商品标题等  bg-->
+    <div class="goods-inf">
+        <div class="goods-title clearfix">
+            <span class="tiele-inf">{$data.name}</span>
+            <img src="__ASSET__/Mall/Mobile/images/line_shangpin.png" class="cutting-line">
+            <div class="share-goods">
+                <i class="iconfont icon-iconshare"></i>
+                <span>分享</span>
+            </div>
+        </div>
+        <p><span>¥</span><span id="goods_price">{$data.sale_price}</span></p>
+        <dl class="weui_grids goods-infs clearfix ">
+            <dd>市场价¥{$data.market_price}</dd>
+            <dd>快递:{$data.express_price}</dd>
+            <dd>已售{$data.sale_count}笔</dd>
+        </dl>
+    </div>
+    
+    <switch name="_GET['type']" >
+    <case value="1">
+        <div class="goods-shop-inf more-inf clearfix j-more-inf">
+            <span>更多详情</span><img src="__ASSET__/Mall/Mobile/images/img_down.png" alt="">
+        </div>
+        <div class="dis-none j-hide-details">
+            <dl class="weui_grids goods-shop-inf clearfix mar-top05">
+                <a href="{:U('Appraise/index', array('goods_id'=>$data[id], 'type' => 1))}">
+                    <dd><img src="__ASSET__/Mall/Mobile/images/icon_goumai.png" alt=""><span>购买评价</span></dd>
+                    <dd>{$data.appraise_count}条</dd>
+                    <dd class="raty" <if condition='$data["appraise_count"] neq 0'>  data-score="{$data['appraise_sum']/$detail['appraise_count']}" <else /> data-score="0"</if>></dd>
+                </a>
+            </dl>
+            <div class="goods-shop-inf shop-standard clearfix">
+                <row name='MemberExtend' where='member_id=$data[member_id]' id='val'>
+                    <img src="{$val.header_img}" alt="" class="shop-head">
+                    <span class="shop-name"><field module="Member"  field="username" pk="$data[member_id]" /></span>
+                    <div class="shop-four">
+                        <div>
+                            <img src="__ASSET__/Mall/Mobile/images/img_zhen.png" alt="">
+                            <span>{$val.real}</span>
+                        </div>
+                        <div>
+                            <img src="__ASSET__/Mall/Mobile/images/img_cheng.png" alt="">
+                            <span>{$val.sincere}</span>
+                        </div>
+                        <div>
+                            <img src="__ASSET__/Mall/Mobile/images/img_xin.png" alt="">
+                            <span>{$val.believe}</span>
+                        </div>
+                        <div>
+                            <img src="__ASSET__/Mall/Mobile/images/img_cheng.png" alt="">
+                            <span>{$val.virtue}</span>
+                        </div>
+                    </div>
+                </row>
+            </div>
+            <div class="goods-shop-inf  shop-standard clearfix">
+                <find name='Shop' pk='$data[shop_id]' id="val" >
+                <img src="{$val.thumb_img}" alt="" class="shop-head">
+                <span class="shop-name">{$val.name}</span>
+                <dl class="shop-quantity">
+                    <dd>
+                        <span>{$val.sales_count}</span>
+                        <span>销量</span>
+                    </dd>
+                    <dd>
+                        <span>{$val.collect_count}</span>
+                        <span>收藏</span>
+                    </dd>
+                </dl>
+                </find>
+            </div>
+        </div>
+        <!--商品标题等  end-->
+        <!--图文详情  bg-->
+        <div class="graphic-details">
+            <p class="delivery-time">
+                <img src="__ASSET__/Mall/Mobile/images/img_xiadan.png" alt="">
+            </p>
+            <p class="pull-look">
+                <span>上拉查看图文详情</span>
+            </p>
+        </div>
+        <!--图文详情  end-->
+    </case>
+    <default />
+        <dl class="weui_grids goods-shop-inf clearfix mar-top05">
+            <a href="{:U('Appraise/index', array('goods_id'=>$data[id], 'type' => 1))}">
+                <dd><img src="__ASSET__/Mall/Mobile/images/icon_goumai.png" alt=""><span>购买评价</span></dd>
+                <dd>{$data.appraise_count}条</dd>
+                <dd class="raty" <if condition='$data["appraise_count"] neq 0'>  data-score="{$data['appraise_sum']/$data['appraise_count']}" <else /> data-score="0"</if>></dd>
+            </a>
+        </dl>
+
+        <div class="goods-shop-inf shop-standard clearfix">
+            <row name='MemberExtend' where='member_id=$data[member_id]' id='val'>
+                <img src="{$val.header_img}" alt="" class="shop-head">
+                <span class="shop-name"><field module="Member"  field="username" pk="$data[member_id]" /></span>
+                <div class="shop-four">
+                    <div>
+                        <img src="__ASSET__/Mall/Mobile/images/img_zhen.png" alt="">
+                        <span>{$val.real}</span>
+                    </div>
+                    <div>
+                        <img src="__ASSET__/Mall/Mobile/images/img_cheng.png" alt="">
+                        <span>{$val.sincere}</span>
+                    </div>
+                    <div>
+                        <img src="__ASSET__/Mall/Mobile/images/img_xin.png" alt="">
+                        <span>{$val.believe}</span>
+                    </div>
+                    <div>
+                        <img src="__ASSET__/Mall/Mobile/images/img_cheng.png" alt="">
+                        <span>{$val.virtue}</span>
+                    </div>
+                </div>
+            </row>
+        </div>
+        <div class="goods-shop-inf  shop-standard clearfix">
+            <find name='Shop' pk='$data[shop_id]' id='val'>
+            <img src="{$val.thumb_img}" alt="" class="shop-head">
+            <span class="shop-name">{$val.name}</span>
+            <dl class="shop-quantity">
+                <dd>
+                    <span>{$val.sales_count}</span>
+                    <span>销量</span>
+                </dd>
+                <dd>
+                    <span>{$val.collect_count}</span>
+                    <span>收藏</span>
+                </dd>
+            </dl>
+            </find>
+        </div>
+        <!--商品标题等  end-->
+        <!--图文详情  bg-->
+        <div class="graphic-details">
+            <p class="pull-look">
+                <span>上拉查看图文详情</span>
+            </p>
+            <!--选择列表 bg-->
+            <dl class="top-menu draphic-details-list weui_grids clearfix">
+                <dd class="top-add">商品介绍</dd>
+                <dd>商品参数</dd>
+            </dl>
+            <!--选择列表 end-->
+            <!--介绍/参数列表 bg-->
+            <div class="product-list">
+                <div class="product-list-show draphic-details-inf">
+                    {$data.desc|htmlspecialchars_decode}
+                </div>
+                <div class="dis-none product-list-show goods-parameters">
+                    <ul class="clearfix">
+                        <query name='GoodsAttr' where='goods_id=$data[id]' id='val' order="create_time DESC">
+                            <li><p><span><field name='attr' pk='$val[attr_id]' field='attr_name'/></span><span>{$val.attr_value}</span></p></li>
+                        </query>
+                    </ul>
+                </div>
+
+            </div>
+            <!--介绍/参数列表 end-->
+        </div>
+        <!--图文详情  end-->
+    </switch>
+</div>
+
+<!--底部加入购物车 Bg-->
+<dl class="shopping-cart clearfix">
+    <dd>
+    <row name='MemberCollect' where='member_id=$mid and type=1 and collect_id=$data[id]'  id='res' >
+            <if condition='!empty($res) and $res[status] eq 1'>
+                <i class="iconfont j-add-succeed icon-iconshoucang02" data-id='{$data[id]}' date-collect="false"></i>
+            <else />
+                <i class="iconfont icon-iconshoucang j-add-succeed" data-id='{$data[id]}'></i>
+            </if>
+        </row>
+        <span>收藏</span>
+    </dd>
+    <dd class="cart-add-number">
+        <a href="{:U('Cart/index')}">
+            <i class="iconfont icon-iconshopping02"></i>
+            <span class="add-shopping-cart">购物车</span>
+            <row name='Cart' where='member_id=$mid and status = 1 and goods_id=$data[id]' id='val' field='sum(goods_number) as num' >
+                <if condition='!empty($val)'>
+                    <span class="shopping-cart-number">{$val.num}</span>
+                </if>
+            </row>
+        </a>
+    </dd>
+    <dd><a href="javascript:;" class="j-open-popup" date-change="0">加入购物车</a></dd>
+    <dd><a href="javascript:;" class="j-open-popup" date-change="1"> 立即购买</a></dd>
+</dl>
+
+<!--底部加入购物车 end-->
+
+<!--加入购物车规格选择 bg-->
+<form id='j-goods-buy' action="{:U('Order/makeOrder', array('from' =>'goods'))}" method="post">
+<div id="j-add-cart" class="weui-popup-container popup-bottom">
+    <input name='gid' value="{$data['id']}" type="hidden">
+    <input name='gname' value="{$data['name']}" type="hidden">
+    <input name='t' value="{$_GET['type']}" type="hidden">
+    <input name='sid' value="{$data['shop_id']}" type="hidden">
+    <input name='goodsprice' value="{$data['sale_price']}" type="hidden">
+    <input name='marketprice' value="{$data['market_price']}" type="hidden">
+    <input name='expressprice' value="{$data['express_price']}" type="hidden">
+    <input name='specname' value="" type="hidden">
+    <div class="weui-popup-overlay"></div>
+    <div class="weui-popup-modal cart-standard">
+        <p><img src="__ASSET__/Mall/Mobile/images/img_close.png" class="close-popup"></p>
+        <foreach name="data['spec']" item='val' key='key'>
+        <div class="box cart-standard1">
+            <div class="cart-style">{$key}:</div>
+            <div class="box_1 clearfix cart-size">
+                <foreach name='val' item='v' key='k'>
+                <span <if condition="$k eq 0 ">class="cart-add-change"</if>>{$v.item}
+                <input type="radio" style="display:none;" name="goods_spec[{$key}]" value="{$v[item_id]}" <if condition="$k eq 0 ">checked="checked"</if>/>
+                </span>
+                </foreach>
+            </div>
+        </div>
+        </foreach>
+        <div class="box cart-standard1">
+            <div class="cart-style">数量:</div>
+            <div class="box_1  clearfix cart-number">
+                <div class="num-index">
+                    <span class="less iconfont icon-iconminus"></span>
+                    <input type="number" class="form-num" name="num" value="1" min="1" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+                    <span class="add iconfont icon-iconadd"></span>
+                </div>
+            </div>
+        </div>
+        <div class="true-cart-standard">
+            <input type="button" value="确定" class="close-popup j-cart-animation">
+        </div>
+    </div>
+</div>
+
+</form>
+    <!--加入购物车规格选择 end-->
+
+<script>
+    $(function () {
+//        console.log({$spec_goods_price});
+        //  图片轮播
+        common.img_play();
+        //  星星评分
+        common.star_grade();
+        //  点击显示更多详情
+        common.more_details();
+        //  顶部点击加载样式
+        common.top_add()
+        //  数量操作
+//        common.quantity_computation();
+        // 加入购物车动画 //立即购买
+        common.add_cart_animation("{:U('Cart/add')}", '{$data.sale_price}', {$spec_goods_price});
+        //  收藏 取消收藏
+        common.succeed_add_cart("{:U('Member/collect')}");
+        
+        
+        common.cart_goods_price('{$data.sale_price}', {$spec_goods_price});
+    });
+
+</script>
+<include file="Public/footer"/>

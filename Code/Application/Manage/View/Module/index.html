@@ -1,0 +1,85 @@
+<include file="Public/header"/>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <!--顶部查找操作 bg-->
+                <div class="ibox-title">
+                    <div class="input-group my-form">
+                        <input type="text" placeholder="Search for..." class="form-control">
+                        <span class="input-group-btn">
+                                <button type="button" class="btn btn-my">查找</button>
+                            </span>
+                    </div>
+                    <!--<button type="button" class="btn btn-my pull-right j-disable"><span class="glyphicon glyphicon-plus"></span>&nbsp;禁用</button>-->
+                    <!--<button type="button" class="btn btn-my pull-right j-enable"><span class="glyphicon glyphicon-plus"></span>&nbsp;启用</button>-->
+                </div>
+                <!--顶部查找操作 end-->
+
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <!--表格 bg-->
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th>模块名称</th>
+                                <th>模块标题</th>
+                                <th>团队/作者</th>
+                                <th>描述</th>
+                                <th>版本</th>
+                                <th>创建时间</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <volist name="module" id="vo">
+                                    <td>{$vo.module_name}</td>
+                                    <td>{$vo.module_title}</td>
+                                    <td>{$vo.developer}</td>
+                                    <td>{$vo.description}</td>
+                                    <td>{$vo.version}</td>
+                                    <td><empty name="vo.create_time">-<else/>{$vo.create_time|date="Y-m-d H:i",###}</empty></td>
+                                    <td>
+                                        <switch name="vo.status">
+                                            <case value="-1">未安装</case>
+                                            <case value="1">启用</case>
+                                            <case value="0">禁用</case>
+                                        </switch>
+                                    </td>
+                                    <td>
+                                        <switch name="vo.status">
+                                            <case value="-1">
+                                                {:BA('install',array('name'=>$vo['module_name']),'安装','','btn btn-sm btn-primary j-install')}
+                                            </case>
+                                            <case value="0">
+                                                {:BA('enable',array('id'=>$vo['id']),'启用','','btn btn-sm btn-info j-update')}
+                                            </case>
+                                            <case value="1">
+                                                {:BA('update',array('id'=>$vo['id'],'name'=>$vo['module_name']),'更新','','btn btn-sm btn-primary j-update')}
+                                                {:BA('disable',array('id'=>$vo['id']),'禁用','','btn btn-sm btn-warning j-update')}
+                                                {:BA('uninstall',array('id'=>$vo['id']),'卸载','','btn btn-sm btn-danger j-uninstall')}
+                                            </case>
+                                            <default />-
+                                        </switch>
+                                    </td>
+                                </volist>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--表格 end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $('.')
+    });
+</script>
+<include file="Public/fooder"/>

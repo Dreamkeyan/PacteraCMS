@@ -1,0 +1,83 @@
+<include file="Public/header"/>
+
+<body class="animated fadeInRight">
+<div class="classify-all box box_cz">
+    <!--搜索栏 bg-->
+    <div class="weui_search_bar classify-seek" id="search_bar">
+        <form class="weui_search_outer">
+            <div class="weui_search_inner">
+                <i class="weui_icon_search"></i>
+                <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required/>
+                <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+            </div>
+        </form>
+        <a href="javascript:" class="weui_search_cancel word-org" id="search_cancel">取消</a>
+    </div>
+    <!--搜索栏 end-->
+
+    <div class="box_3 box content classify-inf ">
+        <!--左边列表 bg-->
+        <dl class="classify-list-left">
+            <dd class="classify-list-click">热搜推荐</dd>
+            <foreach name="data['cate']" item="vo">
+                <dd>{$vo.name}</dd>
+            </foreach>
+        </dl>
+        <!--左边列表 end-->
+
+        <!--右边列表-->
+        <div class="classify-list-right box_1">
+            <div class="right-list">
+                <div class="new-rob">
+                    <img src="__ASSET__/Mall/Mobile/images/fenlei001.jpg" alt="">
+                    <p class="new-rob1">发布新品，抢鲜购</p>
+                    <p class="new-rob2"><a href="javascript:">马上开抢</a></p>
+                </div>
+                <h4>本周热搜</h4>
+                <dl class="right-list-inf clearfix">
+                    <foreach name="data['search']" item="vo">
+                    <dd>
+                        <a href="{:U('Goods/goodsList', array('id'=>$vo['id'], 'type' => 2))}">
+                            <img src="__ASSET__/Mall/Mobile/images/shop005.jpg" alt="">
+                            <p>{$vo.word}</p>
+                        </a>
+                    </dd>
+                    </foreach>
+                </dl>
+            </div>
+            <foreach name="data['cate']" item="vo">
+                <div class="dis-none right-list">
+                    <div class="new-rob">
+                        <img src="__ASSET__/Mall/Mobile/images/fenlei001.jpg" alt="">
+                        <p class="new-rob1">发布新品，抢鲜购</p>
+                        <p class="new-rob2"><a href="javascript:">马上开抢</a></p>
+                    </div>
+                    <h4>{$vo.name}</h4>
+                    <dl class="right-list-inf clearfix">
+                        <foreach name="vo['_child']" item="val">
+                            <dd>
+                                <a href="{:U('Goods/goodsList', array('id'=>$val['id'], 'type' => 1))}">
+                                    <img src="{$val['img_url']}" alt="">
+                                    <p>{$val.name}</p>
+                                </a>
+                            </dd>
+                        </foreach>
+                    </dl>
+                </div>
+            </foreach>
+        </div>
+        <!--右边列表-->
+    </div>
+
+</div>
+<include file="Public/menu_footer"/>
+
+<!--头部-->
+<script src="__ASSET__/Common/Mobilejs/headroom/headroom.js"></script>
+<script>
+    $(function () {
+        //  菜单切换
+        common.classify_menu_change();
+    });
+</script>
+<include file="Public/footer"/>

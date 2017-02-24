@@ -1,0 +1,43 @@
+<include file="Public:header"/>
+<body>
+
+<div class="content">
+    <dl class="card-inf">
+        <query name="BankCard" where="member_id=$mid and status=1" order="id ASC" id="vo">
+            <dd class="bg-card-blue">
+                <div class="bg-card">
+                    <img src="__ASSET__/Mall/Mobile/images/card_jsyh02.png" alt="">
+                </div>
+                <div class="card-dels">
+                    <div class="box">
+                        <div class="card-logo ">
+                            <img src="__ASSET__/Mall/Mobile/images/card_jsyh.png" alt="">
+                        </div>
+                        <div class="box_3 card-bank">
+                            <p>{$vo.bank_name}</p>
+                            <p>{$vo.cark_type_name}</p>
+                        </div>
+                        <img src="__ASSET__/Mall/Mobile/images/img_more_card.png" alt="" class="card-more">
+                        <div class="delete-card dis-none" data-id='{$vo.id}'>
+                            <p>删除</p>
+                        </div>
+                    </div>
+
+                    <p class="card-num"><span>{$vo.card_no|cardNoToSign}</span></p>
+                </div>
+            </dd>
+        </query>
+    </dl>
+    <div class="add-bank-cart">
+        <a href="{:U('Member/bankCardAdd')}"><i class="iconfont icon-iconadd"></i><span>添加银行卡</span> <i class="iconfont icon-iconarrow"></i></a>
+    </div>
+</div>
+
+<script>
+    $(function () {
+     //   银行卡删除
+        common.dels_bank("{:U('member/bankCardDelete')}");
+
+    });
+</script>
+<include file="Public:footer"/>

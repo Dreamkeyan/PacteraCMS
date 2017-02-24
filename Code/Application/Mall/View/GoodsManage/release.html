@@ -1,0 +1,472 @@
+<include file="Public/headerManage"/>
+<style>
+    .plupload-pick .webuploader-pick {
+        background-color: #fff;
+        width: 80px;
+        height: 80px;
+        z-index: -1;
+    }
+</style>
+<div class="wrapper wrapper-content">
+    <form id="goods-form">
+        <empty name="data">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content p-md ho">
+                            <div class="form-horizontal" style="max-width: 1000px;">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">卖家ID：</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="sellerId" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">店铺ID：</label>
+                                    <div class="col-sm-4">
+                                        <select name="shop_id" class="form-control" required>
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <else/>
+            <input type="hidden" name="id" value="{$data.id}"/>
+        </empty>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <label>商品基本信息</label>
+                        <a href="javascript:void(0);" class="btn btn-warning pull-right save-btn">保存</a>
+                    </div>
+                    <div class="ibox-content ho">
+                        <div class="form-horizontal" style="max-width: 1000px;">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i>
+                                    商品类目：</label>
+                                <div class="col-xs-3">
+                                    <select class="form-control" name="cate1" required>
+                                        <option value="">一级分类</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" name="cate2" required>
+                                        <option value="">二级分类</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-4">
+                                    <select class="form-control" name="cate3" required>
+                                        <option value="">三级分类</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i>
+                                    商品标题：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="name" class="form-control" placeholder="不超过60个字符"
+                                           value="{$data.name}" required>
+                                </div>
+                            </div>
+                            <div class="form-group attr-box hide">
+                                <label class="col-sm-2 control-label">商品属性：</label>
+                                <div class="col-sm-10"></div>
+                            </div>
+                            <div class="form-group spec-box hide">
+                                <label class="col-sm-2 control-label">商品规格：</label>
+                                <div class="col-sm-10"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10 spec-table"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品图片：</label>
+                                <div class="col-sm-10">
+                                    <p>商品主图大小不能超过3MB；700*700 以上图片上传后宝贝详情页自动提供放大镜功能。</p>
+                                    <div id="img1" class="plupload-pick"></div>
+                                    <div id="img2" class="plupload-pick"></div>
+                                    <div id="img3" class="plupload-pick"></div>
+                                    <div id="img4" class="plupload-pick"></div>
+                                    <div id="img5" class="plupload-pick"></div>
+                                    <div class="upload-result">
+                                        <label>上传结果：</label>
+                                        <for start="1" end="6">
+                                            <img id="show-img{$i}" url="{:U('uploadFile')}"
+                                                 src="__LOCAL_ASSET__/Mall/Admin/images/bg.png">
+                                        </for>
+                                    </div>
+                                    <for start="1" end="6">
+                                        <input type="hidden" id="data-img{$i}" name="thumb_img[]"/>
+                                    </for>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品描述：</label>
+                                <div class="col-sm-10">
+                                    <script type="text/plain" id="editor"
+                                            style="width:100%;height:300px;margin-top:12px;">{$data.desc|htmlspecialchars_decode}
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<input id="images" type="hidden" value='{$images}'/>
+<input id="attrs" type="hidden" value='{$attrs}'/>
+<input id="specs" type="hidden" value='{$specs}'/>
+<input id="cateids" type="hidden" value='{$cateids}'/>
+<include file="Public/footerManage"/>
+<block name="script">
+    <link rel="stylesheet" type="text/css" href="__ASSET__/Common/Admin/plugins/webuploader-0.1.5/webuploader.css">
+    <script type="text/javascript" src="__ASSET__/Common/Admin/plugins/webuploader-0.1.5/webuploader.js"></script>
+    <script src="__ASSET__/Common/Admin/plugins/ueditor1_4_3_3-utf8-php/ueditor.config.js"></script>
+    <script src="__ASSET__/Common/Admin/plugins/ueditor1_4_3_3-utf8-php/ueditor.all.min.js"></script>
+    <script src="__ASSET__/Common/Admin/plugins/ueditor1_4_3_3-utf8-php/lang/zh-cn/zh-cn.js"></script>
+    <script src="__LOCAL_ASSET__/Mall/Admin/js/uploadFile.js"></script>
+    <script>
+        $(function () {
+            uploaderImg('#img1', '#show-img1', '#data-img1', '50', '50', true);
+            uploaderImg('#img2', '#show-img2', '#data-img2', '50', '50', true);
+            uploaderImg('#img3', '#show-img3', '#data-img3', '50', '50', true);
+            uploaderImg('#img4', '#show-img4', '#data-img4', '50', '50', true);
+            uploaderImg('#img5', '#show-img5', '#data-img5', '50', '50', true);
+            /*UE*/
+            mall.initialize_ue_func("editor");
+            /*商品其他服务控制*/
+            mall.initialize_goods_service();
+            // 更新填充图片
+            function fillImages() {
+                var images = $("#images").val();
+                if (images) {
+                    images = JSON.parse(images);
+                    $(".upload-result > img").each(function (i) {
+                        if (images[i]) {
+                            $(this).attr("src", images[i]['img_url']);
+                        }
+                    });
+                    $("input[type=hidden][name='thumb_img[]']").each(function (i) {
+                        if (images[i]) {
+                            $(this).val(images[i]['img_url']);
+                        }
+                    });
+                }
+            }
+
+            fillImages();
+            // 变量定义
+            var timeoutID = 0, cates = $.parseJSON('{$cates}');
+            // 输入卖家ID筛选店铺
+            $("#sellerId").keyup(function () {
+                var sellerid = $(this).val(), shopSelect = $("select[name=shop_id]");
+                clearTimeout(timeoutID);
+                shopSelect.children().eq(0).siblings().remove();
+                timeoutID = setTimeout(function () {
+                    var url = "{:U('ShopManage/getShopsByMemberNum')}";
+                    $.post(url, {num: sellerid}, function (data) {
+                        var html = '';
+                        $.each(data, function (k, v) {
+                            html += '<option value="' + v.id + '">' + v.name + '</option>';
+                        });
+                        shopSelect.append(html);
+                    });
+                }, 1000);
+            });
+            // 加载选项
+            function appendOptions(cate, pid) {
+                var html = '', options = [];
+                options = $.grep(cates, function (n) {
+                    return n.pid == pid;
+                });
+                $.each(options, function (k, v) {
+                    html += '<option value="' + v.id + '">' + v.name + '</option>';
+                });
+                cate.append(html);
+            }
+
+            // 清除属性和规格
+            function clearParams() {
+                $(".attr-box").addClass("hide").children(".col-sm-10").html('');
+                $(".spec-box").addClass("hide").children(".col-sm-10").html('');
+            }
+
+            // 分类部分
+            var cate1 = $("select[name=cate1]");
+            var cate2 = $("select[name=cate2]");
+            var cate3 = $("select[name=cate3]");
+            // 一级类目切换
+            cate1.change(function () {
+                var val = $(this).val();
+                cate2.children().eq(0).siblings().remove();
+                cate3.children().eq(0).siblings().remove();
+                appendOptions(cate2, val);
+                clearParams();
+            });
+            // 二级类目切换
+            cate2.change(function () {
+                var val = $(this).val();
+                cate3.children().eq(0).siblings().remove();
+                appendOptions(cate3, val);
+                clearParams();
+            });
+            // 三级类目切换
+            cate3.change(function (event, isEdit) {
+                var url = "{:U('ParamManage/getParams')}", val = $(this).val();
+                clearParams();
+                if (val) {
+                    $.post(url, {cateid: val}, function (data) {
+                        appendInput(data);
+                        initSpecFun();
+                        if (isEdit) {
+                            fillParams();
+                        }
+                    });
+                }
+            });
+
+            // 填充属性和规格
+            function fillParams() {
+                var attrs = $("#attrs").val();
+                var specs = $("#specs").val();
+                if (attrs) {
+                    attrs = JSON.parse(attrs);
+                    $.each(attrs, function (i, n) {
+                        var selector = '.attr-input[attr-id=' + n.attr_id + ']';
+                        $(selector).val(n.attr_value);
+                    });
+                }
+                if (specs) {
+                    specs = JSON.parse(specs);
+                    var itemids = [];
+                    $.each(specs, function (i, n) {
+                        var ids = n.key.split("_");
+                        itemids = $.unique($.merge(itemids, ids));
+                    });
+                    $("input[class=spec-checked]").each(function () {
+                        var val = $(this).val();
+                        if ($.inArray(val, itemids) !== -1) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+                    getSpecTable(itemids, specs);
+                }
+            }
+
+            // 初始化一级分类
+            appendOptions(cate1, 0);
+            // 填充分类
+            function fillCate() {
+                var cates = $("#cateids").val();
+                if (cates) {
+                    cates = JSON.parse(cates);
+                    cate1.children("option").each(function () {
+                        if (!($.inArray($(this).val(), cates) === -1)) {
+                            $(this).prop("selected", true);
+                        }
+                    });
+                    cate1.trigger('change');
+                    cate2.children("option").each(function () {
+                        if (!($.inArray($(this).val(), cates) === -1)) {
+                            $(this).prop("selected", true);
+                        }
+                    });
+                    cate2.trigger('change');
+                    cate3.children("option").each(function () {
+                        if (!($.inArray($(this).val(), cates) === -1)) {
+                            $(this).prop("selected", true);
+                        }
+                    });
+                    cate3.trigger('change', [true]);
+                }
+            }
+
+            fillCate();
+
+            function getSpecTable(itemids, specs) {
+                var url = "{:U('ParamManage/spectable')}";
+                $.get(url, {itemids: itemids}, function (data) {
+                    $(".spec-table").html(data);
+                    if (specs) {
+                        $.each(specs, function (i, n) {
+                            $('#price' + n.key).val(n.price);
+                            $('#inventory' + n.key).val(n.store_count);
+                            $('#barcode' + n.key).val(n.bar_code);
+                        });
+                    }
+                });
+            }
+
+            // 规格初始化
+            function initSpecFun() {
+                $(".spec-checked").click(function () {
+                    var itemids = [];
+                    $("input.spec-checked:checked").each(function () {
+                        itemids.push($(this).val());
+                    });
+                    if (itemids.length > 0) {
+                        getSpecTable(itemids);
+                    } else {
+                        $(".spec-table").html('');
+                    }
+                });
+            }
+
+            // 处理模板
+            function appendInput(res) {
+                if (res.attr) {
+                    $.each(res.attr, function (k, v) {
+                        var tmp = parseAttrTmp(v);
+                        $(".attr-box").removeClass("hide").children(".col-sm-10").append(tmp);
+                    });
+                }
+                if (res.spec) {
+                    $.each(res.spec, function (k, v) {
+                        var tmp = parseSpecTmp(v);
+                        $(".spec-box").removeClass("hide").children(".col-sm-10").append(tmp);
+                    });
+                }
+            }
+
+            // 处理规格模板
+            function parseSpecTmp(res) {
+                var html = '<div class="form-group"><label class="col-sm-2 control-label">' + res.spec_name + '：</label><div class="col-sm-10">';
+                if (res.items) {
+                    $.each(res.items, function (k, v) {
+                        html += '<div class="checkbox checkbox-inline"><label><input type="checkbox" class="spec-checked" value="' + v.id + '">' + v.item + '</label></div>';
+                    });
+                }
+                html += '</div></div>';
+                return html;
+            }
+
+            // 处理属性模板
+            function parseAttrTmp(res) {
+                var html = '<div class="form-group"><label class="col-sm-2 control-label">' + res.attr_name + '：</label><div class="col-sm-10">';
+                switch (res.attr_type) {
+                    case '1':
+                        html += '<input type="text" attr-id="' + res.id + '" class="form-control attr-input">';
+                        break;
+                    case '2':
+                        var options = res.attr_values.split('|');
+                        html += '<select attr-id="' + res.id + '" class="form-control attr-input">';
+                        $.each(options, function (k, v) {
+                            html += '<option value="' + (k + 1) + '">' + v + '</option>';
+                        });
+                        html += '</select>';
+                        break;
+                    case '3':
+                        html += '<textarea attr-id="' + res.id + '" class="form-control attr-input" rows="3"></textarea>';
+                        break;
+                }
+                html += '</div></div>';
+                return html;
+            }
+
+            // 获取上传图片地址
+            function getImages() {
+                var images = [];
+                $("input[type=hidden][name='thumb_img[]']").each(function () {
+                    var url = $(this).val();
+                    if (url) {
+                        images.push({img_url: url});
+                    }
+                });
+                return images;
+            }
+
+            // 获取商品属性
+            function getAttrs() {
+                var data = [];
+                $(".attr-box").find("input").each(function () {
+                    data.push({
+                        'attr_id': $(this).attr("attr-id"),
+                        'attr_value': $(this).val()
+                    });
+                });
+                $(".attr-box").find("select").each(function () {
+                    data.push({
+                        'attr_id': $(this).attr("attr-id"),
+                        'attr_value': $(this).val()
+                    });
+                });
+                $(".attr-box").find("textarea").each(function () {
+                    data.push({
+                        'attr_id': $(this).attr("attr-id"),
+                        'attr_value': $(this).val()
+                    });
+                });
+                return data;
+            }
+
+            // 获取商品规格
+            function getSpecs() {
+                var data = [];
+                $("#spec-table").find("input[name^=price]").each(function () {
+                    var name = $(this).attr('name');
+                    var key = name.slice(name.indexOf('[') + 1, name.indexOf(']'));
+                    // push data
+                    data.push({
+                        'key': key,
+                        'key_name': $(this).attr('title'),
+                        'price': $('#price' + key).val(),
+                        'store_count': $('#inventory' + key).val(),
+                        'bar_code': $('#barcode' + key).val(),
+                    });
+                });
+                return data;
+            }
+
+            var icon = "<i class='fa fa-exclamation-triangle'></i>";
+            // 表单验证
+            $("#goods-form").validate({
+                messages: {
+                    shop_id: icon + '店铺ID不能为空！',
+                    cate1: icon + '一级分类不能为空！',
+                    cate2: icon + '二级分类不能为空！',
+                    cate3: icon + '三级级分类不能为空！',
+                    name: icon + '商品标题不能为空！'
+                }
+            });
+
+            // 保存
+            $(".save-btn").click(function () {
+                if (!$("#goods-form").valid()) {
+                    return false;
+                }
+                var data = {}, goodsid = $("input[name=id]").val(), url = "{:U('save')}";
+                if (goodsid) {
+                    data.id = goodsid;
+                }
+                data.name = $("input[name=name]").val();
+                data.shop_id = $("select[name=shop_id]").val();
+                data.category_id = $("select[name=cate3]").val();
+                data.desc = UE.getEditor('editor').getContent();
+                data.images = getImages();
+                data.attrs = getAttrs();
+                data.specs = getSpecs();
+                // post data
+                $.post(url, data, function (response) {
+                    var message = '', goodsid = $("input[name=id]").val();
+                    if (response.status == "success") {
+                        message = goodsid ? '编辑成功！' : '添加成功！';
+                        layer.msg(message, {icon: 1});
+                        window.location.reload();
+                    } else {
+                        message = goodsid ? '编辑失败！' : '添加失败！';
+                        layer.msg(message, {icon: 2});
+                    }
+                });
+            });
+
+        });
+    </script>
+</block>

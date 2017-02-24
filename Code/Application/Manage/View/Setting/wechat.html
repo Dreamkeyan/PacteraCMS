@@ -1,0 +1,125 @@
+<include  file='Public:header'/>
+
+<form class="form-horizontal" action="{:U('wechat')}" method="post">
+<div class="wrapper wrapper-content animated fadeInRight websit-setting">
+    <div class="ibox-title">
+        <h3>微信设置</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>服务号基础设置</h5><br>
+                </div>
+                <div class="ibox-content">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="AppID">AppID</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="AppId" class="form-control" placeholder="AppID" name="mp[app_id]" value="{$CONFIG.wechat.mp.app_id}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="AppSecret">AppSecret</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="AppSecret" class="form-control" placeholder="AppSecret"  name="mp[secret]" value="{$CONFIG.wechat.mp.secret}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="Token">Token</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="Token" class="form-control" placeholder="Token令牌" name="mp[token]"  value="{$CONFIG.wechat.mp.token}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="EncodingAESKey">EncodingAESKey</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="EncodingAESKey" class="form-control" placeholder="消息加密密钥" name="mp[aes_key]"  value="{$CONFIG.wechat.mp.aes_key}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="OAuthScope">授权方式</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="OAuthScope" class="form-control" placeholder="请输入 snsapi_base 或者 snsapi_userinfo" name="mp[scopes]"  value="{$CONFIG.wechat.mp.scopes}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Debug模式</label>
+                            <div class="col-sm-9">
+                                <div class="radio pull-left">
+                                    <label>
+                                        <input type="radio" name="mp[debug]"  value="1" <eq name="CONFIG.wechat.mp.debug" value="1"> checked="checked"</eq>>
+                                        开启
+                                    </label>
+                                </div>
+                                <div class="radio pull-left margin-l-10">
+                                    <label>
+                                        <input type="radio" name="mp[debug]" value="0"  <eq name="CONFIG.wechat.mp.debug" value="0"> checked="checked"</eq>>
+                                        不开启
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>服务号支付设置</h5><br>
+                </div>
+                <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="merchant_id">商户号</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="merchant_id" class="form-control" placeholder="商户号 merchant_id" name="mp[merchant_id]"  value="{$CONFIG.wechat.mp.merchant_id}">
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="merchant_key">key</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="merchant_key" class="form-control" placeholder="微信支付 Key " name="mp[key]"  value="{$CONFIG.wechat.mp.key}">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>企业号设置</h5><br>
+                </div>
+                <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="corp_id">CorpID</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="corp_id" class="form-control" placeholder="企业号ID" name="corp[corp_id]"  value="{$CONFIG.wechat.corp.corp_id}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="Secret">Secret</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="Secret" class="form-control" placeholder="企业号Secret" name="corp[secret]"  value="{$CONFIG.wechat.corp.secret}">
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-my pull-right">确定</button>
+</div>
+</form>
+<script>
+    $(function(){
+        uploaderImg('#picker', '#j_img', '#j_hidden', '300', '300', 'site', 'local');
+    })
+</script>
+<include  file='Public:footer'/>

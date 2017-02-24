@@ -1,0 +1,22 @@
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+<div id="allmap" style="width: 560px; height:500px;"></div>
+<script type="text/javascript">
+
+// 百度地图API功能
+var map = new BMap.Map("allmap");
+map.centerAndZoom(new BMap.Point({$lng},{$lat}), 15);
+var point = new BMap.Point({$lng}, {$lat});
+map.centerAndZoom(point, 15);
+var marker = new BMap.Marker(point);  // 创建标注
+map.clearOverlays();
+map.addOverlay(marker);              // 将标注添加到地图中
+marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+function showInfo(e){
+    parent.selectCallBack('data_lng','data_lat',e.point.lng,e.point.lat);
+}
+map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+map.addEventListener("click", showInfo);
+</script>

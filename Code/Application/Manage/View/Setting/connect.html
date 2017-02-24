@@ -1,0 +1,84 @@
+<include  file='Public:header'/>
+<div class="local">
+    当前位置:  联合登录设置   
+</div>
+<div class="action">
+    <em>注意：</em>联合登录需要在第三方平台申请
+</div>
+<div class="listBox clfx">              
+    <div class="cl"></div>
+    <div class="menuManage">
+        <form  target="simpleO2O_frm" action="{:U('setting/connect')}" method="post">
+            <table cellpadding="0" cellspacing="0" width="100%">    
+
+
+                <tr>
+                    <td align="right">开启调试：</td>
+                    <td>
+                        <label><input type="radio" name="data[debug]" <eq name="CONFIG.connect.debug" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[debug]"  <eq name="CONFIG.connect.debug" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+                        <code>调试模式是为了方便通过腾讯和微博等变态的审核！</code>
+                    </td>
+                </tr>
+                <tr>
+                     <th></th>
+                    <th align="left"> 腾讯QQ</th>
+                </tr>
+                <tr>
+                    <td align="right">APP_ID：</td>
+                    <td>
+                        <input type="text" name="data[qq_app_id]" value="{$CONFIG.connect.qq_app_id}"  class="manageInput " />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">APP_KEY：</td>
+                    <td>
+                        <input type="text" name="data[qq_app_key]" value="{$CONFIG.connect.qq_app_key}"  class="manageInput " />
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th align="left">微博</th>
+                </tr>
+                <tr>
+                    <td align="right">APP_ID：</td>
+                    <td>
+                        <input type="text" name="data[wb_app_id]" value="{$CONFIG.connect.wb_app_id}"  class="manageInput " />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">APP_KEY：</td>
+                    <td>
+                        <input type="text" name="data[wb_app_key]" value="{$CONFIG.connect.wb_app_key}"  class="manageInput " />
+                    </td>
+                </tr>
+                
+                
+                 <tr>
+                    <th></th>
+                    <th align="left">微信</th>
+                </tr>
+                <tr>
+                    <td align="right">APP_ID：</td>
+                    <td>
+                        <input type="text" name="data[wx_app_id]" value="{$CONFIG.connect.wx_app_id}"  class="manageInput " />
+                        <code>微信登录这个只启用在PC端，看过腾讯的API 这个需要在开发者中心申请！手机端的使用的是微信配置里面的2者不同，很悲剧</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">APP_KEY：</td>
+                    <td>
+                        <input type="text" name="data[wx_app_key]" value="{$CONFIG.connect.wx_app_key}"  class="manageInput " />
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td align="right"></td>
+                    <td>
+                        <input type="submit" class="remberSubmit" value="确认保存"  />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <include  file='Public:footer'/>       

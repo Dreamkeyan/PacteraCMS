@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>模块化电商平台系统</title>
+    <meta name="keywords" content="模块化电商平台系、pacteracms">
+    <meta name="description" content="提供模块化设计、开发，包含常用的电商模块，满足您电商业务需求">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--必须css-->
+    <link href="__ASSET__/Common/Admin/plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__ASSET__/Common/Admin/css/Font-Awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__ASSET__/Common/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="__ASSET__/Common/Admin/css/index.css" rel="stylesheet">
+    <link href="__ASSET__/Common/Admin/css/common.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<header class="header">
+    <div class="logo pull-left"><img src="__ASSET__/Common/Admin/images/logo.png">模块化电商平台系统 -- PacteraCMS</div>
+</header>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox">
+                <div class="ibox-content text-center p-md" style="min-height: 291px">
+                    <br>
+                    <h1><span class="text-navy">模块化电商平台系统</span></h1>
+                    <br>
+                    <p style="line-height: 2em; padding: 0 2em;text-align: justify;">提供模块化设计、开发，系统划分成一个个相对独立的模块，使得软件具有更高的可靠性，遵循高内聚低耦合，将不同领域的模块分隔开来，提供更稳定的结构，良好的结构划分，清晰的代码逻辑，具有更好的可读性，便于开发人员理解维护，利于后期的升级更新，全新的技术架构、全新的UI设计、丰富的促销体系，各项新功能从根源上解决了电商企业普遍存在的推广、招商、盈利等问题,是企业开展平台类型电商业务的最佳选择。</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content p-md">
+                    <h3>主要功能：</h3>
+                    <ul class="ho function">
+                        <li>会员类型管理 - 可创建多种会员类型，设置不同的注册参数和权限</li>
+                        <li>会员管理系统 - 会员注册、登录、重设密码、会员资料修改 </li>
+                        <li>权限控制系统 - 针对会员类型或单个会员设置阅读、发布权限</li>
+                        <li>模块管理系统 - 自定义安装模块,自由扩展</li>
+                        <li>移动电商系统 - B2B C2C O2O 全面支持</li>
+                        <li>互动交流社区 - 可打通DISCUZ!论坛</li>
+                        <li>系统插件设置 - 通过后台设置安装各种封装好的插件 </li>
+                        <li>管理权限设置 - 可设多个管理员，自由分配各种管理权限</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="pbox">
+        <li>
+            <a href="{:U('Mall/Index/index')}" target="_blank">
+                <h2>商城模块</h2>
+                <img src="__ASSET__/Common/Admin/images/icon_shop.png" alt="">
+                <p>商城系统是模块电商的主要模块，包含了商品管理、分类管理、店铺管理、会员管理、系统设置及权限设置等全套的商城平台功能。
+                </p>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Procurement/Passport/login')}" target="_blank">
+                <h2>采购模块</h2>
+                <img src="__ASSET__/Common/Admin/images/icon_zhyp.png" alt="">
+                <p>采购模块是一套帮助便利店采购产品的平台化智能系统。系统支持便利店下单，平台智能分单、供应商配送货，一站式采购购平台。包含流程：下单-配货-改配货-发货-收货-改收货</p>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:layer.msg('开发中')" target="_blank">
+                <h2>财富模块</h2>
+                <img src="__ASSET__/Common/Admin/images/icon_wealth.png" alt="">
+                <p>所谓财富模块就是管理财富的模块，钱钱钱，你知道不。。。</p>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!--必须js-->
+<script src="__ASSET__/Common/Admin/js/jquery.min.js"></script>
+<script src="__ASSET__/Common/Admin/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="__ASSET__/Common/Admin/plugins/layer/layer.min.js"></script>
+<!--<script src="__ASSET__/Common/Admin/js/content.min.js"></script>-->
+<script>
+    $(function(){
+        setWidth();
+        $(window).resize(function () {
+            setWidth();
+        });
+
+        $('.pbox li > a').eq(0).css('background-color', '#99cc00');
+        $('.pbox li > a').eq(1).css('background-color', '#32B5E5');
+        $('.pbox li > a').eq(2).css('background-color', '#AB66CD');
+        $('.pbox li > a').eq(3).css('background-color', '#FFBB32');
+        $('.pbox li > a').eq(4).css('background-color', '#FF4444');
+        $('.pbox li > a').eq(5).css('background-color', '#D86FAC');
+        $('.pbox li > a').eq(6).css('background-color', '#6CBEA5');
+        $('.pbox li > a').eq(7).css('background-color', '#E2DC65');
+        $('.pbox li > a').eq(8).css('background-color', '#E11E52');
+        $('.pbox li > a').eq(9).css('background-color', '#166399');
+        $('.pbox li > a').eq(10).css('background-color', '#A25621');
+        $('.pbox li > a').eq(11).css('background-color', '#11C8A8');
+        $('.pbox li > a').eq(12).css('background-color', '#808000');
+        $('.pbox li > a').eq(13).css('background-color', '#EB9144');
+        $('.pbox li > a').eq(14).css('background-color', '#5FCCE8');
+        $('.pbox li > a').eq(15).css('background-color', '#CEB723');
+        $('.pbox li > a').eq(16).css('background-color', '#A497E2');
+        $('.pbox li > a').eq(17).css('background-color', '#72C346');
+        function setWidth() {
+            var ww = $('.pbox li > a').width();
+            var h2 = $('.pbox li > a > h2').height();
+            $('.pbox li > a').height(ww);
+            $('.pbox li > a img').css("bottom", (ww*0.5 - h2)/2);
+            $('.pbox li > a p').css("margin-top", -ww/2);
+            $('.pbox li > a p').css("margin-left", -ww/2);
+        }
+    });
+</script>
+</body>
+</html>

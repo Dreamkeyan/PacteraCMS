@@ -1,0 +1,183 @@
+<include file="Public/header"/>
+
+<body class="animated fadeInRight">
+
+<!--搜索栏 bg-->
+<header class="clearfix classify-seek">
+    <div class="weui_search_bar classify-seek1 " id="search_bar">
+        <form class="weui_search_outer">
+            <div class="weui_search_inner">
+                <i class="weui_icon_search"></i>
+                <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required <if condition="$search_id neq 0"> value="<field name="Search" field="word" pk="$search_id" />" <else /> value='' </if>/>
+                <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+            </div>
+
+        </form>
+        <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+    </div>
+
+    <div class="classify-top">
+        <a href="{:U('Category/index')}">
+            <i class="iconfont icon-iconmenu"></i>
+            <span>分类</span>
+        </a>
+    </div>
+</header>
+
+<!--搜索栏 end-->
+
+<div class="content">
+    <!--分类列表  bg-->
+    <dl class="classify-menu clearfix">
+        <dd class="add-classify-style">推荐</dd>
+        <dd>销量</dd>
+        <dd>新品</dd>
+        <dd><span>价格</span><i class="iconfont icon-iconupd"></i></dd>
+    </dl>
+
+    <div class="classify-list">
+        <dl>
+            <foreach name='list["push"]' item="vo">
+                <dd>
+                    <a href="{:U('Goods/detail', array('id'=>$vo[id]))}" class="box box_czjz classify-goods ">
+                        <div class="box_1 classify-goods-img">
+                            <img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[id]" />' class="classify-goods-img1">
+                            <if condition='$vo["is_ident"] eq 1'>
+                                <img src="__ASSET__/Mall/Mobile/images/img_shang.png" class="classify-goods-img2">
+                            </if>
+                        </div>
+                        <div class="classify-goods-inf">
+                            <div>{$vo.name}</div>
+                            <div class="box box_czjz">
+                                <div class="box_3 classify-inf-price">
+                                    <p><span>¥</span><span>{$vo.sale_price}</span><span>市场价¥{$vo.marke_price}</span></p>
+                                    <p>已售{$vo.sale_count}笔</p>
+                                </div>
+                                <div class="classify-cart-img">
+                                    <row name='MemberCollect' where='member_id=$mid and type=1 and collect_id=$vo[id]' id='res' >
+                                        <if condition='!empty($res) and $res[status] eq 1'>
+                                            <i class="iconfont j-add-succeed icon-iconshoucang02" data-id='{$vo[id]}' date-collect="false"></i>
+                                        <else />
+                                            <i class="iconfont icon-iconshoucang j-add-succeed" data-id='{$vo[id]}'></i>
+                                        </if>
+                                    </row>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </dd>
+            </foreach>
+        </dl>
+        <dl class="dis-none">
+            <foreach name='list["hot"]' item="vo">
+            <dd>
+                <a href="{:U('Goods/detail', array('id'=>$vo[id]))}" class="box box_czjz classify-goods ">
+                    <div class="box_1 classify-goods-img">
+                        <img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[id]" />' class="classify-goods-img1">
+                        <if condition='$vo["is_ident"] eq 1'>
+                            <img src="__ASSET__/Mall/Mobile/images/img_shang.png" class="classify-goods-img2">
+                        </if>
+                    </div>
+                    <div class="classify-goods-inf">
+                        <div>{$vo.name}</div>
+                        <div class="box box_czjz">
+                            <div class="box_3 classify-inf-price">
+                                <p><span>¥</span><span>{$vo.sale_price}</span><span>市场价¥{$vo.marke_price}</span></p>
+                                <p>已售{$vo.sale_count}笔</p>
+                            </div>
+                            <div class="classify-cart-img">
+                                <row name='MemberCollect' where='member_id=$mid and type=1 and collect_id=$vo[id]' id='res' >
+                                    <if condition='!empty($res) and $res[status] eq 1'>
+                                        <i class="iconfont j-add-succeed icon-iconshoucang02" data-id='{$vo[id]}' date-collect="false"></i>
+                                    <else />
+                                        <i class="iconfont icon-iconshoucang j-add-succeed" data-id='{$vo[id]}'></i>
+                                    </if>
+                                </row>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </dd>
+            </foreach>
+        </dl>
+        <dl class="dis-none">
+            <foreach name='list["new"]' item="vo">
+            <dd>
+                <a href="{:U('Goods/detail', array('id'=>$vo[id]))}" class="box box_czjz classify-goods ">
+                    <div class="box_1 classify-goods-img">
+                        <img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[id]" />' class="classify-goods-img1">
+                        <if condition='$vo["is_ident"] eq 1'>
+                            <img src="__ASSET__/Mall/Mobile/images/img_shang.png" class="classify-goods-img2">
+                        </if>
+                    </div>
+                    <div class="classify-goods-inf">
+                        <div>{$vo.name}</div>
+                        <div class="box box_czjz">
+                            <div class="box_3 classify-inf-price">
+                                <p><span>¥</span><span>{$vo.sale_price}</span><span>市场价¥{$vo.marke_price}</span></p>
+                                <p>已售{$vo.sale_count}笔</p>
+                            </div>
+                            <div class="classify-cart-img">
+                                <row name='MemberCollect' where='member_id=$mid and type=1 and collect_id=$vo[id]' id='res' >
+                                    <if condition='!empty($res) and $res[status] eq 1'>
+                                        <i class="iconfont j-add-succeed icon-iconshoucang02" data-id='{$vo[id]}' date-collect="false"></i>
+                                    <else />
+                                        <i class="iconfont icon-iconshoucang j-add-succeed" data-id='{$vo[id]}'></i>
+                                    </if>
+                                </row>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </dd>
+            </foreach>
+        </dl>
+        <dl class="dis-none">
+            <foreach name='list["price"]' item="vo">
+            <dd>
+                <a href="{:U('Goods/detail', array('id'=>$vo[id]))}" class="box box_czjz classify-goods ">
+                    <div class="box_1 classify-goods-img">
+                        <img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[id]" />' class="classify-goods-img1">
+                        <if condition='$vo["is_ident"] eq 1'>
+                            <img src="__ASSET__/Mall/Mobile/images/img_shang.png" class="classify-goods-img2">
+                        </if>
+                    </div>
+                    <div class="classify-goods-inf">
+                        <div>{$vo.name}</div>
+                        <div class="box box_czjz">
+                            <div class="box_3 classify-inf-price">
+                                <p><span>¥</span><span>{$vo.sale_price}</span><span>市场价¥{$vo.marke_price}</span></p>
+                                <p>已售{$vo.sale_count}笔</p>
+                            </div>
+                            <div class="classify-cart-img">
+                                <row name='MemberCollect' where='member_id=$mid and type=1 and collect_id=$vo[id]' id='res' >
+                                    <if condition='!empty($res) and $res[status] eq 1'>
+                                        <i class="iconfont j-add-succeed icon-iconshoucang02" data-id='{$vo[id]}' date-collect="false"></i>
+                                    <else />
+                                        <i class="iconfont icon-iconshoucang j-add-succeed" data-id='{$vo[id]}'></i>
+                                    </if>
+                                </row>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </dd>
+            </foreach>
+        </dl>
+    </div>
+
+    <!--分类列表  bg-->
+</div>
+
+<!--头部-->
+<script src="__ASSET__/Common/Mobile/js/headroom/headroom.js"></script>
+<script>
+    $(function () {
+        // 切换列表
+        common.classify_list_change();
+        // 收藏 取消收藏
+        common.succeed_add_cart("{:U('Member/collect')}");
+
+    });
+</script>
+<include file="Public/footer"/>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PacteraCMS</title>
+    </head>
+    <body>
+
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <tr>列表--model的list方法获取符合条件的列表信息</tr>
+            <tr>
+                <th>菜单id</th>
+                <th>菜单名称</th>
+                <th>菜单url</th>
+                <th>符合条件的菜单名称</th>
+            </tr>
+
+            <!-- name:表名，where查询条件，order排序，id结果变量，field字段，limit限制数量，debug是否调试 -->
+            <list order="menu_id ASC" name='Menu'  page='1' module='Manage' id="res">
+                <tr>
+                    <td>{$res.menu_id}</td>
+                    <!--<td>{$res.menu_name}</td>-->
+                    <td>{$res.menu_action}</td>
+                    <td>
+                        <table border="1"  cellspacing="0" cellpadding="0" >
+                            <list order="menu_id ASC" name='Menu'   module='Manage' id="res1" where='parent_id=$res[menu_id]'>
+                                <tr>
+                                    <td>
+                                    {$res1.menu_name}
+                                    </td>
+                                </tr>
+                            </list>
+                        </table>
+                    </td>
+                </tr>
+            </list>
+        </table> 
+
+
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <tr>列表--查询</tr>
+            <tr>
+                <th>菜单id</th>
+                <th>菜单名称</th>
+                <th>菜单url</th>
+                <th>符合条件的菜单名称</th>
+            </tr>
+
+            <!-- name:表name(不包含模块名称和前缀)，module模块（默认是当前模块名称），where查询条件，order排序，id结果变量，page分页开启，field字段，key循环变量，mod取模,debug是否调试 -->
+            <query name="Menu" module='Manage' order='menu_id ASC' limit="10" id='vo' page='1' field='menu_id,menu_name,menu_action'  key='k' mod='2'  >
+                <tr>
+                    <td>{$vo.menu_id}----{$k}</td>
+                    <td>{$vo.menu_name}</td>
+                    <td>{$vo.menu_action}</td>
+                    <td>
+                        <table border="1"  cellspacing="0" cellpadding="0" >
+                            <query order="menu_id ASC" name='menu'   id="vo1" where='parent_id=$vo[menu_id]'>
+                                <tr>
+                                    <td>
+                                    {$vo1.menu_name}
+                                    <td>
+                                </tr>
+                            </query>
+                        </table>
+                    </td>
+                </tr>
+            </query>
+            <tr>
+                <div id="pages">{$pages}</div>
+            </tr>
+        </table> 
+
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <tr>详情--model的detail方法获取的详情</tr>
+            <tr>
+                <th>菜单id</th>
+                <th>菜单名称</th>
+                <th>菜单url</th>
+                <th>父类菜单名称</th>
+            </tr>
+
+            <!-- name表,module模块（默认为当前模块）,pk（主键）,id（结果变量）,debug(是否调试)-->
+            <view name="Menu" pk='9' module='Manage' id="res" >
+                <tr>
+                    <td>{$res.menu_id}</td>
+                    <td>{$res.menu_name}</td>
+                    <td>{$res.menu_action}</td>
+                    <td>
+                        <view name="Menu" pk='$res[parent_id]' module='Manage' id="res1">
+                            {$res1.menu_name}--
+                        </view>
+                    </td>
+                </tr>
+            </view>
+        </table> 
+
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <tr>详情--直接查询表</tr>
+            <tr>
+                <th>菜单id</th>
+                <th>菜单名称</th>
+                <th>菜单url</th>
+                <th>父类菜单名称</th>
+            </tr>
+
+            <!-- name表名称,module模块（默认为当前模块）,pk（主键）,id（结果变量）,debug(是否调试)-->
+            <find name="Menu" id='res' pk='16' module='Manage' >
+                <td>{$res.menu_id}</td>
+                <td>{$res.menu_name}</td>
+                <td>{$res.menu_action}</td>
+                <td>
+                    <find name="Menu" pk='$res[parent_id]' module='Manage' id="res1">
+                        {$res1.menu_name}--
+                    </find>
+                </td>
+            </find>
+        </table> 
+        
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <tr>分类--页面查询</tr>
+            <tr>
+                <th>菜单id</th>
+                <th>菜单名称</th>
+                <th>菜单url</th>
+                <th>父类菜单名称</th>
+            </tr>
+
+            <!-- name表名,module模块名称,limit限制数量,prow父类字段名,pid父类值,where查询条件，order排序，id结果变量，page分页开启，field字段，key循环变量，mod取模,debug是否调试 -->
+            <cate order="menu_id ASC" name='Menu' field='menu_id,menu_name,menu_action,parent_id' limit='10' id="res" prow="parent_id" module='Manage'>
+                <tr>
+                    <td>{$res.menu_id}</td>
+                    <td>{$res.menu_name}</td>
+                    <td>{$res.menu_action}</td>
+                    <td><cate name="Menu" id='info'  module='Manage' prow="parent_id" pid="$res[menu_id]">{$info.menu_name}--</cate></td>
+                </tr>
+            </cate>
+        </table> 
+
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <tr>分类--调用model中的category方法</tr>
+            <tr>
+                <th>菜单id</th>
+                <th>菜单名称</th>
+                <th>菜单url</th>
+                <th>父类菜单名称</th>
+                <th>子类菜单名称</th>
+            </tr>
+
+           <!-- name表名,module模块名称,limit限制数量,prow父类字段名,pid父类值,where查询条件，order排序，id结果变量，page分页开启，field字段，key循环变量，mod取模,debug是否调试 -->
+            <content order="menu_id ASC" name='Menu' field='menu_id,menu_name,menu_action,parent_id' limit='10' id="res" prow="parent_id" module='Manage' pid="9">
+                <tr>
+                    <td>{$res.menu_id}</td>
+                    <td>{$res.menu_name}</td>
+                    <td>{$res.menu_action}</td>
+                    <td><view name="Menu" pk='$res[parent_id]' module='Manage' id="vo" debug="true">{$vo.menu_name}</view></td>
+                    <td>
+                        <content order="menu_id ASC" name='Menu' field='menu_id,menu_name,menu_action,parent_id' limit='10' id="res1" prow="parent_id" pid="$res[menu_id]" module='Manage' >
+                            {$res1.menu_name}---
+                        </content>
+                    </td>
+                </tr>
+            </content>
+        </table> 
+        
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <!--<tr>列表--查询</tr>-->
+            <tr>
+                <th>角色id</th>
+                <th>角色名称</th>
+            </tr>
+
+            <!-- name:表name(不包含模块名称和前缀)，module模块（默认是当前模块名称），where查询条件，order排序，id结果变量，page分页开启，field字段，key循环变量，mod取模,debug是否调试 -->
+            <Manage:query name="role" id='vo'>
+                <tr>
+                    <td>{$vo.role_id}</td>
+                    <td>{$vo.role_name}</td>
+                </tr>
+            </Manage:query>
+        </table> 
+
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <!--<tr>列表--查询</tr>-->
+            <tr>
+                <th>角色id</th>
+                <th>角色名称</th>
+            </tr>
+
+            <!-- name:表name(不包含模块名称和前缀，驼峰格式)，module模块（默认是当前模块名称），where查询条件，order排序，id结果变量，page分页开启，field字段，key循环变量，mod取模,debug是否调试 -->
+            <Member:query name="" id='vo'>
+                <tr>
+                    <td>{$vo.email}</td>
+                    <td>{$vo.username}</td>
+                </tr>
+            </Member:query>
+        </table>
+        
+        
+        <table border="1"  cellspacing="0" cellpadding="0" >
+            <!--<tr>指定字段的内容--查询</tr>-->
+            <tr>
+                <th>角色id</th>
+                <th>角色名称</th>
+            </tr>
+
+            <!-- name:表name(不包含模块名称和前缀，驼峰格式)，module模块（默认是当前模块名称），field字段，debug是否调试 -->
+            
+                <tr>
+                    <td><field module="Member"  field="email" pk="4" /></td>
+                    <td><field module="Member"  field="username" pk="4" /></td>
+                </tr>
+        </table>
+    </body>
+</html>

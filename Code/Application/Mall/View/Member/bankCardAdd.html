@@ -1,0 +1,49 @@
+<include file='Public/header' />
+<body class="animated fadeInRight">
+
+<div class="content">
+    <!--添加银行卡  bg-->
+    <div class="amend-password">
+        <form action="{:U('Member/bankCardAdd')}" method='post' >
+        <div class="weui_cells weui_cells_form edit-address">
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">开户名</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text"  name='name' placeholder="请绑定持卡人银行卡">
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">卡号</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" name='no' placeholder="请输入银行储蓄卡卡号">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="submit-button">
+            <input type="submit" value="提交">
+        </div>
+        </form>
+        <div class="hint">
+            <p class="hint-tit">温馨提示</p>
+            <div>
+                <p>1、姓名、银行卡需一致，否则无法提现。</p>
+                <p>2、银行卡提现，大行需T+1日完成，小行需d大于T+1日完成，节假日建议提前绑定</p>
+                <p>3、如添加失败，请重试或联系客服4000-820-132。 </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!--添加银行卡  end-->
+
+
+</div>
+
+<script>
+    $(function () {
+
+    });
+</script>
+<include file='Public/footer' />

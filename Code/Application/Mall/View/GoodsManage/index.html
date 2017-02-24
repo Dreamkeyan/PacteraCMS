@@ -1,0 +1,155 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <form action="{:U('index')}" id="searchform" method="post">
+                        <select name="category_id" class="form-control my-form width-300">
+                            <option value="">所有分类</option>
+                            <foreach name="cates" item="vo" key="k">
+                                <eq name="k" value="$Think.request.category_id">
+                                    <option value="{$k}" selected="selected">{$vo.name}</option>
+                                    <else/>
+                                    <option value="{$k}">{$vo.name}</option>
+                                </eq>
+                            </foreach>
+                        </select>
+                        <select name="brand_id" class="form-control my-form width-300">
+                            <option value="">所有品牌</option>
+                            <foreach name="brand" item="vo" key="k">
+                                <eq name="k" value="$Think.request.brand_id">
+                                    <option value="{$k}" selected="selected">{$vo}</option>
+                                    <else/>
+                                    <option value="{$k}">{$vo}</option>
+                                </eq>
+                            </foreach>
+                        </select>
+                        <select name="is_push" class="form-control my-form width-90">
+                            <option value="">全部</option>
+                            <option value="1"
+                            <eq name="Think.request.is_push" value="1">selected="selected"</eq>
+                            >推荐</option>
+                            <option value="0"
+                            <eq name="Think.request.is_push" value="0">selected="selected"</eq>
+                            >不推荐</option>
+                        </select>
+                        <select name="is_putaway" class="form-control my-form width-90">
+                            <option value="">全部</option>
+                            <option value="1"
+                            <eq name="Think.request.is_putaway" value="1">selected="selected"</eq>
+                            >上架</option>
+                            <option value="0"
+                            <eq name="Think.request.is_putaway" value="0">selected="selected"</eq>
+                            >下架</option>
+                        </select>
+                        <label>关键词：</label>
+                        <div class="input-group my-form">
+                            <input type="text" placeholder="搜索词" name="keywords" value="{:I('keywords')}"
+                                   class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-my" onclick="$('#searchform').submit()">搜索</button>
+                            </span>
+                        </div>
+                    </form>
+                    <a href="{:U('add')}" class="btn btn-my pull-right">
+                        <i class="fa fa-plus"></i>添加新商品
+                    </a>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th width="40">ID</th>
+                                <th>商品名称</th>
+                                <th width="200">分类</th>
+                                <th width="200">品牌</th>
+                                <th width="180">价格</th>
+                                <th width="180">库存</th>
+                                <th width="120">配送方式</th>
+                                <th width="100">推荐</th>
+                                <th width="100">上架</th>
+                                <th width="180">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="var">
+                                <tr>
+                                    <td>{$var.id}</td>
+                                    <td>{$var.name}</td>
+                                    <td>{$var.category.name}</td>
+                                    <td>{$var.brand.name}</td>
+                                    <td>{$var.sale_price}</td>
+                                    <td>{$var.store_count}</td>
+                                    <td>
+                                        <eq name="var.deliver_type" value="1">自提
+                                            <else/>
+                                            送货上门
+                                        </eq>
+                                    </td>
+                                    <td>
+                                        <eq name="var.is_push" value="1">推荐
+                                            <else/>
+                                            不推荐
+                                        </eq>
+                                    </td>
+                                    <td>
+                                        <eq name="var.is_putaway" value="1">上架
+                                            <else/>
+                                            下架
+                                        </eq>
+                                    </td>
+                                    <td>
+                                        <a href="{:U('edit', array('id' => $var['id']))}"
+                                           class="btn btn-sm btn-info edit-btn"
+                                           title="编辑">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="{:U('delete', array('id' => $var['id']))}"
+                                           class="btn btn-sm btn-danger del-btn" title="删除">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <nav class="text-center">
+                            <ul class="pagination">{$page}</ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <script>
+        $(function () {
+            /*分页切换*/
+            mall.change_page();
+            /*启用停用操作*/
+            mall.toggle_status();
+            // 删除单条记录
+            $(".del-btn").click(function () {
+                var url = $(this).attr('href');
+                layer.confirm('您要删除这条记录么？', {
+                    btn: ['确定', '取消']
+                }, function () {
+                    $.get(url, function (response) {
+                        if (response.status === 'success') {
+                            layer.msg('删除成功！', {icon: 1});
+                            window.location.reload(true);
+                        } else {
+                            layer.msg('删除失败！', {icon: 2});
+                        }
+                    });
+                });
+                return false;
+            });
+        });
+    </script>
+</block>

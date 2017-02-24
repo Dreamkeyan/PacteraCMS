@@ -1,0 +1,81 @@
+<include file="Public/header" />
+<body class="animated fadeInRight">
+<form action='{:U("Member/memberInfo", array("member_id"=>$mid))}' Method="post">
+<input class="weui_input" type="hidden" value="{$mid}" name="id">
+<div class="content">
+    <div class="personal-data">
+        <div class="per-inf">
+            <a href="javascript:;" class="box box_czjz">
+                <div>头像</div>
+                <div class="box_1">
+                    <img <if condition='!empty($member["avatar"])'>src="{$member.avatar}"<else/>src="{$fansinfo.headimgurl}"</if> alt="">
+                    <i class="iconfont icon-iconarrow"></i>
+                </div>
+            </a>
+        </div>
+
+        <div class="per-inf">
+            <a href="javascript:;" class="box box_czjz">
+                <div>昵称</div>
+                <div class="box_1">
+                    <input class="weui_input" type="text" placeholder="请输入昵称" value="{$member.name}" name="nickname">
+                </div>
+            </a>
+        </div>
+
+        <div class="per-inf">
+            <a href="javascript:;" class="box box_czjz">
+                <div>性别</div>
+                <div class="box_2 box">
+                    <div class="box_1 change-sex">
+                        <div class="check-sex">
+                            <label for="gender1"><img <if condition="$member['sex'] eq 1">src="__ASSET__/Mall/Mobile/images/img_check_on.png"<else /> src="__ASSET__/Mall/Mobile/images/img_check_off.png"</if> class="j-img-check"></label>
+                            <input type="radio" name="sex" id="gender1" class="dis-none" value="1" <if condition="$member['sex'] eq 1">checked='checked'</if>>
+                        </div>
+                        <img src="__ASSET__/Mall/Mobile/images/img_nan.png" alt="">
+                        <span>男</span>
+                    </div>
+                    <div class="box_1 change-sex">
+                        <div class="check-sex">
+                            <label for="gender2"><img <if condition="$member['sex'] eq 2">src="__ASSET__/Mall/Mobile/images/img_check_on.png"<else /> src="__ASSET__/Mall/Mobile/images/img_check_off.png"</if> class="j-img-check"></label>
+                            <input type="radio" name="sex" id="gender2" class="dis-none" value="2"   <if condition="$member['sex'] eq 2">checked='checked'</if>>
+                        </div>
+                        <img src="__ASSET__/Mall/Mobile/images/img_nv.png" alt="">
+                        <span>女</span>
+                    </div>
+                    <div class="box_1 change-sex">
+                        <div class="check-sex">
+                            <label for="secrecy"><img <if condition="$member['sex'] eq 0">src="__ASSET__/Mall/Mobile/images/img_check_on.png"<else /> src="__ASSET__/Mall/Mobile/images/img_check_off.png"</if> class="j-img-check"></label>
+                            <input type="radio" name="sex" id="secrecy" class="dis-none" value="0"  <if condition="$member['sex'] eq 0">checked='checked'</if>>
+                        </div>
+                        <span>保密</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+   
+        <div class="per-inf">
+            <a href="{:U('Member/memberPhone', array('member_id'=>$member['id']))}" class="box box_czjz">
+                <div>手机号</div>
+                <div class="box_1">
+                    <input class="weui_input" type="text" placeholder="" readonly value="{$member.phone}" >
+                    <i class="iconfont icon-iconarrow"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="save">
+    <input type="submit" class="weui_btn weui_btn_warn" value='保存'>
+</div>
+</form>
+
+
+<script>
+    $(function () {
+     //性别选择
+     common.change_sex();
+    });
+</script>
+<include file="Public/footer" />

@@ -1,0 +1,154 @@
+<include file="Public/header" />   __ASSET__  ---  __LOCAL_ASSET__
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="input-group my-form">
+                        <input type="text" placeholder="Search for..." class="form-control">
+                        <span class="input-group-btn">
+                                <button type="button" class="btn btn-my">查找</button>
+                            </span>
+                    </div>
+                    <button type="button" class="btn btn-my pull-right j-add"><span class="glyphicon glyphicon-plus"></span>&nbsp;新建</button>
+                    <button type="button" class="btn btn-my pull-right j-import">导入</button>
+                    <button type="button" class="btn btn-my pull-right j-export">导出</button>
+                    <button type="button" class="btn btn-my pull-right j-enable">启用</button>
+                    <button type="button" class="btn btn-my pull-right j-disable">停用</button>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <div class="treeview  j-tree1" ></div>
+                        <section class="content">
+                            <table class="table table-bordered my-table">
+                                <thead>
+                                <tr>
+                                    <th><input class="j-checkAll" type="checkbox" val=""></th>
+                                    <th>id</th>
+                                    <th>字典编码</th>
+                                    <th>字典名称</th>
+                                    <th>状态</th>
+                                    <th>建立时间</th>
+                                    <th style="width: 250px">字典项</th>
+                                    <th style="min-width: 100px">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="sub"></td>
+                                    <td>10000001</td>
+                                    <td>one</td>
+                                    <td>性别</td>
+                                    <td>启用</td>
+                                    <td>2016-08-01</td>
+                                    <td>包装商品、虚拟商品......等</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-del">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="sub"></td>
+                                    <td>10000001</td>
+                                    <td>one</td>
+                                    <td>性别</td>
+                                    <td>启用</td>
+                                    <td>2016-08-01</td>
+                                    <td>包装商品、虚拟商品......等</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-del">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="sub"></td>
+                                    <td>10000001</td>
+                                    <td>one</td>
+                                    <td>性别</td>
+                                    <td>启用</td>
+                                    <td>2016-08-01</td>
+                                    <td>包装商品、虚拟商品......等</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-del">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="sub"></td>
+                                    <td>10000001</td>
+                                    <td>one</td>
+                                    <td>性别</td>
+                                    <td>启用</td>
+                                    <td>2016-08-01</td>
+                                    <td>包装商品、虚拟商品......等</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-del">删除</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        //左侧树列表
+        var treedata = [{
+            text: "基本数据标准",
+            href: "#parent1",
+            tags: ["2"],
+            nodes: [{
+                text: "消息类型",
+                href: "#child11",
+                tags: ["2"]
+            }]
+        }, {
+            text: "商城类数据标准",
+            href: "#parent2",
+            tags: ["2"]
+        }];
+
+        $('.treeview').treeview({
+            color: "#4a4a4a",
+            selectedBackColor: "rgba(77, 156, 242, 0.3)",
+            selectedColor: "#4a4a4a",
+            expandIcon: 'fa fa-chevron-right',
+            collapseIcon: 'fa fa-chevron-down',
+            nodeIcon: 'fa fa-folder-open-o',
+            data: treedata
+        });
+
+
+        // 新建编辑字典
+        CRMcommon.establish_dictionary();
+
+        //  导入
+        CRMcommon.establish_dictionary_Import();
+
+        //  导出
+        CRMcommon.establish_dictionary_Export();
+
+        //  启用
+        $(".j-enable").on("click", function () {
+            layer.alert('已启用', {icon: 1});
+        });
+
+        //  停用
+        $(".j-disable").on("click", function () {
+            layer.alert('已停用', {icon: 1});
+        });
+
+        //  删除
+        CRMcommon.del_inf();
+
+    })
+</script>
+
+
+<include file="Public/footer">

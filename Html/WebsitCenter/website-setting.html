@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>网站管理-站点设置</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--<link rel="shortcut icon" href="favicon.ico" rel="stylesheet">-->
+    <!-- Bootstrap -->
+    <link href="../common/plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../common/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../common/css/animate.min.css" rel="stylesheet">
+    <link href="../common/css/index.css" rel="stylesheet">
+    <link href="../common/css/common.css" rel="stylesheet">
+    <style>
+        .form-group-notice{
+            padding:15px 0;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="input-group my-form">
+                        <input type="text" placeholder="Search for..." class="form-control">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-my">查找</button>
+						</span>
+                    </div>
+                    <button type="button" class="btn btn-my pull-right j-apply">应用到所有站点</button>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <div class="treeview" id="treeview-checkable"></div>
+                        <section class="content">
+                            <form id="commentForm" class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">seo设置</h3>
+                                            </div>
+                                            <div class="panel-body ho">
+                                                <div class="form-group">
+                                                    <label for="websiteTitle" class="col-sm-2 control-label">站点标题</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="websiteTitle" id="websiteTitle"  class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="websiteKeyword" class="col-sm-2 control-label">关键词</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="websiteKeyword" id="websiteKeyword" class="form-control" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="websitDesc" class="col-sm-2 control-label">描述</label>
+                                                    <div class="col-sm-10">
+                                                        <textarea name="websitDesc" id="websitDesc" rows="4" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">附件设置</h3>
+                                            </div>
+                                            <div class="panel-body ho">
+                                                <div class="form-group">
+                                                    <label for="fileType" class="col-sm-2 control-label">允许附件类型</label>
+                                                    <div class="col-sm-10">
+                                                        <input  type="text" name="fileType" id="fileType" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">大小限制</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="fileMaxsize" id="fileMaxsize" class="w90 form-control display-ib">
+                                                        <span>MB</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">允许附件</label>
+                                                    <div class="col-sm-10">
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="isFileType" id="isFileType1" value="1">是
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="isFileType" id="isFileType0" value="0">否
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">缩略图配置</h3>
+                                            </div>
+                                            <div class="panel-body ho">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">整站图片规范</label>
+                                                    <div class="col-sm-10">
+                                                        <label class="margin-r-10">&nbsp;&nbsp;&nbsp;</label>
+                                                        <input type="text" name="imageWid" id="imageWid" class="form-control w20 display-ib">
+                                                        <label class="margin-lr-15">:</label>
+                                                        <input type="text" name="imageHei" id="imageHei"  class="form-control w20 display-ib">
+                                                        <label>&nbsp;单位均为：px</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">生成固定大小缩略图</label>
+                                                    <div class="col-sm-10">
+                                                        <label for="thumbWid" class="margin-r-10">宽</label>
+                                                        <input type="text" name="thumbWid"  id="thumbWid" class="form-control w20 display-ib">
+                                                        <label for="thumbHei" class="margin-l-10 margin-r-10">高</label>
+                                                        <input type="text" name="thumbHei" id="thumbHei"  class="form-control w20 display-ib">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">生成缩略图条件</label>
+                                                    <div class="col-sm-10">
+                                                        <label for="thumbWidIf" class="margin-r-10">宽</label>
+                                                        <input type="text" name="thumbWidIf"  id="thumbWidIf" class="form-control w20 display-ib">
+                                                        <label for="thumbHeiIf" class="margin-l-10 margin-r-10">高</label>
+                                                        <input type="text" name="thumbHeiIf"  id="thumbHeiIf" class="form-control w20 display-ib">
+                                                        <div class="form-group-notice">注：小于此配置的不生成缩略图</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">ico图标</h3>
+                                            </div>
+                                            <div class="panel-body ho">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">&nbsp;</label>
+                                                    <div class="col-sm-10">
+                                                        <img src="../common/images/shangchuan.png" id="uploadingIcon" class="uploadingimg padding-t-7" style="width: 120px;height: 120px;">
+                                                        <input type="file" id="iconSrc" name="iconSrc" class="padding-t-7" accept="image/*">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">水印</h3>
+                                            </div>
+                                            <div class="panel-body ho">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">&nbsp;</label>
+                                                        <div class="col-sm-10">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="isUse" id="isUse1" value="1">使用
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="isUse" id="isUse0" value="0">不使用
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">水印添加条件</label>
+                                                        <div class="col-sm-10">
+                                                            <label for="thumbWidIf" class="margin-r-10">宽</label>
+                                                            <input type="text"  name="watermarkWid" id="watermarkWid" class="form-control w20 display-ib">
+                                                            <label for="thumbHeiIf" class="margin-l-10 margin-r-10">高</label>
+                                                            <input type="text" name="watermarkHei" id="watermarkHei" class="form-control w20 display-ib">
+                                                            <div class="form-group-notice">注：小于此配置的不会加水印</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">水印图片</label>
+                                                        <div class="col-sm-10 margin-t-10">
+                                                            <input type="file" id="watermarkSrc" name="watermarkSrc"  accept="image/*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label"></label>
+                                                        <div class="col-sm-10">
+                                                            <img src="../common/images/shangchuan.png" id="uploadingWatermark" class="uploadingimg padding-t-7" style="width: 120px;height: 120px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="opacity" class="col-sm-2 control-label">透明度</label>
+                                                        <div class="col-sm-10">
+                                                            <select id="opacity" name="opacity" title="选择水印透明度" class="form-control my-form">
+                                                                <option>请选择水印透明度</option>
+                                                                <option value="0">10%</option>
+                                                                <option value="1">20%</option>
+                                                                <option value="2">30%</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <label class="col-sm-2  control-label">水印位置</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="form-group">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark0">随机
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark1">左上
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark2">中上
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark3">右上
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark4">左中
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark5">中间
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark6">右中
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark7">左下
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark8">中下
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="watermark" id="watermark9">右下
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../common/js/jquery.min.js"></script>
+<script src="../common/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../common/plugins/layer/layer.min.js"></script>
+<script src="../common/js/content.min.js"></script>
+
+<!-- 全选框操作  -->
+<script src="../common/js/checkbox-select.js"></script>
+
+<!-- treeview.js  -->
+<link rel="stylesheet" href="../common/plugins/treeview/css/bootstrap-treeview.min.css">
+<script src="../common/plugins/treeview/js/bootstrap-treeview.js"></script>
+
+<!-- jquery-validate.js -->
+<script src="../common/plugins/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+<script src="../common/plugins/jquery-validation-1.13.1/additional-methods.js"></script>
+
+<!-- 网站中心模块website  -->
+<script src="js/websit.js"></script>
+<script>
+    $(function () {
+
+        /*左侧分类菜单*/
+        var treeData = [{
+            text: '网站',
+            href: '#parent1',
+            tags: ['2']
+        },{
+            text: '商城站',
+            href: '#parent2',
+            tags: ['2']
+        }];
+
+        websitCommon.treeview_boxs(treeData);
+
+        websitCommon.upload_Img();
+
+
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>平台管理-日志信息</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--<link rel="shortcut icon" href="favicon.ico" rel="stylesheet">-->
+    <!-- Bootstrap -->
+    <link href="../common/plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../common/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../common/css/animate.min.css" rel="stylesheet">
+    <link href="../common/css/index.css" rel="stylesheet">
+    <link href="../common/css/common.css" rel="stylesheet">
+    <!--crm css-->
+    <link href="css/crm.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="date-picker">
+                        <label class="pull-left">发送日期</label>
+                        <input id="d4311" class="Wdate" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})">
+                        -
+                        <input id="d4312" class="Wdate" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd', minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})">
+                    </div>
+                    <div class="input-group my-form width-200">
+                        <input type="text" placeholder="Search for..." class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-my">查找</button>
+                        </span>
+                    </div>
+                    <button type="button" class="btn btn-my pull-right j-add"><span class="glyphicon glyphicon-plus"></span>&nbsp;新建</button>
+                    <!--<button type="button" class="btn btn-my pull-right j-export">导出</button>-->
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <div class="treeview  j-tree1"></div>
+                        <section class="content">
+                            <table class="table table-bordered my-table">
+                                <thead>
+                                <tr>
+                                    <th><input class="j-checkAll" type="checkbox" val=""></th>
+                                    <th>编号</th>
+                                    <th style="width: 250px">内容</th>
+                                    <th>操作人员</th>
+                                    <th>时间</th>
+                                    <th style="min-width: 140px">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="sub"></td>
+                                    <td>201608010001</td>
+                                    <td>新建了后台用户“aaa”创建时间2016.01.02 12:00</td>
+                                    <td>admin</td>
+                                    <td>2016.01.02 12:04:15</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-del">删除</a>
+                                        <a href="javascript:;" class="j-look">查看</a>
+                                        <a href="javascript:;" class="j-export">导出</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="sub"></td>
+                                    <td>201608010001</td>
+                                    <td>新建了后台用户“aaa”创建时间2016.01.02 12:04:15</td>
+                                    <td>admin</td>
+                                    <td>2016.01.02 12:04:15</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-del">删除</a>
+                                        <a href="javascript:;" class="j-look">查看</a>
+                                        <a href="javascript:;" class="j-export">导出</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="sub"></td>
+                                    <td>201608010001</td>
+                                    <td>新建了后台用户“aaa”创建时间2016.01.02 12:04:15</td>
+                                    <td>admin</td>
+                                    <td>2016.01.02 12:04:15</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-del">删除</a>
+                                        <a href="javascript:;" class="j-look">查看</a>
+                                        <a href="javascript:;" class="j-export">导出</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group" name="sub"></td>
+                                    <td>201608010001</td>
+                                    <td>新建了后台用户“aaa”创建时间2016.01.02 12:04:15</td>
+                                    <td>admin</td>
+                                    <td>2016.01.02 12:04:15</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-del">删除</a>
+                                        <a href="javascript:;" class="j-look">查看</a>
+                                        <a href="javascript:;" class="j-export">导出</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../common/js/jquery.min.js"></script>
+<script src="../common/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../common/plugins/layer/layer.min.js"></script>
+<script src="../common/js/content.min.js"></script>
+
+<script src="../common/js/checkbox-select.js"></script>
+
+<!--树形 start-->
+<link rel="stylesheet" href="../common/plugins/treeview/css/bootstrap-treeview.min.css">
+<script src="../common/plugins/treeview/js/bootstrap-treeview.min.js"></script>
+
+<!--表单校验 start-->
+<script src="../common/plugins/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+<script src="../common/plugins/jquery-validation-1.13.1/additional-methods.js"></script>
+
+<!--crm模块-->
+<script src="js/crm.js"></script>
+
+<script src="../common/plugins/My97DatePicker/WdatePicker.js"></script>
+
+<script>
+    $(function () {
+        var logData = [{
+            text: "平台日志",
+            href: "#parent1",
+            tags: ["2"],
+            nodes: [{
+                text: "总日志",
+                href: "#child11",
+                tags: ["2"]
+            }, {
+                text: "登陆日志",
+                href: "#child12",
+                tags: ["2"]
+            }, {
+                text: "操作日志",
+                href: "#child13",
+                tags: ["2"]
+            }, {
+                text: "错误日志",
+                href: "#child14",
+                tags: ["2"]
+            }]
+        }, {
+            text: "插件日志",
+            href: "#parent2",
+            tags: ["2"],
+            nodes: [{
+                text: "插件名称",
+                href: "#child21",
+                tags: ["2"]
+            }, {
+                text: "会员系统",
+                href: "#child22",
+                tags: ["2"]
+            }]
+        }];
+
+        $('.treeview').treeview({
+            color: "#4a4a4a",
+            selectedBackColor: "rgba(77, 156, 242, 0.3)",
+            selectedColor: "#4a4a4a",
+            expandIcon: 'fa fa-chevron-right',
+            collapseIcon: 'fa fa-chevron-down',
+            nodeIcon: 'fa fa-folder-open-o',
+            data: logData
+        });
+
+        //  删除
+        CRMcommon.del_inf();
+
+        //  导出
+        CRMcommon.establish_export();
+
+    })
+</script>
+</body>
+
+</html>

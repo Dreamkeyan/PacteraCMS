@@ -1,0 +1,154 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <form>
+                        <label>类目搜索：</label>
+                        <input type="text" class="form-control my-form width-200" placeholder="快速找到类目">
+                        <label>最近使用分类：</label>
+                        <select class="form-control my-form width-200">
+                            <option>请选择</option>
+                        </select>
+                        <button type="button" class="btn btn-my pull-right">搜索</button>
+                    </form>
+                </div>
+                <div class="ibox-content ho">
+                    <p>该分类下有商品数：666</p>
+                    <div class="clearfix">
+                        <div class="sort-box sort-box-bg">
+                            <div class="search-box">
+                                <div class="input-group my-form">
+                                    <input type="text" id="keyword1" placeholder="输入名称" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="search1" class="btn btn-my">查找</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div id="treeview01"></div>
+                        </div>
+                        <div class="sort-box sort-box-bg">
+                            <div class="search-box">
+                                <div class="input-group my-form">
+                                    <input type="text" id="keyword2" placeholder="输入名称" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button type="button" id="search2" class="btn btn-my">查找</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div id="treeview02"></div>
+                        </div>
+                        <div class="sort-box sort-box-sm">
+                            <div class="title">商品参数</div>
+                            <label>商品属性</label>
+                            <ul class="list-unstyled">
+                                <li>货号：123</li>
+                                <li>品牌：123</li>
+                                <li>吊牌价：123</li>
+                            </ul>
+                            <label>商品规格</label>
+                            <ul class="list-unstyled">
+                                <li>颜色分类：红色，绿色，蓝色</li>
+                                <li>尺码：145/52A，155/60A，160/62A，160/62A，160/62A</li>
+                            </ul>
+                        </div>
+                        <div class="result-box">
+                            <div class="search-result">
+                                <p>您当前选择的是：</p>
+                                <ol class="breadcrumb">
+                                    <li></li>
+                                    <li class="active"></li>
+                                    <li class="active"></li>
+                                </ol>
+                            </div>
+                            <div class="btn-box">
+                                <a href="{:U('CategoryManage/form')}" class="btn btn-warning" title="新增类型"><i
+                                        class="fa fa-pencil-square-o"></i> 新增类型</a>
+                                <a href="javascript:;" class="btn btn-success" title="禁用该类型"><i class="fa fa-check"></i>
+                                    禁用该类型</a>
+                                <a href="javascript:;" class="btn btn-danger" title="删除该类型"><i
+                                        class="fa fa-trash-o"></i> 删除该类型</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <script type="text/javascript" src="__ASSET__/Common/Admin/plugins/treeview/js/bootstrap-treeview.min.js"></script>
+    <script>var treedata = '{$data}';</script>
+    <script>
+        $(function () {
+            /*分页切换*/
+            mall.change_page();
+            /*启用停用操作*/
+            mall.toggle_status();
+            // 一二级分类菜单
+            mall.treeview_func('#treeview01', $.parseJSON(treedata), {
+                onNodeSelected: function (event, node) {
+                    $("#treeview02").treeview('remove');
+                    if (node.pid > 0) {
+                        var url = "{:U('CategoryManage/getSubCate')}";
+                        $.post(url, {pid: node.id}, function (data) {
+                            $("#treeview02").treeview({
+                                data: data,
+                                onNodeSelected: selectNode3
+                            });
+                        });
+                        updateBreadCrumb(2, node);
+                    } else {
+                        updateBreadCrumb(1, node);
+                    }
+                }
+            });
+            // 三级分类菜单
+            mall.treeview_func('#treeview02', []);
+            // 三级分类选择
+            var selectNode3 = function (event, node) {
+                updateBreadCrumb(3, node);
+            };
+            // 搜索一二级分类菜单
+            $("#search1").click(function () {
+                var input = $("#keyword1").val();
+                $('#treeview01').treeview('search', [input, {
+                    ignoreCase: true,     // case insensitive
+                    exactMatch: false,    // like or equals
+                    revealResults: true,  // reveal matching nodes
+                }]);
+            });
+            // 搜索三级分类菜单
+            $("#search2").click(function () {
+                var input = $("#keyword2").val();
+                $('#treeview02').treeview('search', [input, {
+                    ignoreCase: true,     // case insensitive
+                    exactMatch: false,    // like or equals
+                    revealResults: true,  // reveal matching nodes
+                }]);
+            });
+            // 选择加载面包屑
+            var updateBreadCrumb = function (level, node) {
+                var lis = $(".breadcrumb").children();
+                $(".breadcrumb").show();
+                lis.show();
+                switch (level) {
+                    case 1:
+                        lis.eq(0).html(node.text).siblings().hide();
+                        break;
+                    case 2:
+                        var Pnode = $('#treeview01').treeview('getNode', node.parentId);
+                        lis.eq(0).html(Pnode.text);
+                        lis.eq(1).html(node.text).next().hide();
+                        break;
+                    case 3:
+                        lis.eq(2).html(node.text);
+                        break;
+                }
+            };
+            $(".breadcrumb").hide();
+        });
+    </script>
+</block>

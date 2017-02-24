@@ -1,0 +1,28 @@
+<!--底部菜单 bg-->
+<dl class="menu-list clearfix">
+    <dd <if condition="CONTROLLER_NAME eq 'Index'">class="add-menu-style" <else /> class=""</if>>
+        <a href="{:U('Index/index')}">
+            <i class="iconfont icon-iconhome01"></i>
+            <span>首页</span>
+        </a>
+    </dd>
+    <dd <if condition="CONTROLLER_NAME eq 'Category'">class="add-menu-style" <else /> class=""</if>>
+        <a href="{:U('Category/index')}">
+            <i class="iconfont icon-iconclass01"></i>
+            <span>分类</span>
+        </a>
+    </dd>
+    <dd <if condition="CONTROLLER_NAME eq 'Cart'">class="add-menu-style" <else /> class=""</if>>
+        <a href="{:U('Cart/index')}">
+            <i class="iconfont icon-iconshopping02"></i>
+            <span>购物车</span>
+        </a>
+    </dd>
+    <dd <if condition="CONTROLLER_NAME eq 'Member'">class="add-menu-style" <else /> class=""</if>>
+        <a href="{:U('Member/index')}">
+            <i class="iconfont icon-iconuser01"></i>
+            <span>我</span>
+        </a>
+    </dd>
+</dl>
+<!--底部菜单 bg-->

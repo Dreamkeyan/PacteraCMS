@@ -1,0 +1,28 @@
+<div class="layer-model">
+    <div class="layer-content">
+        <form action="{:U('save')}" method="post" id="j-user-add-form">
+            <div class="row form-group">
+                <label  class="col-md-2 text-right control-label">钩子名称：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="name"  value="{$data['name']}">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label  class="col-md-2 text-right control-label">钩子描述：</label>
+                <div class="col-md-8">
+                    <textarea name="description" class="form-control" maxlength="100" rows="3">{$data['description']}</textarea>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label for="mobile" class="col-md-2 text-right control-label">钩子类型：</label>
+                <div class="col-md-8">
+                    <select name="type" class="form-control pull-left">
+                        <option value="1" <if condition="$var.type eq 1">selected="selected"</if>>视图</option>
+                        <option value="2" <if condition="$var.type eq 2">selected="selected"</if>>控制器</option>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$data.id}">
+        </form>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <label>商品模型是用来规定某一类商品共有规格和属性的集合，其中规格会影响商品价格，同一个商品不同的规格价格会不同，而属性仅仅是商品的属性特质展示</label>
+                    <button id="add-button" type="button" class="btn btn-my pull-right"><i class="fa fa-plus"></i>新增商品模型
+                    </button>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th width="40">ID</th>
+                                <th>模型名称</th>
+                                <th width="300">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="var">
+                                <tr>
+                                    <td>{$var.id}</td>
+                                    <td>{$var.name}</td>
+                                    <td>
+                                        <a href="{:U('AttrManage/index', array('type' => $var['id']))}"
+                                           class="btn btn-sm btn-info">商品属性</a>
+                                        <a href="{:U('SpecManage/index', array('type' => $var['id']))}"
+                                           class="btn btn-sm btn-info">商品规格</a>
+                                        <a href="{:U('form', array('id' => $var['id']))}"
+                                           class="btn btn-sm btn-info edit-btn"
+                                           title="编辑">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="{:U('delete', array('id' => $var['id']))}"
+                                           class="btn btn-sm btn-danger del-btn" title="删除">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <nav class="text-center">
+                            <ul class="pagination">{$page}</ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <script>
+        $(function () {
+            /*分页切换*/
+            mall.change_page();
+            /*启用停用操作*/
+            mall.toggle_status();
+            // 删除单条记录
+            $(".del-btn").click(function () {
+                var url = $(this).attr('href');
+                layer.confirm('您要删除这条记录么？', {
+                    btn: ['确定', '取消']
+                }, function () {
+                    $.get(url, function (response) {
+                        if (response.status === 'success') {
+                            layer.msg('删除成功！', {icon: 1});
+                            window.location.reload(true);
+                        } else {
+                            layer.msg('删除失败！', {icon: 2});
+                        }
+                    });
+                });
+                return false;
+            });
+            // pop form action
+            function popform(url, isEdit) {
+                var boxtitle = isEdit ? '编辑商品模型' : '新增商品模型';
+                var buttons = isEdit ? ['保存', '取消'] : ['添加', '取消'];
+                $.get(url, function (html) {
+                    mall.layer_boxs(1, boxtitle, ['600px', '300px'], html, buttons, function (index) {
+                        var saveurl = $("#goods-type-form").attr("action");
+                        var typename = $("input[name=name]").val();
+                        if (!typename) {
+                            layer.msg('模型名称不能为空！', {icon: 2});
+                            return false;
+                        }
+                        $.post(saveurl, {
+                            id: $("input[name=id]").val(),
+                            name: typename
+                        }, function (response) {
+                            if (response.status == 'success') {
+                                layer.msg('模型保存成功！', {icon: 1});
+                                layer.close(index);
+                                location.reload();
+                            } else {
+                                var message = response.message ? response.message : '模型保存失败！'
+                                layer.msg(message, {icon: 2});
+                            }
+                        });
+                    });
+                });
+            }
+
+            //编辑商品模型
+            $(".edit-btn").click(function () {
+                var url = $(this).attr('href');
+                popform(url, true);
+                return false;
+            });
+            // 新增商品模型
+            $("#add-button").click(function () {
+                var url = "{:U('form')}";
+                popform(url);
+            });
+        });
+    </script>
+</block>

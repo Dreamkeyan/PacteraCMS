@@ -1,0 +1,219 @@
+<include file='Public/header' />
+<body class="animated fadeInRight">
+
+<div class="content">
+
+    <!--我的订单  bg-->
+
+    <!--一级菜单 bg-->
+    <dl class="cart-menu clearfix">
+        <dd <if condition="$_GET['scan'] neq 1">class="cart-menu-click"</if>><a href="{:U('Cart/index')}"><span>全部</span></a></dd>
+        <dd <if condition="$_GET['scan'] eq 1">class="cart-menu-click"</if>><a href="{:U('Cart/index', array('scan'=>1))}"><span>实体店</span></a></dd>
+        <div class="right-compile">
+            <span class="j-all-compile">编辑</span>
+            <a href="{:U('Notice/index')}"><i class="iconfont icon-iconmassage"></i><if condition='$mcount gt 0'><img src="__ASSET__/Mall/Mobile/images/img_dian.png" alt=""></if></a>
+        </div>
+    </dl>
+    <!--一级菜单 end-->
+
+
+    <!--内容显示 bg-->
+    <div class="cart-details">
+        <!--全部 bg-->
+        <form action="{:U('Order/makeOrder', array('scan'=>$_GET['scan'],'from'=>'cart'))}" id="cart_form" method="post">
+        <div class="cart-details-list j-change-cartList">
+            <foreach name="data" item="vo" key="k">
+                <div class="weui_cells weui_cells_access j-allow-buy">
+                    <a class="weui_cell shop-name-now" href="javascript:;">
+                        <div class="cart-details-input j-shop-check">
+                            <label for="shop{$k}" class="iconfont icon-checkoff"></label>
+                            <input type="checkbox" id="shop{$k}" class="j-goods-check ">
+                        </div>
+                        <find name='Shop' pk='$k' id="val" >
+                            <div class="cart-shop-img">
+                                <i class="iconfont icon-iconshop"></i>
+                                <img src="{$val.thumb_img}" alt="">
+                            </div>
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>{$val.name}</p>
+                            </div>
+                        </find>
+                        <div class="weui_cell_ft j-now-compile" data-id='{$k}'>编辑</div>
+                    </a>
+                    <div class="goods-list">
+                        
+                        <foreach name='vo' item='value'>
+                            <a href="{:U('goods/detail', array('id'=>$value[goods_id]))}" class="box show-goods box_czjz" data-id="{$value['id']}" data-gid="{$value['goods_id']}" >
+                                <div class="cart-details-input j-goods-select">
+                                    <label for="cart{$value['id']}" class="iconfont icon-checkoff"></label>
+                                    <input type="checkbox" id="cart{$value['id']}" class="j-goods-check j-goods-change" name="cart[{$value['id']}]" value="{$value['id']}">
+                                </div>
+                                <img class="box_1 show-goods-img" src='<value name="GoodsImage"  field="img_url" where="goods_id = $value[goods_id]" />' alt="">
+                                <div class="goods-tieles box_3 j-compile-inf">
+                                    <p>{$value.goods_name}</p>
+                                    <div class="box show-goods-price">
+                                        <div class="box_3 box box_cz">
+                                            <div >
+                                                <span>{$value.goods_spec}</span>
+                                            </div>
+                                            <div class="goods-price-color"><span>¥</span><span class="goods-price">{$value.goods_price}</span> <span>¥{$value.market_price}</span></div>
+                                        </div>
+                                        <div class="box_1"><span>X</span><span class="num">{$value.goods_number}</span></div>
+                                    </div>
+                                </div>
+                                <div class="goods-tieles box_3 j-compile-num dis-none">
+                                    <div class="goods-del clearfix">
+                                        <div class="num-index j-cart-num" data-id="{$value['id']}">
+                                            <span <if condition='$value["goods_number"] gt 1'>class="less iconfont icon-iconminus symbol-deep" <else />class="less iconfont icon-iconminus symbol-shallow" </if>></span>
+                                            <input type="number" class="form-num j-edit-num" value="{$value.goods_number}" min="1" name="num[{$value['id']}]" onclick="return false;" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+                                            <span class="add iconfont icon-iconadd" ></span>
+                                        </div>
+                                        <div class="cart-icon">
+                                            <i class="iconfont icon-icon j-cart-del" data-id="{$value['id']}"></i>
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                    <div class="goods-del clearfix">
+                                        <div class="shop-cart-standard j-standard-loop">
+                                            <span>{$value.goods_spec}</span>
+                                        </div>
+                                        <div class="cart-icon">
+                                            <img src="__ASSET__/Mall/Mobile/images/img_down.png" alt="" class="j-feature-selection" data-id="{$value.goods_id}" data-key="{$value.spec_key}" data-cid='{$value.id}'>
+                                        </div>
+                                     </div>   
+                                </div>
+                            </a>
+                            
+                        </foreach>
+                           
+                        
+                    </div>
+                    
+                </div>
+            </foreach>
+            <if condition="!empty($invalid)">
+                <!--失效商品 bg-->
+                <div class="lose-goods">
+                    <p class="clear-goods"><span class="add-orange j-del-failure">清除失效商品</span></p>
+                    <div class="weui_cells weui_cells_access">
+                        <div class="lose-list">
+                            <foreach name="invalid" item="vo">
+                                <a href="javascript:void(0);" class="box show-goods box_czjz j-goods" data-id="{$vo.id}">
+                                    <div class="cart-details-input">
+                                        <span>失效</span>
+                                    </div>
+                                    <img class="box_1 show-goods-img" src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[goods_id]" />' alt="">
+                                    <div class="goods-tieles box_3 ">
+                                        <p>{$vo.goods_name}</p>
+                                        <div class="box show-goods-price">
+                                            <div class="box_3 box box_cz">
+                                                <div class="goods-price-color">商品已不能购买</div>
+                                            </div>
+                                            <div class="box_1"><span>X</span><span class="num">{$vo.goods_number}</span></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </foreach>
+                        </div>
+                    </div>
+                </div>
+                <!--失效商品 end-->
+            </if>
+            
+        </div>
+        <!--全部 end-->
+        </form>
+    </div>
+    <!--内容显示 end-->
+
+    <!--我的订单  end-->
+
+</div>
+
+<!--底部结算 bg-->
+<div class="cart-count">
+    <div class="cart-count-list box box_czjz j-bottom-count ">
+        <div  class="all-check">
+            <div class="j-all-check">
+                <label for="cart-all0" class="iconfont icon-checkoff"></label>
+                <input type="checkbox" id="cart-all0">
+            </div>
+            <span>全选</span>
+        </div>
+        <div class="box_1 all-count">
+            <div><span>合计:</span><span>￥</span><span class="all-price">70</span></div>
+            <div>不含运费</div>
+        </div>
+        <div class="box_1 settle-accounts">
+            <div><a onclick="makeOrder()"><sapn>结算(</sapn><span class="j-settlement-amount">2</span><span>)</span></a></div>
+        </div>
+    </div>
+    <dl class="cart-count-list clearfix j-bottom-change  dis-none">
+        <dd class="all-check">
+            <div class="j-all-check">
+                <label for="cart-all1" class="iconfont icon-checkoff"></label>
+                <input type="checkbox" id="cart-all1">
+            </div>
+            <span>全选</span>
+        </dd>
+        <dd>分享商品</dd>
+        <dd class="j-all-move">移到收藏夹</dd>
+        <dd class="j-all-del">删除</dd>
+    </dl>
+</div>
+<!--底部结算 end-->
+
+<!--底部菜单 bg-->
+<include file="Public/menu_footer" />
+<!--底部菜单 bg-->
+
+<!--加入购物车规格选择 bg-->
+<div id="j-add-cart" class="weui-popup-container popup-bottom">
+</div>
+<!--加入购物车规格选择 end-->
+
+<script>
+    $(function () {
+        //  我的订单顶部菜单切换
+//        common.cart_menu();
+        //  购物车清除失效商品
+        common.del_failure_goods("{:U('Cart/update')}");
+        //  全部编辑
+        common.compile_cart();
+        // 删除购物车宝贝
+        common.cart_del("{:U('Cart/delete')}");
+        // 点击全选按钮
+        common.cart_all_check();
+        // 点击店铺按钮全选
+        common.cart_shop_check();
+        // 点击商品按钮
+        common.cart_goods_check();
+        // 数量加减
+        common.cart_computation("{:U('Cart/update')}");
+        // 数量总价计算
+        common.cart_price_total();
+        // 规格重新选择
+        common.feature_selection("{:U('Goods/goodsSpecInfo')}");
+        //移到收藏夹
+        common.cart_move("{:U('Cart/moveToCollect')}");
+    });
+
+    function makeOrder(){
+        var data = [];
+        $('.j-goods-change:checked').parents('a').each(function(i, n){
+            
+            var _handel = $(this);
+            //商品id
+            var id = _handel.attr('data-id');
+            data[i] = id;
+        });
+        if(data.length <=0 ){
+            layer.msg('请选择商品');
+            return false;
+        }
+
+        //订单信息
+        $('#cart_form').submit();
+    }
+</script>
+<include file='Public/footer' />

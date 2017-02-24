@@ -1,0 +1,152 @@
+<div class="clearfix margin-30">
+    <form id="shop-form" class="form-horizontal" action="{:U('save')}" method="post">
+        <input type="hidden" name="id" value="{$data.id}">
+        <empty name="member">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">选择会员：</label>
+                <div class="col-sm-9">
+                    <select name="member_id" class="form-control">
+                        <volist name="members" id="vo">
+                            <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <else/>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{$member.name}的店</label>
+                <label class="col-sm-9 control-label text-left">ID：{$member.id}</label>
+                <input type="hidden" name="member_id" value="{$member.id}"/>
+            </div>
+        </empty>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">店铺头像：</label>
+            <div class="col-sm-2">
+                <empty name="data.thumb_img">
+                    <img id="j_img" url="{:U('uploadFile')}" src="__LOCAL_ASSET__/Mall/Admin/images/bg.png"
+                         style="width: 100%;">
+                    <else/>
+                    <img id="j_img" url="{:U('uploadFile')}" src="{$data.thumb_img}"
+                         style="width: 100%;">
+                </empty>
+            </div>
+            <div class="col-sm-7">
+                <div id="picker" class="upload pull-right"><i class="fa fa-plus"></i><br>上传图片</div>
+                <input type="hidden" id="j_hidden" name="thumb_img" value="{$data.thumb_img}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">店铺名称：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" maxlength="12" name="name" value="{$data.name}"
+                       placeholder=" 不超过12个字符">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">店铺分类：</label>
+            <div class="col-sm-9">
+                <select name="category_id" class="form-control" title="店铺分类" name="tags">
+                    <volist name="cates" id="it">
+                        <option value="{$it.id}">{$it.name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">店铺模板：</label>
+            <div class="col-sm-10">
+                <div class="radio radio-inline">
+                    <label>
+                        <empty name="name">
+                            <input type="radio" name="shop_template" value="1" checked>1
+                            <else/>
+                            <input type="radio" name="shop_template" value="1"
+                            <eq name="data.shop_template" value="1">checked</eq>
+                            >1
+                        </empty>
+                    </label>
+                </div>
+                <div class="radio radio-inline">
+                    <label><input type="radio" name="shop_template" value="2"
+                        <eq name="data.shop_template" value="2">checked</eq>
+                        >2</label>
+                </div>
+                <div class="radio radio-inline">
+                    <label><input type="radio" name="shop_template" value="3"
+                        <eq name="data.shop_template" value="3">checked</eq>
+                        >3</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">店铺性质：</label>
+            <div class="col-sm-10">
+                <div class="radio radio-inline">
+                    <label>
+                        <empty name="name">
+                            <input type="radio" name="shop_nature" value="1" checked>真实店铺
+                            <else/>
+                            <input type="radio" name="shop_nature" value="1"
+                            <eq name="data.shop_nature" value="1">checked</eq>
+                            >真实店铺
+                        </empty>
+                    </label>
+                </div>
+                <div class="radio radio-inline">
+                    <label><input type="radio" name="shop_nature" value="0"
+                        <eq name="data.shop_nature" value="0">checked</eq>
+                        >测试店铺</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">发货地址：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="delivery_address" value="{$data.delivery_address}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">退货地址：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="return_address" value="{$data.return_address}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">店铺介绍：</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" name="detail" rows="3" placeholder="不超过300个字符">{$data.detail}</textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    // use uploader image plugins
+    uploaderImg('#picker', '#j_img', '#j_hidden', '50', '50', true);
+    // 获取表单元素值
+    function getShopFormData() {
+        if (!checkform()) {
+            return false;
+        }
+        var data = {};
+        $("#shop-form").find(":text, :radio:checked, select, textarea").each(function () {
+            data[$(this).attr("name")] = $(this).val();
+        });
+        if ($("#j_hidden").val()) {
+            data['thumb_img'] = $("#j_hidden").val();
+        }
+        if ($("input[name=id]").val()) {
+            data['id'] = $("input[name=id]").val();
+        }
+
+        return data;
+    }
+
+    function checkform() {
+        if (!$("input[name=name]").val()) {
+            layer.msg('店铺名称不能为空！', {icon: 0});
+            return false;
+        }
+
+        return true;
+    }
+</script>

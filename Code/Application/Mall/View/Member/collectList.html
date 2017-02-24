@@ -1,0 +1,130 @@
+<include file='Public/header' />
+
+<body class="animated fadeInRight">
+
+<div class="content">
+
+    <!--收藏  bg-->
+    <dl class="collect-menu clearfix">
+        <dd class="collect-menu-check"><span>全部商品({$totalCount})</span></dd>
+        <dd><span>失效({$invalidCount})</span></dd>
+    </dl>
+
+    <div class="collect-list">
+        <!--全部  bg-->
+        <dl class="collect-inf">
+            <foreach name="data['goods']['valid']" item='vo'>
+            <dd>
+                <a href="{:U('goods/detail', array('id'=>$vo[collect_id]))}" class="box box_czjz">
+                    <div class="collect-img"><img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[collect_id]" />' alt=""></div>
+                    <div class="box_1">
+                        <p class="collect-name">
+                            {$vo.goods.name}
+                        </p>
+                        <div class="box collect-dels">
+                            <div class="box_1  collect-price">
+                                <span>¥</span><span class="collect-price-now">{$vo.goods.sale_price}</span>
+                            </div>
+                            <div class="box_1  collect-cancel">
+                                <img src="__ASSET__/Mall/Mobile/images/icon_more_shoucang.png" alt="" class="j-open-more" data-id='{$vo.collect_id}'>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </dd>
+            </foreach>
+        </dl>
+        <!--全部  end-->
+
+        <!--失效  bg-->
+        <dl class="collect-inf dis-none">
+            <foreach name="data['goods']['invalid']" item='vo'>
+            <dd>
+                <a href="{:U('goods/detail', array('id'=>$vo[collect_id]))}" class="box box_czjz">
+                    <div class="collect-img"><img src='<value name="GoodsImage"  field="img_url" where="goods_id = $vo[collect_id]" />' alt=""></div>
+                    <div class="box_1">
+                        <p class="collect-name">
+                            {$vo.goods.name}
+                        </p>
+                        <p class="collect-star"><i class="iconfont icon-iconshoucang2 j-failure" data-id='{$vo["collect_id"]}'></i></p>
+                        <div class="box">
+                            <div class="box_1  collect-price">
+                                <span>¥</span><span class="collect-price-now">{$vo.goods.sale_price}</span><span class="failure">失效</span>
+                            </div>
+                            <div class="box_1  collect-cancel">
+                                <span class="j-failure" >取消收藏</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </dd>
+            </foreach>
+        </dl>
+        <!--失效  end-->
+    </div>
+    <!--收藏  end-->
+
+</div>
+
+
+<!--配送方式弹框  bg-->
+<div id="j-collect-more" class="weui-popup-container popup-bottom">
+    <div class="weui-popup-overlay"></div>
+    <div class="weui-popup-modal">
+        <dl class="collect-more-inf clearfix">
+            <dd class="j-cart" data-id='0'>
+                <div>
+                    <i class="iconfont icon-iconshopping02"></i>
+                </div>
+                <p>加入购物车</p>
+            </dd>
+            <dd class="j-add-succeed" data-id='0'>
+                <div>
+                    <i class="iconfont icon-iconshoucang02 add-i-orange" ></i>
+                </div>
+                <p>取消收藏</p>
+            </dd>
+            <dd>
+                <a href="javascript:; ">
+                    <div>
+                        <i class="iconfont icon-iconshop"></i>
+                    </div>
+                    <p>进入店铺</p>
+                </a>
+            </dd>
+            <dd>
+                <div>
+                    <i class="iconfont icon-iconshare"></i>
+                </div>
+                <p>分享</p>
+            </dd>
+        </dl>
+        <div class="call-off close-popup">
+            <input type="button" value="确定">
+        </div>
+    </div>
+</div>
+
+<!--配送方式弹框  end-->
+<div id="j-add-cart" class="weui-popup-container popup-bottom">
+</div>
+<script>
+    $(function () {
+        //  收藏顶部菜单切换
+        common.collect();
+        //  点击更多
+        common.click_collect_more();
+        //  加入购物车样式
+        common.cart_size_func();
+        //  加入购物车数量
+        common.quantity_computation();
+        //  收藏 取消收藏
+        common.collect_succeed_add_cart("{:U('Member/collect')}");
+        //  失效时取消收藏
+        common.failure_abolish("{:U('Member/collect')}");
+        
+        common.goods_spec("{:U('Goods/goodsSpecInfo')}");
+        
+    });
+</script>
+<include file="Public/footer"/>

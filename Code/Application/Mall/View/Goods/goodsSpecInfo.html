@@ -1,0 +1,61 @@
+<!--加入购物车规格选择 bg-->
+<form id='j-goods-buy' action="{:U('Cart/add', array('from' =>'goods'))}" method="post">
+    <input name='gid' value="{$data['id']}" type="hidden">
+    <input name='gname' value="{$data['name']}" type="hidden">
+    <input name='t' value="0" type="hidden">
+    <input name='sid' value="{$data['shop_id']}" type="hidden">
+    <input name='goodsprice' value="{$data['sale_price']}" type="hidden">
+    <input name='marketprice' value="{$data['market_price']}" type="hidden">
+    <input name='expressprice' value="{$data['express_price']}" type="hidden">
+    <input name='specname' value="" type="hidden">
+    <div class="weui-popup-overlay"></div>
+    <div class="weui-popup-modal cart-standard">
+        <p><img src="__ASSET__/Mall/Mobile/images/img_close.png" class="close-popup"></p>
+        <foreach name="data['spec']" item='val' key='key'>
+        <div class="box cart-standard1">
+            <div class="cart-style">{$key}:</div>
+            <div class="box_1 clearfix cart-size">
+                <foreach name='val' item='v' key='k'>
+                    <if condition='isset($param["default_key"])'>
+                    <span <if condition=' in_array($v[item_id], $param["default_key"])'>class="cart-add-change"</if>>{$v.item}
+                    <input type="radio" style="display:none;" name="goods_spec[{$key}]" value="{$v[item_id]}" <if condition='in_array($v[item_id], $param["default_key"])'>checked="checked"</if>/>
+                    <else />
+                    <span <if condition="$k eq 0 ">class="cart-add-change"</if>>{$v.item}
+                    <input type="radio" style="display:none;" name="goods_spec[{$key}]" value="{$v[item_id]}" <if condition="$k eq 0 ">checked="checked"</if>/>
+                    </if>
+                </span>
+                </foreach>
+            </div>
+        </div>
+        </foreach>
+        <if condition="$param['type'] neq 1">
+        <div class="box cart-standard1">
+            <div class="cart-style">数量:</div>
+            <div class="box_1  clearfix cart-number">
+                <div class="num-index">
+                    <span class="less iconfont icon-iconminus"></span>
+                    <input type="number" class="form-num" name="num" value="1" min="1" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+                    <span class="add iconfont icon-iconadd"></span>
+                </div>
+            </div>
+        </div>
+        <else />
+        <input name='cid' value="" type="hidden">
+        <input name='num' value="" type="hidden">
+        </if>
+        <div class="true-cart-standard">
+            <input type="button" value="确定" class="close-popup j-cart-animation">
+        </div>
+    </div>
+</form>
+    <!--加入购物车规格选择 end-->
+    <script>
+    $(function () {
+        common.cart_goods_price('0', {$spec_goods_price});
+        // 加入购物车动画 //立即购买
+        common.collect_add_cart("{:U('Cart/add')}");
+        
+        common.spec_click({$spec_goods_price});
+    });
+
+</script>

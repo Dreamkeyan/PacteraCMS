@@ -1,0 +1,92 @@
+<div class="layer-model">
+    <div class="layer-content">
+        <form action="{:U('build')}" method="post" id="j-user-add-form">
+            <div class="row form-group">
+                <label  class="col-md-2 text-right control-label">名称：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="data[name]"  value="示列">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label  class="col-md-2 text-right control-label">版本：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="data[version]"  value="0.1">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label  class="col-md-2 text-right control-label">作者：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="data[author]"  value="无名">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label  class="col-md-2 text-right control-label">插件描述：</label>
+                <div class="col-md-8">
+                    <textarea name="data[description]" class="form-control" maxlength="100" rows="3">这是一个临时描述</textarea>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label for="mobile" class="col-md-2 text-right control-label">安装后是否启用：</label>
+                <div class="col-md-8">
+                    <input type="checkbox" name="data[status]" value="1">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label for="mobile" class="col-md-2 text-right control-label">是否需要配置：</label>
+                <div class="col-md-8">
+                    <input type="checkbox" id="has_config" name="has_config" value="1">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label for="mobile" class="col-md-2 text-right control-label"></label>
+                <div class="col-md-8">
+                    <span class="has_config hidden">
+                        <textarea name="config" class="form-control" maxlength="100" rows="13">
+&lt;?php
+return array(
+    'random' => array(                 //配置在表单中的键名 ,这个会是config[random]
+        'title'   => '是否开启随机:',   //表单的文字
+        'type'    => 'radio',		   //表单的类型：text、textarea、checkbox、radio、select等
+        'value'   => '1',			   //表单的默认值
+        'options' => array(		       //select 和radion、checkbox的子选项
+            '1'   => '开启',		       //值=>文字
+            '0'   => '关闭',
+        ),
+    )
+);
+                        </textarea>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label for="mobile" class="col-md-2 text-right control-label">是否需要外部访问：</label>
+                <div class="col-md-8">
+                    <input type="checkbox" name="has_outurl" value="1">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label for="mobile" class="col-md-2 text-right control-label">关联对应的钩子：</label>
+                <div class="col-md-8">
+                    <select class="form-control pull-left" name="hook[]" size="5"  multiple required>
+                        <volist name="hooks" id="vo">
+                            <option value="{$vo.name}" title="{$vo.description}">{$vo.name}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$data.id}">
+        </form>
+    </div>
+</div>
+<script>
+
+    function bindShow(radio_bind, selectors){
+        $(radio_bind).click(function(){
+            $(selectors).toggleClass('hidden');
+        })
+    }
+
+    //配置的动态
+    bindShow('#has_config','.has_config');
+
+</script>

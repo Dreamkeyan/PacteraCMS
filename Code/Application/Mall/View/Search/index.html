@@ -1,0 +1,39 @@
+<include file="Public/header"/>
+<body class="animated fadeInRight">
+
+<!--搜索栏 bg-->
+<div class="weui_search_bar " id="search_bar">
+    <form action='{:U("Goods/goodsList")}' class="weui_search_outer">
+        <div class="weui_search_inner">
+            <i class="weui_icon_search"></i>
+            <input type="search" class="weui_search_input" id="search_input" name='keyword' placeholder="关键词" required/>
+            <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+        </div>
+    </form>
+    <a href="javascript:" class="weui_search_cancel word-org" id="search_cancel">取消</a>
+</div>
+<!--搜索栏 end-->
+
+<div class="content">
+    <!--热门搜索  bg-->
+    <div class="hot-seek">
+        <p>热门搜索</p>
+        <div class="hot-seek-label clearfix">
+            <query name="Search" where='status=1' id='vo'>
+                <a href='{:U("Goods/goodsList", array("id"=>$vo[id], "type"=>2))}'>
+                <span>{$vo.word}</span>
+                </a>
+            </query>
+        </div>
+    </div>
+    <!--热门搜索  end-->
+</div>
+
+
+
+<script>
+    $(function () {
+
+    });
+</script>
+<include file="Public/footer"/>

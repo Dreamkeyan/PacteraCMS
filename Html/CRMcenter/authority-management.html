@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>管理中心-授权管理</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--<link rel="shortcut icon" href="favicon.ico" rel="stylesheet">-->
+    <!-- Bootstrap -->
+    <link href="../common/plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../common/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../common/css/animate.min.css" rel="stylesheet">
+    <link href="../common/css/index.css" rel="stylesheet">
+    <link href="../common/css/common.css" rel="stylesheet">
+    <!--crm css-->
+    <link href="css/crm.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <!--顶部查找操作 bg-->
+                <div class="ibox-title">
+                    <div class="input-group my-form">
+                        <input type="text" placeholder="Search for..." class="form-control">
+                        <span class="input-group-btn">
+                                <button type="button" class="btn btn-my">查找</button>
+                            </span>
+                    </div>
+                    <button type="button" class="btn btn-my pull-right">历史版本</button>
+                    <button type="button" class="btn btn-my pull-right j-import">导入</button>
+                    <button type="button" class="btn btn-my pull-right j-export">导出</button>
+                </div>
+                <!--顶部查找操作 end-->
+                <div class="ibox-content">
+                    <div class="tab-group ho" id="j-tab">
+                        <a href="#tab1" class="cur">超级管理员</a>
+                        <a href="#tab2">商城管理员</a>
+                    </div>
+                    <div class="tabs ho">
+                        <!--切换区域1 bg-->
+                        <div id="tab1" class="tab active">
+                            <div class="ibox-content ho">
+                                <div class="clearfix">
+                                    <div class="treeview  j-tree1"></div>
+                                    <section class="content">
+                                        <table class="table table-bordered my-table">
+                                            <thead>
+                                            <tr>
+                                                <th>可用1</th>
+                                                <th>新增</th>
+                                                <th>删除</th>
+                                                <th>修改</th>
+                                                <th>浏览</th>
+                                                <th>通用功能</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit1" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit1" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit1" disabled></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="ibox-content ho">
+                                <div class="clearfix">
+                                    <div class="treeview j-tree2"></div>
+                                    <section class="content">
+                                        <table class="table table-bordered my-table">
+                                            <thead>
+                                            <tr>
+                                                <th>可用2</th>
+                                                <th>新增</th>
+                                                <th>删除</th>
+                                                <th>修改</th>
+                                                <th>浏览</th>
+                                                <th>通用功能</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit2" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit2" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit2" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit2" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit2" disabled></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                        <!--切换区域1 end-->
+
+                        <!--切换区域2 bg-->
+                        <div id="tab2" class="tab">
+                            <div class="ibox-content ho">
+                                <div class="clearfix">
+                                    <div class="treeview j-tree3"></div>
+                                    <section class="content">
+                                        <table class="table table-bordered my-table">
+                                            <thead>
+                                            <tr>
+                                                <th>可用3</th>
+                                                <th>新增</th>
+                                                <th>删除</th>
+                                                <th>修改</th>
+                                                <th>浏览</th>
+                                                <th>通用功能</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit3" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit3" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit3" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit3" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3" disabled></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit3"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="ibox-content ho">
+                                <div class="clearfix">
+                                    <div class="treeview j-tree4"></div>
+                                    <section class="content">
+                                        <table class="table table-bordered my-table">
+                                            <thead>
+                                            <tr>
+                                                <th>可用4</th>
+                                                <th>新增</th>
+                                                <th>删除</th>
+                                                <th>修改</th>
+                                                <th>浏览</th>
+                                                <th>通用功能</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit4" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit4" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit4" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="form-group" name="accredit4" checked/></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4" disabled></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                                <td><input type="checkbox" class="form-group" name="accredit4"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                        <!--切换区域2 end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../common/js/jquery.min.js"></script>
+<script src="../common/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../common/plugins/layer/layer.min.js"></script>
+<script src="../common/js/content.min.js"></script>
+
+<!--树形 start-->
+<script src="../common/plugins/treeview/js/bootstrap-treeview.js"></script>
+
+<link rel="stylesheet" href="../common/plugins/treeview/css/bootstrap-treeview.css"/>
+<!--表单校验 start-->
+<script src="../common/plugins/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+<script src="../common/plugins/jquery-validation-1.13.1/additional-methods.js"></script>
+
+<!--crm模块-->
+<script src="js/crm.js"></script>
+
+
+<script>
+    $(function () {
+
+        //  内容区域切换
+        CRMcommon.tab_init();
+
+        //  多级树菜单treeview
+        CRMcommon.treeview_boxs(1);
+        CRMcommon.treeview_boxs(2);
+        CRMcommon.treeview_boxs(3);
+        CRMcommon.treeview_boxs(4);
+
+        //  导入
+        CRMcommon.establish_leadin();
+
+        //  导出
+        CRMcommon.establish_export();
+    });
+
+</script>
+</body>
+</html>

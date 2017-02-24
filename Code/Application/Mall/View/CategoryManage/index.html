@@ -1,0 +1,82 @@
+<include file="Public/headerManage"/>
+<style>
+    .fa {
+        cursor: pointer
+    }
+</style>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <a href="{:U('add')}" class="btn btn-my pull-right">
+                        <i class="fa fa-plus"></i>新增分类
+                    </a>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table id="fold-table" class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th width="60">分类id</th>
+                                <th>分类名称</th>
+                                <th width="150">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr data-tt-id="{$vo.id}" data-tt-parent-id="{$vo.pid}">
+                                    <th scope="row">{$vo.id}</th>
+                                    <td class="text-left">{$vo.name}</td>
+                                    <td>
+                                        <a href="{:U('edit', array('id' => $vo['id']))}"
+                                           class="btn btn-sm btn-info edit-btn"
+                                           title="编辑">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="{:U('delete', array('id' => $vo['id']))}"
+                                           class="btn btn-sm btn-danger del-btn" title="删除">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <link href="__ASSET__/Common/Admin/plugins/jquery-treetable/css/jquery.treetable.min.css" rel="stylesheet">
+    <script src="__ASSET__/Common/Admin/plugins/jquery-treetable/js/jquery.treetable.min.js"></script>
+    <script>
+        $(function () {
+            $("#fold-table").treetable({expandable: true});
+            // 删除单条记录
+            $(".del-btn").click(function () {
+                var url = $(this).attr('href');
+                layer.confirm('您要删除这条记录么？', {
+                    btn: ['确定', '取消']
+                }, function () {
+                    $.get(url, function (response) {
+                        if (response.status === 'success') {
+                            layer.msg('删除成功！', {icon: 1});
+                            window.location.reload(true);
+                        } else {
+                            if (response.code) {
+                                layer.msg('分类下有子分类或商品，不能删除！', {icon: 2});
+                            } else {
+                                layer.msg('删除失败!', {icon: 2});
+                            }
+                        }
+                    });
+                });
+                return false;
+            });
+        });
+    </script>
+</block>

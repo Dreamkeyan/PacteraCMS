@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>选择icon</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--<link rel="shortcut icon" href="favicon.ico" rel="stylesheet">-->
+    <!-- Bootstrap -->
+    <link href="../common/plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../common/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../common/css/animate.min.css" rel="stylesheet">
+    <link href="../common/css/index.css" rel="stylesheet">
+    <link href="../common/css/common.css" rel="stylesheet">
+    <style>
+        .text-left {
+            text-align: left !important;
+        }
+        .i-style{font-size: 16px}
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>配置菜单icons图标</h5>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix" style="max-width: 800px; margin: 0 auto; padding: 12px;">
+                        <form class="form-horizontal" id="">
+                            <div class="form-group j-menu-icon">
+                                <label class="col-sm-2 control-label">一级菜单</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control j-icon-name" placeholder="请输入菜单名">
+                                </div>
+                                <div class=" col-sm-4">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="请选择." class="form-control" id="icon0" readonly>
+                                        <span class="input-group-btn"><button type="button" class="btn btn-my j-change-icon">选择icon</button> </span>
+                                    </div>
+                                </div>
+                                <i class="col-sm-1 control-label text-left i-style"></i>
+                            </div>
+                            <div class="form-group j-menu-icon">
+                                <label class="col-sm-2 control-label">二级菜单</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control j-icon-name" placeholder="请输入菜单名">
+                                </div>
+                                <div class=" col-sm-4">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="请选择." class="form-control" id="icon1" readonly>
+                                        <span class="input-group-btn"><button type="button" class="btn btn-my j-change-icon">选择icon</button> </span>
+                                    </div>
+                                </div>
+                                <i class="col-sm-1 control-label text-left i-style"></i>
+                            </div>
+                            <div class="form-group j-menu-icon">
+                                <label class="col-sm-2 control-label">三级菜单</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control j-icon-name" placeholder="请输入菜单名">
+                                </div>
+                                <div class=" col-sm-4">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="请选择." class="form-control" id="icon2"  readonly>
+                                        <span class="input-group-btn"><button type="button" class="btn btn-my j-change-icon">选择icon</button> </span>
+                                    </div>
+                                </div>
+                                <i class="col-sm-1 control-label text-left i-style"></i>
+                            </div>
+                            <button type="submit" class="btn btn-my pull-right">确定</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../common/js/jquery.min.js"></script>
+<script src="../common/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../common/js/content.min.js"></script>
+<script src="../common/plugins/layer/layer.min.js"></script>
+
+<script>
+
+    $(function () {
+        //  选择icon 打开iframe选择
+        $('.j-change-icon').on('click', function () {
+            var changeId=$(this).parent().prev().attr('id');
+            var index=layer.open({
+                type: 2,
+                title: '选择icon',
+                skin: 'layui-layer-me', //样式类名
+                area: ['80%', '80%'],
+                shift: 0,
+                shade: 0.6,
+                maxmin: true, //开启最大化最小化按钮
+                content:'iframe/icons.html?id='+changeId
+            });
+        })
+    })
+</script>
+
+</body>
+</html>

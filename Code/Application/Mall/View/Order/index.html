@@ -1,0 +1,118 @@
+<include file='Public/header' />
+
+<body class="animated fadeInRight">
+
+<div class="content">
+
+    <!--我的订单  bg-->
+
+    <!--一级菜单 bg-->
+    <dl class="order-menu clearfix">
+        <dd <if condition='!isset($_GET["scan"])'>class="order-menu-click"</if>><a href="{:U('Order/index')}">全部</a></dd>
+        <dd <if condition='$_GET["scan"] eq 1'>class="order-menu-click"</if>><a href="{:U('Order/index', array('scan'=>1))}">实体店</a></dd>
+    </dl>
+    <!--一级菜单 end-->
+
+    <!--二级菜单 bg-->
+    <div class="order-specific">
+
+        <!--全部 bg-->
+        <dl class="order-specific-menu clearfix">
+            <dd <if condition='!isset($_GET["status"])'>class="order-specific-click"</if>><a href="{:U('Order/index')}">全部</a></dd>
+            <dd <if condition='$_GET["status"] eq 1'>class="order-specific-click"</if>><a href="{:U('Order/index', array('status'=>1))}">待付款</a></dd>
+            <dd <if condition='($_GET["status"] eq 3) and ($_GET["type"] eq 2)'>class="order-specific-click"</if>><a href="{:U('Order/index', array('status'=>3, 'type' => 2))}">待发货</a></dd>
+            <dd <if condition='($_GET["status"] eq 3) and ($_GET["type"] eq 1)'>class="order-specific-click"</if>><a href="{:U('Order/index', array('status'=>3, 'type' => 1))}">待自提</a></dd>
+            <dd <if condition='$_GET["status"] eq 4'>class="order-specific-click"</if>><a href="{:U('Order/index', array('status'=>4))}">待收货</a></dd>
+            <dd <if condition='$_GET["status"] eq 5'>class="order-specific-click"</if>><a href="{:U('Order/index', array('status'=>5))}">待评价</a></dd>
+        </dl>
+        <!--全部 end-->
+
+        <!--实体店 bg-->
+        <dl class="order-specific-menu dis-none clearfix">
+            <dd <if condition='!isset($_GET["status"])'>class="order-specific-click"</if>><a href="{:U('Order/index', array('scan'=>1))}">全部</a></dd>
+            <dd <if condition='$_GET["status"] eq 1'>class="order-specific-click"</if>><a href="{:U('Order/index', array('scan'=>1, 'status'=>1))}">待付款</a></dd>
+            <dd <if condition='$_GET["status"] eq 3 and $_GET["type"] eq 2'>class="order-specific-click"</if>><a href="{:U('Order/index', array('scan'=>1, 'status'=>3, 'type' => 2))}">待发货</a></dd>
+            <dd <if condition='$_GET["status"] eq 3 and $_GET["type"] eq 1'>class="order-specific-click"</if>><a href="{:U('Order/index', array('scan'=>1, 'status'=>3, 'type' => 1))}">待自提</a></dd>
+            <dd <if condition='$_GET["status"] eq 4 '>class="order-specific-click"</if>><a href="{:U('Order/index', array('scan'=>1, 'status'=>4, 'type' => 2))}">待收货</a></dd>
+            <dd <if condition='$_GET["status"] eq 5'>class="order-specific-click"</if>><a href="{:U('Order/index', array('scan'=>1, 'status'=>5))}">待评价</a></dd>
+        </dl>
+        <!--实体店 end-->
+
+    </div>
+    <!--二级菜单 end-->
+
+    <!--内容显示 bg-->
+    <div class="order-details">
+
+        <!--全部 bg-->
+        <div class="order-details-list">
+
+            <!--全部 bg-->
+            <div class="order-details-list-inf">
+                <foreach name='list' item='vo'>
+                    <!--已付款 bg-->
+                    <div class="weui_cells weui_cells_access">
+                        <a class="weui_cell" href="{:U('Order/detail', array('id'=>$vo['id']))}">
+                            <find name='shop' pk='$vo[shop_id]' field='name,thumb_img' id='val'>
+                                <div class="weui_cell_hd">
+                                    <img src="{$val.thumb_img}">
+                                </div>
+                                <div class="weui_cell_bd weui_cell_primary">
+                                    <p>{$val.name}</p>
+                                </div>
+                            </find>
+                            <div class="weui_cell_ft">{$vo.status|orderStatus}</div>
+                        </a>
+                        <foreach name="vo['detail']" item='res'>
+                            <a href="{:U('Goods/detail', array('id'=>$res['goods_id']))}" class="box show-goods box_czjz">
+                                <img class="box_1 show-goods-img" src='<value name="GoodsImage"  field="img_url" where="goods_id = $res[goods_id]"/>' alt="">
+                                <div class="goods-tieles box_3">
+                                    <p>{$res.goods_name}</p>
+                                    <div class="box show-goods-price">
+                                        <div class="box_3 box box_cz">
+                                            <div>
+                                                <span>{$res.goods_spec}</span>
+                                            </div>
+                                            <div class="goods-price-color"><span>¥</span><span class="goods-price">{$res.goods_price}</span> <span>¥35.0</span></div>
+                                        </div>
+                                        <div class="box_1"><span>X</span><span class="num">{$res.goods_number}</span></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </foreach>
+                        <div class="order-details-price">
+                            <span>共{$vo.total_count}件商品</span><span>合计:</span><span>¥{$vo.actual_amount}</span><span>(含运费{$vo.express_price})</span>
+                        </div>
+                        <div class="order-details-remind clearfix" data-id="{$vo.id}">
+                            <if condition="$vo['status'] elt 1">
+                                <i class="iconfont icon-icondelet j-delete"></i>
+                            </if>
+                            {$vo.status|orderButton=$vo['deliver_type']}
+                        </div>
+
+                    </div>
+                    <!--已付款 end-->
+                </foreach>
+            </div>
+            <!--全部 end-->
+        </div>
+        <!--全部 end-->
+        
+    </div>
+    <!--内容显示 end-->
+
+    <!--我的订单  end-->
+
+</div>
+
+
+<script>
+    $(function () {
+        //  我的订单顶部菜单切换
+        common.my_order();
+        common.delete_order("{:U('Order/operateOrder')}");
+        common.operate_order();
+        
+    });
+</script>
+<include file='Public/footer' />

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>网站管理-标签与模板</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--<link rel="shortcut icon" href="favicon.ico" rel="stylesheet">-->
+    <!-- Bootstrap -->
+    <link href="../common/plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../common/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../common/css/animate.min.css" rel="stylesheet">
+    <link href="../common/css/index.css" rel="stylesheet">
+    <link href="../common/css/common.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="input-group my-form">
+                        <input type="text" placeholder="Search for..." class="form-control">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-my">查找</button>
+						</span>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-my j-add-mark"><span class="glyphicon glyphicon-plus"></span>添加标签</button>
+                        <button type="button" class="btn btn-my j-add-model"><span class="glyphicon glyphicon-plus"></span>添加模板</button>
+                    </div>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <div class="treeview" id="treeview"></div>
+                        <section class="content">
+                            <table class="table table-bordered my-table">
+                                <thead>
+                                <tr>
+                                    <th><input class="j-checkAll" type="checkbox" ></th>
+                                    <th>id</th>
+                                    <th>名称</th>
+                                    <th>英文名</th>
+                                    <th>种类</th>
+                                    <th>最后修改时间</th>
+                                    <th width="45%">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td scope="row"><input type="checkbox" name="sub"></td>
+                                    <td>123456789</td>
+                                    <td>首页模板</td>
+                                    <td>indexmodel</td>
+                                    <td>模板</td>
+                                    <td>2016-07-07</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-catalogue">添加分类目录</a>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-rename">重命名</a>
+                                        <a href="javascript:;" class="j-publish">发布</a>
+                                        <a href="javascript:;" class="j-undo">撤销</a>
+                                        <a href="javascript:;" class="j-history">历史版本</a>
+                                        <a href="javascript:;" class="j-compare-version">版本比较</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row"><input type="checkbox" name="sub"></td>
+                                    <td>123456789</td>
+                                    <td>首页模板</td>
+                                    <td>indexmodel</td>
+                                    <td>模板</td>
+                                    <td>2016-07-07</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-catalogue">添加分类目录</a>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-rename">重命名</a>
+                                        <a href="javascript:;" class="j-publish">发布</a>
+                                        <a href="javascript:;" class="j-undo">撤销</a>
+                                        <a href="javascript:;" class="j-history">历史版本</a>
+                                        <a href="javascript:;" class="j-compare-version">版本比较</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row"><input type="checkbox" name="sub"></td>
+                                    <td>123456789</td>
+                                    <td>首页模板</td>
+                                    <td>indexmodel</td>
+                                    <td>模板</td>
+                                    <td>2016-07-07</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-catalogue">添加分类目录</a>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-rename">重命名</a>
+                                        <a href="javascript:;" class="j-publish">发布</a>
+                                        <a href="javascript:;" class="j-undo">撤销</a>
+                                        <a href="javascript:;" class="j-history">历史版本</a>
+                                        <a href="javascript:;" class="j-compare-version">版本比较</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row"><input type="checkbox" name="sub"></td>
+                                    <td>123456789</td>
+                                    <td>首页模板</td>
+                                    <td>indexmodel</td>
+                                    <td>模板</td>
+                                    <td>2016-07-07</td>
+                                    <td>
+                                        <a href="javascript:;" class="j-catalogue">添加分类目录</a>
+                                        <a href="javascript:;" class="j-edit">编辑</a>
+                                        <a href="javascript:;" class="j-rename">重命名</a>
+                                        <a href="javascript:;" class="j-publish">发布</a>
+                                        <a href="javascript:;" class="j-undo">撤销</a>
+                                        <a href="javascript:;" class="j-history">历史版本</a>
+                                        <a href="javascript:;" class="j-compare-version">版本比较</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../common/js/jquery.min.js"></script>
+<script src="../common/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../common/plugins/layer/layer.min.js"></script>
+<script src="../common/js/content.min.js"></script>
+
+<!-- 全选框操作  -->
+<script src="../common/js/checkbox-select.js"></script>
+
+<!-- treeview.js  -->
+<link rel="stylesheet" href="../common/plugins/treeview/css/bootstrap-treeview.min.css">
+<script src="../common/plugins/treeview/js/bootstrap-treeview.js"></script>
+
+<!-- jquery-validate.js -->
+<script src="../common/plugins/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+<script src="../common/plugins/jquery-validation-1.13.1/additional-methods.js"></script>
+
+<!-- 网站中心模块website  -->
+<script src="js/websit.js"></script>
+<script>
+    $(function () {
+        /*左侧分类菜单*/
+        var treeData = [{
+            text: '主站',
+            href: '#parent1',
+            tags: ['2']
+        },{
+            text: '商城',
+            href: '#parent1',
+            tags: ['2']
+        }];
+        websitCommon.treeview_boxs(treeData);
+
+        //打开重命名layer
+        websitCommon.reset_name();
+
+        //添加标签/模板html
+        websitCommon.add_mark();
+        websitCommon.add_model();
+        websitCommon.edit_mark_model();
+
+        //打开添加分类目录layer
+        websitCommon.add_catalogue();
+
+
+        //撤销
+        websitCommon.undo_inf();
+
+        // 发布
+        $(".j-publish").on("click", function () {
+            layer.alert('已发布', {icon: 1});
+        });
+    });
+</script>
+</body>
+</html>

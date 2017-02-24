@@ -1,0 +1,67 @@
+<include file="Public/header" />
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<label>用户名或手机号：</label>
+					<form action="{:U('index')}" method="post">
+						<div class="input-group my-form width-220">
+							<input type="text" name="keywords" placeholder="输入用户名或手机号" value="{$data['keywords']}" class="form-control">
+							<span class="input-group-btn">
+								<input type="hidden" name="m" value="Manage">
+								<input type="hidden" name="c" value="Role">
+							<button type="submit" class="btn btn-my">搜索</button>
+						</span>
+						</div>
+					</form>
+					{:BA('add','','添加管理员','load','btn btn-my pull-right','40%','90%')}
+				</div>
+				<div class="ibox-content ho">
+					<div class="clearfix">
+						<table class="table table-bordered my-table">
+							<thead>
+							<tr>
+								<th>ID</th>
+								<th>用户名</th>
+								<th>角色</th>
+								<th>手机</th>
+								<th>创建时间</th>
+								<th>操作</th>
+							</tr>
+							</thead>
+							<tbody>
+							<!-- 循环 -->
+							<foreach name="list" item="var">
+								<tr>
+									<td>{$key+1}</td>
+									<td>{$var.username}</td>
+									<td>{$var.role_name}</td>
+									<td>{$var.mobile}</td>
+									<td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+
+									<td class="operate-line">
+										<if condition = "$var.id eq 1">
+											{:BA('reset',array("admin_id"=>$var["id"]),'重置密码','load','','700px')}
+											{:BA('edit',array("admin_id"=>$var["id"]),'编辑','load','','700px')}
+											<else />
+											{:BA('reset',array("admin_id"=>$var["id"]),'重置密码','load','','700px')}
+											{:BA('edit',array("admin_id"=>$var["id"]),'编辑','load','','700px')}
+											{:BA('delete',array("admin_id"=>$var["id"]),'删除','act','')}
+										</if>
+									</td>
+								</tr>
+							</foreach>
+							<!-- 循环 -->
+							</tbody>
+						</table>
+						<nav class="text-center">
+							<ul class="pagination">{$page}</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public/footer" />

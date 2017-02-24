@@ -1,0 +1,83 @@
+<include  file='Public:header'/>
+<div class="local">
+    当前位置:  微信自定义菜单   
+</div>
+<div class="action">
+    <em>注意：</em>微信自定义菜单需要开通服务号！最多3个BUTTON  每组BUTTON 最多5个子菜单！不填可以留空！
+</div>
+<div class="listBox clfx">              
+    <div class="cl"></div>
+    <div class="menuManage">
+        <form  target="simpleO2O_frm" action="{:U('setting/weixinmenu')}" method="post">
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td style="text-align: center;">项目</td>
+                    <td>名称</td>
+                    <td>链接地址</td>
+                </tr>
+
+                <tr>
+                    <td width="150" align="right">BUTTON1</td>
+                    <td colspan="2">
+                        <input name="data[button][1]" type="text" value="{$CONFIG['weixinmenu']['button'][1]}"  />
+                    </td>
+                </tr>
+                    
+                <for start="1" end="6">
+                    <tr>
+                    <td width="150" align="right">子菜单{$i}</td>
+                    <td>
+                        <input name="data[child][1][{$i}][name]" type="text" value="{$CONFIG['weixinmenu']['child'][1][$i]['name']}"  />
+                    </td>
+                     <td>
+                        <input name="data[child][1][{$i}][url]" type="text" value="{$CONFIG['weixinmenu']['child'][1][$i]['url']}"  />
+                    </td>
+                </tr>
+                </for>    
+                
+                <tr>
+                    <td width="150" align="right">BUTTON2</td>
+                    <td colspan="2">
+                        <input name="data[button][2]" type="text" value="{$CONFIG['weixinmenu']['button'][2]}"  />
+                    </td>
+                </tr>
+                 <for start="1" end="6">
+                    <tr>
+                    <td width="150" align="right">子菜单{$i}</td>
+                    <td>
+                        <input name="data[child][2][{$i}][name]" type="text" value="{$CONFIG['weixinmenu']['child'][2][$i]['name']}"  />
+                    </td>
+                     <td>
+                        <input name="data[child][2][{$i}][url]" type="text" value="{$CONFIG['weixinmenu']['child'][2][$i]['url']}"  />
+                    </td>
+                </tr>
+                </for>    
+                <tr>
+                    <td width="150" align="right">BUTTON3</td>
+                    <td colspan="2">
+                        <input name="data[button][3]" type="text" value="{$CONFIG['weixinmenu']['button'][3]}"  />
+                    </td>
+                </tr>
+                 <for start="1" end="6">
+                    <tr>
+                    <td width="150" align="right">子菜单{$i}</td>
+                    <td>
+                        <input name="data[child][3][{$i}][name]" type="text" value="{$CONFIG['weixinmenu']['child'][3][$i]['name']}"  />
+                    </td>
+                     <td>
+                        <input name="data[child][3][{$i}][url]" type="text" value="{$CONFIG['weixinmenu']['child'][3][$i]['url']}"  />
+                    </td>
+                </tr>
+                </for>    
+                
+              
+                <tr>
+                    <td align="right"></td>
+                    <td>
+                        <input type="submit" class="remberSubmit" value="确认保存"  />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <include  file='Public:footer'/>       

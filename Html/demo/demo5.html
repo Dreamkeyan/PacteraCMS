@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>DEMO5</title>
+    <meta name="keywords" content="ManagePlus后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="ManagePlus是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <!--<link rel="shortcut icon" href="favicon.ico" rel="stylesheet">-->
+    <!-- Bootstrap -->
+    <link href="../Common/plugins/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="plugins/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../Common/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../Common/css/animate.min.css" rel="stylesheet">
+    <link href="../Common/css/index.css" rel="stylesheet">
+    <link href="../Common/css/common.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="input-group my-form">
+                        <input type="text" placeholder="Search for..." class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-my">查找</button>
+                            </span>
+                    </div>
+                    <button type="button" class="btn btn-my pull-right"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</button>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <div class="treeview" id="treeview"></div>
+                        <section class="content">
+                            <table class="table table-bordered my-table">
+                                <thead>
+                                <tr>
+                                    <th class="selectAll">全选</th>
+                                    <th>职工号</th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                    <th>手机号</th>
+                                    <th>所在部门</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group"></td>
+                                    <td>001</td>
+                                    <td>老师</td>
+                                    <td>男</td>
+                                    <td>159 9166 4086</td>
+                                    <td>教务处</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group"></td>
+                                    <td>001</td>
+                                    <td>老师</td>
+                                    <td>男</td>
+                                    <td>159 9166 4086</td>
+                                    <td>教务处</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group"></td>
+                                    <td>001</td>
+                                    <td>老师</td>
+                                    <td>男</td>
+                                    <td>159 9166 4086</td>
+                                    <td>教务处</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="form-group"></td>
+                                    <td>001</td>
+                                    <td>老师</td>
+                                    <td>男</td>
+                                    <td>159 9166 4086</td>
+                                    <td>教务处</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../Common/js/jquery.min.js"></script>
+<script src="../Common/plugins/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../Common/js/content.min.js"></script>
+<script src="../Common/plugins/treeview/js/bootstrap-treeview.min.js"></script>
+<script>
+    $(function () {
+        /*左侧分类菜单*/
+        var treeData = [{
+            text: '南门小学',
+            href: '#parent1',
+            tags: ['2'],
+            nodes: [{
+                text: '一年级',
+                href: '#child11',
+                tags: ['2'],
+                nodes: [{
+                    text: '1班',
+                    href: '#grandchild111',
+                    icon: 'fa fa-file-text-o',
+                    tags: ['0']
+                },{
+                    text: '2班',
+                    href: '#grandchild112',
+                    icon: 'fa fa-file-text-o',
+                    tags: ['0']
+                }]
+            },{
+                text: '二年级',
+                href: '#child12',
+                tags: ['2'],
+                nodes: [{
+                    text: '1班',
+                    href: '#grandchild121',
+                    icon: 'fa fa-file-text-o',
+                    tags: ['0']
+                },{
+                    text: '2班',
+                    href: '#grandchild122',
+                    icon: 'fa fa-file-text-o',
+                    tags: ['0']
+                }]
+            }]
+        }];
+        $('#treeview').treeview({
+            color: "#4a4a4a",
+            selectedBackColor: "rgba(77, 156, 242, 0.3)",
+            selectedColor: "#4a4a4a",
+            expandIcon: 'fa fa-chevron-right',
+            collapseIcon: 'fa fa-chevron-down',
+            nodeIcon: 'fa fa-folder-open-o',
+            data: treeData
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<if condition="$param['div'] neq 0">
+    <div id="s1" class="controls">
+</if>
+    <input type="text" id="show" name="show">
+    <input id="hide" type="hidden"  value="{$param['value']}" name="{$param['name']}">
+<if condition="$param['div'] neq 0">
+    </div>
+</if>
+<script>
+    $(function(){
+        var merge = {:json_encode($param['merge'])},
+            category_data = {$category};
+            
+        if(category_data.length > 0){
+            if(null != merge){
+                category_data = $.merge([merge], category_data);
+            }
+            BUI.use('bui/module/category-select', function(category){
+                category.init(category_data);
+            }); 
+        }else{
+            throw new Error("category_data值异常");
+        } 
+        
+    });  
+</script>

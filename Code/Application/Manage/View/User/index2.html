@@ -1,0 +1,125 @@
+<include  file='Public:header'/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="btn-group" role="group">
+                <div class="table-search">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search" class="input-sm form-control">
+                        <span class="input-group-btn"><button type="button" class="btn btn-sm"><i class="fa fa-search"></i></button> </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped" data-toggle="table" data-sort-order="desc" data-mobile-responsive="true" data-pagination="true" data-icon-size="outline">
+                    <thead>
+                    <tr>
+                        <th data-field="userChk" data-align="center"><input id="selectAll" name="user-all" type="checkbox" val=""></th>
+                        <th data-field="userId" data-align="center" data-sortable="true">用户ID</th>
+                        <th data-field="userCname" data-align="center">名称</th>
+                        <th data-field="userRole" data-align="center">角色</th>
+                        <th data-field="userPhone" data-align="center">电话</th>
+                        <th data-field="userSex" data-align="center">性别</th>
+                   </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <foreach name="list" item="var">
+                            <tr>
+                                <td><input type="checkbox" name="user" val=""></td>
+                                <td>{$var.id}</td>
+                                <td>{$var.account}</td>
+                                <td>{$var.role_name}</td>
+                                <td>{$var.mobile}</td>
+                                <td><if condition="$var.sex eq 0">男<else />女</if></td>
+                                </td>
+                            </tr>
+                        </foreach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="wid20 f-r">
+            <div id="j-rightPanel" class="right-float-panel">
+                <div class="right-panel">
+                    <h5>用户管理</h5>
+                    <ul class="list-unstyled">
+                        <li type="add" id="j-add-user">
+                            <a href="javascript:;">添加用户</a>
+                        </li>
+                        <li id="j-delete-user" type="delete">
+                            <a href="javascript:;">删除</a>
+                        </li>
+                        <li id="j-edit-user" type="edit">
+                            <a href="javascript:;">编辑</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="menubtn"><i class="fa fa-th"></i></a>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(".list-unstyled > li").on('click', function () {
+            $(this).addClass('active');
+            var type = $(this).attr('type');
+            if (type != 'add') {
+                getOneRow();
+                textJson = JSON.parse(localStorage.getItem('json1'));
+                console.log(textJson);
+                if ($("table :checkbox:checked").size() != 0 && $("table :checkbox:checked").size() <= 2) {
+                    var userId = textJson.userId;
+                    if (userId == 1) {
+                        layer.alert("超级管理员，无权操作", 5);
+                        return false;
+                    } else {
+                        switch (type) {
+                            case 'edit':
+                                var href = "{:U('User/edit')}" + "&admin_id=" + userId;
+                                loaddata(href, '编辑','100%','100%');
+                                break;
+                            case 'delete':
+                                var href = "{:U('User/delete')}" + "&admin_id=" + userId;
+                                loaddata(href, '删除','100%','100%',false);
+                                break;
+                        }
+                        //取消
+                        $("#j-cancel-btn").click(function () {
+                            layer.close(index);
+                        })
+                    }
+                } else {
+                }
+            }else{
+                var href = "{:U('add')}";
+                loaddata(href, '添加用户','100%','100%',true);
+            }
+        })
+    });
+
+    function loaddata(href, title, w, h, type) {
+        if (type == true) {
+            $.get(href, function (data) {
+                var index = layer.tab({
+                    type: 1,
+                    area: [w, h],
+                    title: title,
+                    skin: 'layui-layer-demo', //样式类名
+                    //area: '460px',
+                    shift: 4,
+                    btn: ['保存', '取消'],
+                    content: data,
+                    shift: 0, //动画0-6
+                    yes: function (index, layero) {
+                        $('#layui-layer' + index).find('form').submit();
+                    }
+                })
+            }, 'html');
+        } else {
+            alert('删除！');
+        }
+    }
+</script>
+<include  file='Public:footer'/>       

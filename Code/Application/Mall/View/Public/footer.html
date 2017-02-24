@@ -1,0 +1,16 @@
+<script>
+    var dt1 = new Date();
+    var info = "{$behavior}";
+
+    window.onbeforeunload = function(){
+        var dt2 = new Date();
+        var ms = dt2.getTime() - dt1.getTime();
+        var img = new Image();
+        
+        $.post("{:U('Log/record')}", {'info':info, 'stay_ms':ms});
+//        img.src = "{:U('Log/record')}"+'&info= '+info+'&stay_ms=' + ms;
+//        return false;
+    }
+</script>
+</body>
+</html>

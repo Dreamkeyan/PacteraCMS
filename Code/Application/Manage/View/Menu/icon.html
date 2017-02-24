@@ -1,0 +1,96 @@
+<include file="Public/header"/>
+<style>
+    .icon-style {
+        margin-top: 10px
+    }
+
+    .icon-style dd {
+        float: left;
+        width: 90px;
+        padding-bottom: 20px
+    }
+
+    .icon-style dd i {
+        font-size: 18px;
+        padding-left: 6px;
+    }
+</style>
+
+<div class="clearfix padding-30">
+    <dl class="icon-style clearfix">
+        <dd><input type="radio" name="icon" data-fa="fa fa-asterisk"> <i class="fa fa-asterisk"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-bars"> <i class="fa fa-bars"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-bell"> <i class="fa fa-bell"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-bell-o"> <i class="fa fa-bell-o"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-bell-o"> <i class="fa fa-bell-o"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-cog"> <i class="fa fa-cog"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-code-fork"> <i class="fa fa-code-fork"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-envelope-o"> <i class="fa fa-envelope-o"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-exclamation-circle"> <i class="fa fa-exclamation-circle"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-folder-open"> <i class="fa fa-folder-open"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-folder-open-o"> <i class="fa fa-folder-open-o "></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-cogs"> <i class="fa fa-cogs"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-cog"> <i class="fa fa-cog"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-share"> <i class="fa fa-share"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-home"> <i class="fa fa-home"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-reply"> <i class="fa fa-reply"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-picture-o"> <i class="fa fa-picture-o"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-key"> <i class="fa fa-key"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-lock"> <i class="fa fa-lock"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-map-marker"> <i class="fa fa-map-marker"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-pencil-square-o"> <i class="fa fa-pencil-square-o"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-share-alt"> <i class="fa fa-share-alt"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-sitemap"> <i class="fa fa-sitemap"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-sort-asc"> <i class="fa fa-sort-asc"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-sort-desc"> <i class="fa fa-sort-desc"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-sort-asc"> <i class="fa fa-sort-asc"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-wrench"> <i class="fa fa-wrench"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-volume-up"> <i class="fa fa-volume-up"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-file"> <i class="fa fa-file"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-file-text"> <i class="fa fa-file-text"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-file-o"> <i class="fa fa-file-o"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-refresh"> <i class="fa fa-refresh"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-clipboard"> <i class="fa fa-clipboard"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-files-o"> <i class="fa fa-files-o"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-link"> <i class="fa fa-link"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-floppy-o"> <i class="fa fa-floppy-o"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-th"> <i class="fa fa-th"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-th-large"> <i class="fa fa-th-large"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-th-list"> <i class="fa fa-th-list"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-heart"> <i class="fa fa-heart"></i></dd>
+        <dd><input type="radio" name="icon" data-fa="fa fa-heart-o"> <i class="fa fa-heart-o"></i></dd>
+    </dl>
+    <div class="form-group pull-right">
+        <button type="submit" class="btn btn-my j-confirm">确定</button>
+        <button type="button" class="btn btn-default j-cancel-btn">取消</button>
+    </div>
+</div>
+<include file="Public/footer"/>
+<block name="script">
+<script>
+    $(function () {
+        //  获取窗口索引
+        var index = parent.layer.getFrameIndex(window.name);
+        // 获取传递id
+        var idName = "{$id}";
+        //  关闭选择
+        $('.j-cancel-btn').click(function () {
+            parent.layer.close(index);
+        });
+        //  获取选择图标父辈页面显示
+        $('.j-confirm').on('click', function () {
+            var inputVal = $('input:radio[name="icon"]:checked').attr('data-fa');
+            if (inputVal == null) {
+                layer.msg("什么也没选中!")
+                return false;
+            } else {
+                var ids = parent.$('#' + idName).val(inputVal);
+                parent.$('#' + idName).parents('.j-menu-icon').find('i').addClass(inputVal);
+                parent.layer.close(index);
+            }
+        })
+
+    })
+</script>
+</block>
+<include file="Public/footer"/>

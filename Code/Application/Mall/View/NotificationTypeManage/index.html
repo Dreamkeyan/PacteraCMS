@@ -1,0 +1,160 @@
+<include file="Public/headerManage"/>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <label>状态：</label>
+                    <form action="{:U('index')}" id="form" method="post">
+                        <select id="search_status" name="status" class="form-control my-form width-120">
+                            <option value="">全部</option>
+                            <option value="1"
+                            <eq name="Think.request.status" value="1">selected="selected"</eq>
+                            >启用</option>
+                            <option value="0"
+                            <eq name="Think.request.status" value="0">selected="selected"</eq>
+                            >停用</option>
+                        </select>
+                        <div class="input-group my-form">
+                            <input type="text" placeholder="输入消息类别" name="name" value="{:I('name')}"
+                                   class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-my" onclick="$('#form').submit()">查找</button>
+                            </span>
+                        </div>
+                        <button type="button" class="btn btn-my pull-right"><i class="fa fa-commenting-o"></i> 添加公告/通知
+                        </button>
+                        <button type="button" id="batch-del" class="btn btn-my pull-right"><i class="fa fa-trash-o"></i>
+                            批量删除
+                        </button>
+                        <button type="button" class="btn btn-my pull-right"><i class="fa fa-plus"></i> 添加消息类别</button>
+                    </form>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix">
+                        <table class="table table-bordered my-table">
+                            <thead>
+                            <tr>
+                                <th class="selectAll" width="50"><input class="j-checkAll" type="checkbox"></th>
+                                <th width="40">ID</th>
+                                <th>消息类别</th>
+                                <th>备注</th>
+                                <th width="100">添加时间</th>
+                                <th width="180">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="var">
+                                <tr>
+                                    <td><input type="checkbox" name="sub" class="form-group" value="{$var.id}"></td>
+                                    <td>{$var.id}</td>
+                                    <td>{$var.name}</td>
+                                    <td>{$var.note}</td>
+                                    <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                                    <td>
+                                        <if condition="$var.status eq 1">
+                                            <a href="javascript:void(0);"
+                                               link="{:U('change', array('id' => $var['id']))}"
+                                               class="btn btn-sm btn-success status-btn"
+                                               title="停用"><i
+                                                    class="fa fa-check"></i></a>
+                                            <else/>
+                                            <a href="javascript:void(0);"
+                                               link="{:U('change', array('id' => $var['id']))}"
+                                               class="btn btn-sm btn-default status-btn"
+                                               title="启用"><i
+                                                    class="fa fa-times"></i></a>
+                                        </if>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-info" title="编辑"><i
+                                                class="fa fa-pencil-square-o"></i></a>
+                                        <a href="javascript:void(0);" link="{:U('delete', array('id' => $var['id']))}"
+                                           class="btn btn-sm btn-danger del-btn" title="删除"><i
+                                                class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        <nav class="text-center">
+                            <ul class="pagination">{$page}</ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public/footerManage"/>
+<block name="script">
+    <script>
+        $(function () {
+            /*分页切换*/
+            mall.change_page();
+            /*启用停用操作*/
+            mall.toggle_status();
+            // 搜索改变状态
+            $("#search_status").change(function () {
+                $(this).parents("form").submit();
+            });
+            // 删除单条记录
+            $(".del-btn").click(function () {
+                var url = $(this).attr("link");
+                layer.confirm('您要删除这条记录么？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.get(url, function (response) {
+                        var message = '删除失败！';
+                        if (response.status) {
+                            message = '删除成功！';
+                            window.location.reload(true);
+                        }
+                        layer.msg(message, {icon: 1});
+                    });
+                });
+            });
+            // 批量删除
+            $("#batch-del").click(function () {
+                var nochecked = true, ids = [], checkboxes = $("input[type=checkbox][name=sub]:checked");
+                // check checked
+                checkboxes.each(function () {
+                    ids.push($(this).val());
+                    nochecked = false;
+                });
+                if (nochecked) {
+                    layer.msg('没有选中项！', {icon: 2});
+                    return false;
+                }
+                // confirm
+                layer.confirm('您要删除全部选中项么？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.post('{:U("batchdel")}', {ids: ids}, function (response) {
+                        var message = '批量删除失败！';
+                        if (response.status) {
+                            message = '批量删除成功！';
+                            window.location.reload(true);
+                        }
+                        layer.msg(message, {icon: 1});
+                    });
+                });
+            });
+            // 改变状态
+            $(".status-btn").click(function () {
+                var url = $(this).attr("link"), message = '确定要' + $(this).attr("title") + '？';
+                layer.confirm(message, {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.get(url, function (response) {
+                        var message = '更新失败！';
+                        if (response.status) {
+                            message = '更新成功！';
+                            window.location.reload(true);
+                        }
+                        layer.msg(message, {icon: 1});
+                    });
+                });
+            });
+        });
+    </script>
+</block>

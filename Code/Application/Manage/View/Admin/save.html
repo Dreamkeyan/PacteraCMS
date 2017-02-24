@@ -1,0 +1,51 @@
+<div class="layer-model">
+    <div class="layer-content">
+
+        <form action="{:U('Admin/save')}" method="post" id="j-user-add-form">
+            <div class="row form-group">
+                <label for="userName" class="col-md-2 text-right control-label">用户名：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="username" id="userName" value="{$data['username']}">
+                </div>
+            </div>
+            <present name="data">
+                <div class="row form-group">
+                    <label for="passWord" class="col-md-2 text-right control-label">旧密码：</label>
+                    <div class="col-md-8">
+                        <input type="password" class="form-control" name="oldpass" id="oldpass" placeholder="请输入旧密码">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="passWord" class="col-md-2 text-right control-label">新密码：</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="newpass" id="newpass">
+                    </div>
+                </div>
+                <else />
+                <div class="row form-group">
+                    <label for="passWord" class="col-md-2 text-right control-label">密码：</label>
+                    <div class="col-md-8">
+                        <input type="password" class="form-control" name="password" id="passWord" value="{$data.password}">
+                    </div>
+                </div>
+            </present>
+            <div class="row form-group">
+                <label for="roleName" class="col-md-2 text-right control-label">角色：</label>
+                <div class="col-md-8">
+                    <select name="role_id" class="form-control">
+                        <foreach name="roles" item="var">
+                            <option value="{$var.role_id}">{$var.role_name}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label for="mobile" class="col-md-2 text-right control-label">手机：</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="mobile" id="mobile" value="{$data.mobile}">
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$data.id}">
+        </form>
+    </div>
+</div>

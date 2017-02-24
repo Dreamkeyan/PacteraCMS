@@ -1,0 +1,119 @@
+<include file="Public/header"/>
+<body class="animated fadeInRight">
+
+<div class="content">
+    <!--头部  bg-->
+    <div class="my-name">
+        <div class="my-name1">
+            <div>
+                <a href="{:U('Member/set')}"><i class="iconfont icon-iconsetting"></i></a>
+                <a href="{:U('Notice/index')}"><i class="iconfont icon-iconmassage"></i></a>
+            </div>
+            
+            <div class="my-name-inf clearfix">
+                <img <if condition='!empty($member["avatar"])'>src="{$member.avatar}"<else/>src="{$fansinfo.headimgurl}"</if> alt="">
+                <div class="my-inf">
+                    <div class="my-inf1"><span>{$member.name}</span><span>会员v3</span></div>
+                    <div class="shop-four">
+                        <div>
+                            <img src="__ASSET__/Mall/Mobile/images/img_zhen.png" alt="">
+                            <span>{$member.extend.real}</span>
+                        </div>
+                        <div>
+                            <img src="__ASSET__/Mall/Mobile/images/img_cheng.png" alt="">
+                            <span>{$member.extend.sincere}</span>
+                        </div>
+                        <div>
+                            <img src="__ASSET__/Mall/Mobile/images/img_xin.png" alt="">
+                            <span>{$member.extend.believe}</span>
+                        </div>
+                        <div>
+                            <img src="__ASSET__/Mall/Mobile/images/img_cheng.png" alt="">
+                            <span>{$member.extend.virtue}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <dl class="my-list clearfix">
+        <dd>
+            <a href="{:U('Member/collectList')}">
+                <i class="iconfont icon-iconshoucang3"></i>
+                <p>收藏</p>
+            </a>
+        </dd>
+        <dd>
+            <a href="{:U('Appraise/index', array('member_id'=>$mid, 'type' => 2))}">
+                <i class="iconfont icon-iconpinglun"></i>
+                <p>评价</p>
+            </a>
+        </dd>
+        <dd>
+            <a href="javascript:">
+                <i class="iconfont icon-iconshop"></i>
+                <p>我是商家</p>
+            </a>
+        </dd>
+    </dl>
+    <!--头部  end-->
+
+    <!--我的订单  bg-->
+    <div class="my-order">
+        <p class="clearfix"><a href="{:U('Order/index')}"><span>我的订单</span> <i class="iconfont icon-iconarrow"></i></a></p>
+        <dl class="clearfix">
+            <dd>
+                <a href="{:U('Order/index', array('status'=>1))}">
+                    <i class="iconfont icon-iconfukuan"></i>
+                    <p>待付款</p>
+                </a>
+            </dd>
+            <dd>
+                <a href="{:U('Order/index', array('status'=>3))}">
+                    <i class="iconfont icon-iconfahuo"></i>
+                    <p>待发货</p>
+                </a>
+            </dd>
+            <dd>
+                <a href="{:U('Order/index', array('status'=>4))}">
+                    <i class="iconfont icon-iconcar"></i>
+                    <p>待收货</p>
+                </a>
+            </dd>
+            <dd>
+                <a href="{:U('Order/index', array('status'=>5))}">
+                    <i class="iconfont icon-iconpinglun02"></i>
+                    <p>待评价</p>
+                </a>
+            </dd>
+            <dd>
+                <a href="javascript:">
+                    <i class="iconfont icon-iconshouhou"></i>
+                    <p>售后</p>
+                </a>
+            </dd>
+        </dl>
+    </div>
+    <!--我的订单  end-->
+
+    <!--我的钱包  bg-->
+    <div class="weui_panel my-wallet">
+        <div class="weui_panel_bd">
+            <div class="weui_media_box weui_media_small_appmsg ">
+                <div class="weui_cells weui_cells_access">
+                    <a class="weui_cell" href="{:U('Member/wallet')}">
+                        <div class="weui_cell_hd"><i class="iconfont icon-iconqianbao"></i></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>我的钱包</p>
+                        </div>
+                        <span class="weui_cell_ft">余额：¥{$member['extend']['money']}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--我的钱包  end-->
+</div>
+<include file="Public/menu_footer"/>
+<include file="Public/footer"/>

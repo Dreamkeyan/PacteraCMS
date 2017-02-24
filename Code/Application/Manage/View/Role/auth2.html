@@ -1,0 +1,41 @@
+<div class="col-md-12">
+    <h4>当前用户组：{$detail.role_name}</h4>
+</div>
+<div class="col-md-12">
+    <!--表格 bg-->
+    <div class="table-responsive mar-top30">
+        <form action="{:U('role/auth',array('role_id'=>$role_id))}" method="post">
+            <table class="table table-striped table-shape " data-toggle="table" data-sort-order="desc"
+                   data-mobile-responsive="true" data-icon-size="outline">
+                <foreach name="menus" item="var">
+                    <if condition="($var.parent_id eq 0) and ($var.is_show eq 1) ">
+                        <foreach name="menus" item="var2">
+                            <eq name="var2.parent_id" value="$var.menu_id">
+                                <if condition="$var2.is_show eq 1">
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" class="checkAll" rel="{$var2.menu_id}" value=""/> <b> {$var.menu_name} </b> > {$var2.menu_name}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <foreach name="menus" item="var3">
+                                                <eq name="var3.parent_id" value="$var2.menu_id">
+                                                    <label>
+                                                        <input class="child_{$var2.menu_id}" type="checkbox" name="menu_id[]"  <in name="var3.menu_id" value="$menuIds">checked="checked"</in> value="{$var3.menu_id}" /> {$var3.menu_name}
+                                                    </label>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                </eq>
+                                            </foreach>
+                                        </td>
+                                    </tr>
+                                </if>
+                            </eq>
+                        </foreach>
+                    </if>
+                </foreach>
+            </table>
+        </form>
+    </div>
+
+</div>

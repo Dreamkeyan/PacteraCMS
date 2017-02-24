@@ -1,0 +1,53 @@
+<include  file='Public:header'/>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h3>邮件设置</h3>
+                </div>
+                <div class="ibox-content ho">
+                    <div class="clearfix" >
+                        <form class="form-horizontal" id="commentForm" action="{:U('setting/sms')}" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseName">短信开关：</label>
+                                <div class="col-sm-8">
+                                    <input type="radio" name="data[debug]" <eq name="CONFIG.sms.debug" value="1">checked="checked"</eq> id="debug1" value="1"><label for="debug1">debug模式</label>
+                                    <input type="radio" name="data[debug]" <eq name="CONFIG.sms.debug" value="0">checked="checked"</eq> id="debug0" value="0"><label for="debug0">短信模式</label>
+                                    <div>填写短信服务商的HTTP请求接口，需要将发送给的人的参数替换成{mobile}，内容替换成{content}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseUrl">短信URL：</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="smsUrl" name="data[url]" value="{$CONFIG.sms.url}" class="form-control" />
+                                    <span>填写短信服务商的HTTP请求接口，需要将发送给的人的参数替换成{mobile}，内容替换成{content}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseEncodingAESKey">内容编码</label>
+                                <div class="col-sm-8">
+                                    <input type="radio" name="data[charset]" <eq name="CONFIG.sms.charset" value="1">checked="checked"</eq> id="charset1" value="1"><label for="charset1">GBK</label>
+                                    <input type="radio" name="data[charset]" <eq name="CONFIG.sms.charset" value="0">checked="checked"</eq> id="charset0" value="0"><label for="charset0">UTF-8</label>
+                                    <div>如果短信那边编码是GBK 就需要选择GBK！</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="enterpriseEncodingAESKey">成功状态值</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="smsCode" name="data[code]" value="{$CONFIG.sms.code}" class="form-control" /> 
+                                    <span>填写对方HTTP接口请求的正确返回值</span>
+                                </div>
+                            </div>
+                            <div class="form-group text-left">
+                                <button type="submit" class="btn btn-my">确定保存</button>
+                            </div>    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include  file='Public:footer'/>       

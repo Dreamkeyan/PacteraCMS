@@ -1,0 +1,71 @@
+<button id="J_send_sms">获取验证码</button>
+<script>
+    $(function (){
+        var sms = {
+            
+            /*
+             * 发送短信验证码
+             * @author 王荣
+             * @datetime 2016.9.18
+             */
+            send: function (){
+                var _self = this;
+                
+                $('#J_send_sms').unbind();
+                $('#J_send_sms').click(function (){
+                    
+                    //获取手机号
+                    var obj = $(this).prev('input'),
+                        mobile = obj.val(),
+                        url = "{:addons_url('Sms://Sms/send')}" + '&mobile=' + mobile,
+                        btn = $(this);
+                        
+//                    console.log(url);
+
+                    if(!(/^1[34578]\d{9}$/.test(mobile))){
+                        alert("手机号码有误，请重填");
+                        return false;
+                    }
+                    
+                    $('#J_send_sms').attr('disabled', true);
+                    
+                    $.get(url, function(data){
+                        
+                        console.log(data);
+                        if(data > 0){
+                            //按钮倒计时
+                            _self.button_count_down(btn, data);
+                        }
+                    });
+                    
+                    return false;
+                });
+            },
+            
+            /*
+             * 按钮倒计时
+             * @author 王荣
+             * @datetime 2016.9.18
+             */
+            button_count_down: function(obj, second){
+                
+                var text = obj.text();
+                
+                obj.attr('disabled', true).text(second);
+                
+                var index = setInterval(function(){
+                    var current_second = obj.text() * 1;
+                    if(current_second > 1){
+                        obj.text(obj.text() - 1);
+                    }else{
+                        obj.attr('disabled', false).text(text);
+                        clearInterval(index);
+                    }
+                }, 1000);
+            }
+
+        };
+
+        sms.send();
+    });
+</script>

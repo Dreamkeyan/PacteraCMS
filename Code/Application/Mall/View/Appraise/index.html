@@ -1,0 +1,79 @@
+<include file="Public/header"/>
+<body class="animated fadeInRight">
+
+<div class="content">
+    <dl class="evaluate">
+        <if condition='$_GET["type"] eq 1'>
+            <dd class="total-evaluate clearfix">
+                <find name='Goods' pk='$_GET[goods_id]' field='appraise_count, appraise_sum' id='vo'>
+                    <div><span>{$vo.appraise_count}</span><span>条评价</span></div>
+                    <div class="total-star" <if condition='$vo["appraise_count"] neq 0'>  data-score="{$vo['appraise_sum']/$vo['appraise_count']}" <else /> data-score="0"</if> ></div>
+                </find>
+            </dd>
+            <foreach name='data' item='vo'>
+            <dd>
+               <div class="evaluate-inf clearfix">
+                   <div>
+                       <img src="__ASSET__/Mall/Mobile/images/shopImg001.jpg" alt="">
+                       <span><field module="Member"  field="username" pk="$vo[member_id]" /></span>
+                   </div>
+                   <div class="person-star1" data-score="{$vo.level}"></div>
+               </div>
+                <div class="evaluate-laber clearfix">
+                    <div class="clearfix">
+                        <foreach name="vo[appraise]" item="val">
+                        <span><field name="AppraiseWord"  field="word" pk="$val" /></span>
+                        </foreach>
+                    </div>
+                    <div>{$vo.create_time|date="Y.m.d",###}</div>
+                </div>
+            </dd>
+            </foreach>
+        <else />
+            <dd class="total-evaluate2 clearfix">
+               <div class="no-comment clearfix">
+                   <span>亲，您还有<value name="order" field="count(id)" where="status=4 and member_id=$mid" />单未评价哦！</span>
+                   <span><a href="javascript:;">去评价</a></span>
+               </div>
+                <div class="all-comment clearfix">
+                    <div>
+                        <p><value name="OrderDetail" field="count(id)" where="status=3 and member_id=$mid" /></p>
+                        <p>发布评论</p>
+                    </div>
+                    <div>
+                        <p><value name="MemberExtend" field="believe" where="status=1 and member_id=$mid" /></p>
+                        <p>当前累计信用</p>
+                    </div>
+                </div>
+            </dd>
+            <foreach name='data' item='vo'>
+            <dd>
+                <div class="evaluate-inf total-evaluate1 clearfix">
+                    <div>
+                        <img src="__ASSET__/Mall/Mobile/images/shopImg001.jpg" alt="">
+                        <span class="person-star1" data-score="{$vo.level}"></span>
+                    </div>
+                    <div><field name="OrderDetail"  field="goods_name" pk="$vo[order_detail_id]"  /></div>
+                </div>
+                <div class="evaluate-laber clearfix">
+                    <div class="clearfix">
+                        <foreach name="vo[appraise]" item="val">
+                        <span><field name="AppraiseWord"  field="word" pk="$val" /></span>
+                        </foreach>
+
+                    </div>
+                    <div>{$vo.create_time|date="Y.m.d",###}</div>
+                </div>
+            </dd>
+        </foreach>
+        </if>
+    </dl>
+</div>
+
+<script>
+    $(function () {
+        //  星星评分
+        common.star_grade();
+    });
+</script>
+<include file="Public/footer"/>
